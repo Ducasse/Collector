@@ -92,7 +92,7 @@ GameCollector class >> loadLatestSTON [
 
 	| fs |
 	fs := FileSystem workingDirectory.
-	^ self loadFromFileReference: (fs lastNameFor: 'Games' extension: 'ston').
+	^ self loadFromFileReference: (fs lastFileFor: 'Games' extension: 'ston').
 
 
 ]
