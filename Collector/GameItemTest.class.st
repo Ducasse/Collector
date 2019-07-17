@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 GameItemTest >> testConsole [
 	| ff |
-	ff := GameItem finalFantasyX PS2.
+	ff := GameItem finalFantasyX setPS2.
 	self assert: ff console equals: GameItem PS2
 ]
 
@@ -73,8 +73,10 @@ GameItemTest >> testGuessUrlPart [
 	| dg8 |
 	dg8 := GameItem new
 		title: 'Dragon Quest VIII: Journey Of The Cursed King';
-		PS2.
-	self assert: dg8 guessUrlPart equals: 'dragonquestviiijourneyofthecursedking'
+		setPS2.
+	self
+		assert: dg8 guessUrlPart
+		equals: 'dragonquestviiijourneyofthecursedking'
 ]
 
 { #category : #'tests - url for fetching cover' }
@@ -82,7 +84,7 @@ GameItemTest >> testGuessUrlPartWithQuoteAndExclamationMark [
 	| zb |
 	zb := GameItem new
 		title: 'Zat-ch Bell!: Mamodo Battles';
-		PS2.
+		setPS2.
 	self assert: zb guessUrlPart equals: 'zatchbell-mamodobattles'
 ]
 
@@ -163,9 +165,10 @@ GameItemTest >> testUrl [
 
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testWrongGuessedUrlPart [
-
 	| g |
-	g := GameItem new title: 'Jak II'; PS2.
+	g := GameItem new
+		title: 'Jak II';
+		setPS2.
 	g fetchCover.
-	self assert: g coverUrlPart equals: g wrongUrlPart 
+	self assert: g coverUrlPart equals: g wrongUrlPart
 ]

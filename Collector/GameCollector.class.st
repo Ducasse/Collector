@@ -73,7 +73,7 @@ Class {
 		'fileName',
 		'collectionDictionary'
 	],
-	#category : #Collector
+	#category : #'Collector-Core'
 }
 
 { #category : #import }
@@ -186,6 +186,7 @@ GameCollector >> findInText: aPattern [
 
 { #category : #initialize }
 GameCollector >> initialize [
+	super initialize.
 	fileName := 'Games'.
 	collectionDictionary := Dictionary new
 ]

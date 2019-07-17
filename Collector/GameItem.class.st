@@ -18,7 +18,7 @@ Class {
 	#classVars : [
 		'Consoles'
 	],
-	#category : #Collector
+	#category : #'Collector-Core'
 }
 
 { #category : #constant }
@@ -129,10 +129,10 @@ GameItem class >> finalFantasyX [
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
-		PS2;
+		setPS2;
 		critics: 18;
 		comments: 'quite cool in fact';
-		coverUrlPart: 'finalfantasyx_eu' 
+		coverUrlPart: 'finalfantasyx_eu'
 ]
 
 { #category : #examples }
@@ -172,34 +172,44 @@ GameItem class >> veryGoodCondition [
 	^ 'Very Good'
 ]
 
-{ #category : #constant }
-GameItem >> DS [
-	console := self class DS
-]
-
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> PS1 [
-	console := self class PS1
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver PS1' 
+						-> '`@receiver setPS1'.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> PS2 [
-	console := self class PS2
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver PS2' 
+						-> '`@receiver setPS2'.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> PS3 [
-	console := self class PS3
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver PS3' 
+						-> '`@receiver setPS3'.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> PS4 [
-	console := self class PS4
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver PS4' 
+						-> '`@receiver setPS4'.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> PSP [
-	console := self class PSP
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver PSP' 
+						-> '`@receiver setPSP'.
 ]
 
 { #category : #conversion }
@@ -209,7 +219,7 @@ GameItem >> asSTON [
 
 { #category : #constant }
 GameItem >> badCondition [
-	condition := self class badCondition.
+	condition := self class badCondition
 ]
 
 { #category : #accessing }
@@ -290,9 +300,12 @@ GameItem >> finished: aBoolean [
 	finished := aBoolean
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> gameCube [
-	console := GameCube
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver gameCube' 
+						-> '`@receiver setGameCube'.
 ]
 
 { #category : #constant }
@@ -382,9 +395,62 @@ GameItem >> setCover [
 	cover := self fetchCover 
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
+GameItem >> setDS [
+	console := self class setDS
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setGameCube [
+	console := self class GameCube
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setPS1 [
+	console := self class PS1
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setPS2 [
+	console := self class PS2
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setPS3 [
+	console := self class PS3
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setPS4 [
+	console := self class PS4
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setPSP [
+	console := self class PSP
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setThreeDS [
+	console := self class TDS
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setWii [
+	console := self class Wii
+]
+
+{ #category : #'constant consoles' }
+GameItem >> setWiiU [
+	console := self class WiiU
+]
+
+{ #category : #'constant consoles' }
 GameItem >> threeDS [
-	console := TDS
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver threeDS' 
+						-> '`@receiver setThreeDS'.
 ]
 
 { #category : #accessing }
@@ -408,14 +474,20 @@ GameItem >> veryGoodCondition [
 	condition := self class veryGoodCondition.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> wii [
-	console := self class Wii
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver wii' 
+						-> '`@receiver setWii'.
 ]
 
-{ #category : #constant }
+{ #category : #'constant consoles' }
 GameItem >> wiiU [
-	console := self class WiiU
+	self
+		deprecated: 'Please use #assert:description: instead'
+		transformWith: '`@receiver wiiU' 
+						-> '`@receiver setWiiU'.
 ]
 
 { #category : #'cover fetching logic' }
