@@ -3,7 +3,7 @@ ListOfClasses new on: Array; openWithSpec
 "
 Class {
 	#name : #ListOfClasses,
-	#superclass : #ComposablePresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'listModel',
 		'classItem'
@@ -13,15 +13,15 @@ Class {
 
 { #category : #specs }
 ListOfClasses class >> defaultSpec [
-	^ SpecLayout composed
-		newColumn: [ :column | column add: #listModel ];
-		yourself
+	^ SpBoxLayout newVertical
+			add: #listModel; 
+			yourself
 ]
 
 { #category : #initialization }
 ListOfClasses >> initializeWidgets [
 	listModel := self newList.
-	 listModel
+	listModel
 		sortingBlock: [ :cls1 :cls2 | cls1 name < cls2 name ]
 ]
 
