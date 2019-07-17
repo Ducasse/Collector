@@ -1,13 +1,13 @@
 "
-GameListModel new openWithSpec.
+SpGameListPresenter new openWithSpec.
 
-GameListModel new 
+SpGameListPresenter new 
 	on: GameCollector smallCollection;
 	openWithSpec
 "
 Class {
-	#name : #GameListModel,
-	#superclass : #ComposablePresenter,
+	#name : #SpGameListPresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'items',
 		'listModel',
@@ -17,21 +17,19 @@ Class {
 }
 
 { #category : #specs }
-GameListModel class >> defaultSpec [
-	^ SpecLayout composed
-		newColumn: [ :column | 
-			column
-				add: #listModel];
-		yourself
+SpGameListPresenter class >> defaultSpec [
+	^ SpBoxLayout newVertical
+			add: #listModel;
+			yourself
 ]
 
 { #category : #specs }
-GameListModel class >> title [
+SpGameListPresenter class >> title [
 	^ 'Collector'
 ]
 
 { #category : #initialization }
-GameListModel >> initializeWidgets [
+SpGameListPresenter >> initializeWidgets [
 	listModel := self newList.
 	listModel sortingBlock: [ :assocA :assocB | assocA title < assocB title ].
 	listModel displayBlock: [ :assoc | assoc title ].
@@ -39,24 +37,24 @@ GameListModel >> initializeWidgets [
 ]
 
 { #category : #initialization }
-GameListModel >> listModel [
+SpGameListPresenter >> listModel [
 	^ listModel
 ]
 
 { #category : #initialization }
-GameListModel >> on: aGameCollector [
+SpGameListPresenter >> on: aGameCollector [
 	collector := aGameCollector.
 	listModel items: (collector collectionNamed: #owned).
 
 ]
 
 { #category : #initialization }
-GameListModel >> title [
+SpGameListPresenter >> title [
 
 	^ 'Games'
 ]
 
 { #category : #initialization }
-GameListModel >> whenSelectedItemChanged: aBlock [
+SpGameListPresenter >> whenSelectedItemChanged: aBlock [
   	listModel whenSelectedItemChanged: aBlock
 ]
