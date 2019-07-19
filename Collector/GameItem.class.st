@@ -143,7 +143,7 @@ GameItem class >> finalFantasyX2 [
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
-		PS2;
+		setPS2;
 		critics: 18;
 		comments: 'quite cool in fact';
 		coverUrlPart: 'finalfantasyx_eu'
@@ -151,13 +151,13 @@ GameItem class >> finalFantasyX2 [
 
 { #category : #'instance creation' }
 GameItem class >> fromSTON: aString [ 
-	^ STON fromString: aString.
+	^ STON fromString: aString
 ]
 
 { #category : #constant }
 GameItem class >> goodCondition [
 
-	^'Good'
+	^ 'Good'
 ]
 
 { #category : #initialize }
@@ -343,8 +343,7 @@ GameItem >> hasDocumentation: aBoolean [
 
 { #category : #initialization }
 GameItem >> initialize [
-	title := ''.
-	console := ''.
+	super initialize.
 	hasDocumentation := true.
 	hasBox := true.
 	finished := false.
@@ -370,14 +369,23 @@ GameItem >> isGoodCondition [
 ]
 
 { #category : #testing }
+GameItem >> isValid [
+
+	^ self title isNotNil and: [ self console isNotNil ]
+]
+
+{ #category : #testing }
 GameItem >> isVeryGoodCondition [
 	^ condition = self class veryGoodCondition
 ]
 
 { #category : #printing }
 GameItem >> printOn: aStream [
-	super printOn: aStream.
-	aStream nextPutAll: ' (' , self title , ')'
+
+	aStream 
+		nextPutAll: self title;
+		nextPutAll: ' - ';
+		nextPutAll: self console asString
 ]
 
 { #category : #accessing }

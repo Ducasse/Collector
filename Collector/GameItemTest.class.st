@@ -92,12 +92,12 @@ GameItemTest >> testGuessUrlPartWithQuoteAndExclamationMark [
 GameItemTest >> testInitialize [
 	| item |
 	item := GameItem new.
-	self assert: item title equals: ''.
-	self assert: item console equals: ''.
+	self assert: item title isNil.
+	self assert: item console isNil.
 	self assert: item hasDocumentation equals: true.
 	self assert: item hasBox equals: true.
 	self assert: item isFinished equals: false.
-	self assert: item condition = GameItem goodCondition.
+	self assert: item condition equals: GameItem goodCondition.
 	self assert: item quotation equals: 0.
 	self assert: item critics equals: 0.
 	self assert: item comments equals: ''
@@ -122,6 +122,16 @@ GameItemTest >> testIsGood [
 ]
 
 { #category : #tests }
+GameItemTest >> testIsValid [
+	| ff |
+	ff := GameItem finalFantasyX setPS2.
+	self assert: ff isValid.
+	
+	ff := GameItem new title: 'Final Fantasy X'.
+	self deny: ff isValid
+]
+
+{ #category : #tests }
 GameItemTest >> testIsVeryGood [
 	| item |
 	item := GameItem new
@@ -135,11 +145,12 @@ GameItemTest >> testPrintOnUpgraded [
 	| item |
 	item := GameItem new
 		title: 'Final Fantasy X';
+		setPS1;
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
 		critics: 18.
-	self assert: item printString equals: 'a GameItem (Final Fantasy X)'
+	self assert: item printString equals: 'Final Fantasy X - PS1'
 ]
 
 { #category : #tests }
@@ -147,10 +158,29 @@ GameItemTest >> testTwoItemsCanHaveTheSameName [
 	| item1 item2 |
 	item1 := GameItem new
 		title: 'Final Fantasy X';
+		setPS1;
 		hasDocumentation: false.
 		
 	item2 := GameItem new 
 		title: 'Final Fantasy X';
+		setPS1;
+		hasDocumentation: true.
+		
+	self deny: item1 = item2
+]
+
+{ #category : #tests }
+GameItemTest >> testTwoItemsWithSameNameButDifferentConsolesAreDifferent [
+	"this is obvious since we do not redefine = but better be sure"
+	| item1 item2 |
+	item1 := GameItem new
+		title: 'Final Fantasy X';
+		setPS2;
+		hasDocumentation: false.
+		
+	item2 := GameItem new 
+		title: 'Final Fantasy X';
+		setPS1;
 		hasDocumentation: true.
 		
 	self deny: item1 = item2

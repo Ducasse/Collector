@@ -1,62 +1,61 @@
 "
-SpGameListPresenter new openWithSpec.
+SpItemListPresenter new openWithSpec.
 
-SpGameListPresenter new 
+SpItemListPresenter new 
 	on: (GameCollector smallCollection collectionNamed: #owned);
 	openWithSpec
 "
 Class {
-	#name : #SpGameListPresenter,
+	#name : #SpItemListPresenter,
 	#superclass : #SpPresenter,
 	#instVars : [
 		'items',
 		'listModel',
-		'collector',
-		'classItem'
+		'collector'
 	],
 	#category : #'Collector-UI'
 }
 
 { #category : #specs }
-SpGameListPresenter class >> defaultSpec [
+SpItemListPresenter class >> defaultSpec [
 	^ SpBoxLayout newVertical
 			add: #listModel;
 			yourself
 ]
 
 { #category : #specs }
-SpGameListPresenter class >> title [
+SpItemListPresenter class >> title [
 	^ 'Collector'
 ]
 
 { #category : #initialization }
-SpGameListPresenter >> initializeWidgets [
+SpItemListPresenter >> initializeWidgets [
 	listModel := self newList.
 	listModel sortingBlock: [ :cls1 :cls2 | cls1 title < cls2 title ]
 ]
 
 { #category : #initialization }
-SpGameListPresenter >> initializeWindow: aWindowPresenter [
+SpItemListPresenter >> initializeWindow: aWindowPresenter [
 	aWindowPresenter title: 'List of Games'
 ]
 
 { #category : #accessing }
-SpGameListPresenter >> listModel [ 
+SpItemListPresenter >> listModel [ 
 	^ listModel
 ]
 
 { #category : #accessing }
-SpGameListPresenter >> on: aCollection [
+SpItemListPresenter >> on: aCollection [
 	listModel items: aCollection
 ]
 
 { #category : #initialization }
-SpGameListPresenter >> title [
+SpItemListPresenter >> title [
 
 	^ 'Games'
 ]
 
 { #category : #initialization }
-SpGameListPresenter >> whenSelectedItemChanged: aBlock [
+SpItemListPresenter >> whenSelectedItemChanged: aBlock [
   	listModel whenSelectedItemChanged: aBlock
 ]
