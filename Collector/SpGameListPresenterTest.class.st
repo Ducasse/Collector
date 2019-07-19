@@ -8,6 +8,6 @@ Class {
 SpGameListPresenterTest >> testOpen [
 
 	| gameList |
-	gameList := SpGameListPresenter new on: GameCollector smallCollection.
+	gameList := SpGameListPresenter new on: (GameCollector smallCollection collectionNamed: #owned).
 	self assert: gameList listModel selectedItems isEmpty
 ]

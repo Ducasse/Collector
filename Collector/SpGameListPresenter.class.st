@@ -2,7 +2,7 @@
 SpGameListPresenter new openWithSpec.
 
 SpGameListPresenter new 
-	on: GameCollector smallCollection;
+	on: (GameCollector smallCollection collectionNamed: #owned);
 	openWithSpec
 "
 Class {
@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'items',
 		'listModel',
-		'collector'
+		'collector',
+		'classItem'
 	],
 	#category : #'Collector-UI'
 }
@@ -31,21 +32,22 @@ SpGameListPresenter class >> title [
 { #category : #initialization }
 SpGameListPresenter >> initializeWidgets [
 	listModel := self newList.
-	listModel sortingBlock: [ :assocA :assocB | assocA title < assocB title ].
-	listModel displayBlock: [ :assoc | assoc title ].
-	self focusOrder add: listModel.
+	listModel sortingBlock: [ :cls1 :cls2 | cls1 title < cls2 title ]
 ]
 
 { #category : #initialization }
-SpGameListPresenter >> listModel [
+SpGameListPresenter >> initializeWindow: aWindowPresenter [
+	aWindowPresenter title: 'List of Games'
+]
+
+{ #category : #accessing }
+SpGameListPresenter >> listModel [ 
 	^ listModel
 ]
 
-{ #category : #initialization }
-SpGameListPresenter >> on: aGameCollector [
-	collector := aGameCollector.
-	listModel items: (collector collectionNamed: #owned).
-
+{ #category : #accessing }
+SpGameListPresenter >> on: aCollection [
+	listModel items: aCollection
 ]
 
 { #category : #initialization }
