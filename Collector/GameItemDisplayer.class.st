@@ -3,7 +3,7 @@ GameItemDisplayer new
 	gameItem: GameItem finalFantasyX; 
 	openWithSpec
 	
-NewGameItemDisplayer new 
+GameItemDisplayer new 
 	openWithSpec
 "
 Class {
@@ -97,13 +97,13 @@ GameItemDisplayer >> gameItem: aNewGameItem [
 { #category : #initialization }
 GameItemDisplayer >> gameItemChanged [
 	titleNameTextModel text: gameItem value title.
-	consoleDropListModel setSelectedItem: gameItem value console.
-	conditionDropListModel setSelectedItem: gameItem value condition.
+	consoleDropListModel selectedItem: gameItem value console.
+	conditionDropListModel selectedItem: gameItem value condition.
 	hasDocCheckBoxModel state: gameItem value hasDocumentation.
-	finishedCheckBoxModel state: gameItem value finished .
+	finishedCheckBoxModel state: gameItem value finished.
 	quotationTextModel text: gameItem value quotation.
 	commentsTextModel text: gameItem value comments.
-	criticsTextModel text: gameItem value critics.
+	criticsTextModel text: gameItem value critics
 ]
 
 { #category : #'widget accessing' }
@@ -139,18 +139,18 @@ GameItemDisplayer >> initializePresenter [
 { #category : #initialization }
 GameItemDisplayer >> initializeWidgets [
 	titleNameTextModel := self newTextInput.
-	titleNameTextModel ghostText: 'Name of game'.
+	titleNameTextModel placeholder: 'Name of game'.
 	self setConsoleDropList.
 	self setHasDocCheckBox.
 	self setHasBoxCheckBox.
 	self setFinishCheckBox.
 	self setConditionDropList.
 	quotationTextModel := self newTextInput.
-	quotationTextModel ghostText: 'in Euros'.
+	quotationTextModel placeholder: 'in Euros'.
 	criticsTextModel := self newTextInput.
-	criticsTextModel ghostText: ' x / 20 '.
+	criticsTextModel placeholder: ' x / 20 '.
 	commentsTextModel := self newTextInput.
-	criticsTextModel ghostText: ' May be you want to add something... '.
+	criticsTextModel placeholder: ' May be you want to add something... '
 ]
 
 { #category : #'domain object' }
