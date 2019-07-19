@@ -69,7 +69,6 @@ GameCollectorTest >> testConvertToSTON [
 				#title : ''Final Fantasy X''
 			},
 			GameItem {
-				#console : '''',
 				#hasDocumentation : true,
 				#hasBox : false,
 				#finished : false,
