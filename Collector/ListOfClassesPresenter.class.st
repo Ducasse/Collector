@@ -2,7 +2,7 @@
 ListOfClasses new on: Array; openWithSpec
 "
 Class {
-	#name : #ListOfClasses,
+	#name : #ListOfClassesPresenter,
 	#superclass : #ComposablePresenter,
 	#instVars : [
 		'listModel',
@@ -12,31 +12,31 @@ Class {
 }
 
 { #category : #specs }
-ListOfClasses class >> defaultSpec [
-	^ SpecLayout composed
-		newColumn: [ :column | column add: #listModel ];
-		yourself
+ListOfClassesPresenter class >> defaultSpec [
+	^ SpBoxLayout newVertical
+			add: #listModel; 
+			yourself
 ]
 
 { #category : #initialization }
-ListOfClasses >> initializeWidgets [
+ListOfClassesPresenter >> initializeWidgets [
 	listModel := self newList.
 	 listModel
 		sortingBlock: [ :cls1 :cls2 | cls1 name < cls2 name ]
 ]
 
 { #category : #accessing }
-ListOfClasses >> listModel [ 
+ListOfClassesPresenter >> listModel [ 
 	^ listModel
 ]
 
 { #category : #initialization }
-ListOfClasses >> on: aClass [
+ListOfClassesPresenter >> on: aClass [
 	classItem := aClass.
 	listModel items: aClass withAllSubclasses
 ]
 
 { #category : #api }
-ListOfClasses >> title [
+ListOfClassesPresenter >> title [
 	^ 'Subclass List of ' , classItem name asString
 ]

@@ -154,7 +154,7 @@ GameCollector >> asSTON: aStream [
 
 { #category : #'collection management' }
 GameCollector >> collectionNamed: aCollectionSymbol [ 
-	^ collectionDictionary at: aCollectionSymbol .
+	^ collectionDictionary at: aCollectionSymbol
 ]
 
 { #category : #'collection management' }

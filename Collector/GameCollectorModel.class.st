@@ -48,7 +48,7 @@ GameCollectorModel >> initializePresenter [
 
 { #category : #initialization }
 GameCollectorModel >> initializeWidgets [
-	listDisplayer := self instantiate: GameListModel.
+	listDisplayer := self instantiate: SpGameListPresenter.
 	gameItemDisplayer := self instantiate: GameItemDisplayer.
 	self focusOrder add: listDisplayer ; add: gameItemDisplayer 
 ]
