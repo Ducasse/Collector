@@ -1,5 +1,9 @@
 "
 SpGameItemDisplayer new openWithSpec
+
+SpGameItemDisplayer new 
+	gameItem: GameItem finalFantasyX; 
+	openWithSpec
 "
 Class {
 	#name : #SpGameItemDisplayer,
@@ -46,6 +50,41 @@ SpGameItemDisplayer class >> defaultSpec [
 		yourself
 		
 		"
+]
+
+{ #category : #accessing }
+SpGameItemDisplayer >> gameItem: aNewGameItem [
+
+	gameItem value: aNewGameItem
+]
+
+{ #category : #initialization }
+SpGameItemDisplayer >> gameItemChanged [
+	titleNameTextModel text: gameItem value title.
+	"consoleDropListModel selectedItem: gameItem value console.
+	conditionDropListModel selectedItem: gameItem value condition.
+	hasDocCheckBoxModel state: gameItem value hasDocumentation.
+	finishedCheckBoxModel state: gameItem value finished.
+	quotationTextModel text: gameItem value quotation.
+	commentsTextModel text: gameItem value comments.
+	criticsTextModel text: gameItem value critics"
+]
+
+{ #category : #initialization }
+SpGameItemDisplayer >> initialize [
+	"All the element with be based on the gameItem"
+
+	gameItem := nil asValueHolder.
+	"order important since initialize will invoke initialiseWidgets and initializePresenter. In the future we should have initializeSubject: "
+	super initialize
+
+]
+
+{ #category : #initialization }
+SpGameItemDisplayer >> initializePresenter [
+
+	gameItem
+		whenChangedDo: [ self gameItemChanged ]
 ]
 
 { #category : #initialization }
