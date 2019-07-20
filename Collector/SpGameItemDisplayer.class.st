@@ -106,6 +106,12 @@ SpGameItemDisplayer >> initializeWidgets [
 	"
 ]
 
+{ #category : #initialization }
+SpGameItemDisplayer >> initializeWindow: aWindowPresenter [
+
+	aWindowPresenter title: 'Game Displayer'
+]
+
 { #category : #accessing }
 SpGameItemDisplayer >> titleNameTextModel [
 
