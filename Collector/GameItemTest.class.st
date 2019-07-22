@@ -1,6 +1,9 @@
 Class {
 	#name : #GameItemTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'gameItem'
+	],
 	#category : #'Collector-Tests'
 }
 
