@@ -10,7 +10,7 @@ GameCollectorModel  new
 -- save button.
 "
 Class {
-	#name : #GameCollectorModel,
+	#name : #GameCollectorPresenter,
 	#superclass : #ComposablePresenter,
 	#instVars : [
 		'gameCollector',
@@ -21,7 +21,7 @@ Class {
 }
 
 { #category : #specs }
-GameCollectorModel class >> defaultSpec [
+GameCollectorPresenter class >> defaultSpec [
 	^ SpecColumnLayout composed
 		newRow: [ :row | 
 			row
@@ -31,40 +31,40 @@ GameCollectorModel class >> defaultSpec [
 ]
 
 { #category : #accessing }
-GameCollectorModel >> gameItem [
+GameCollectorPresenter >> gameItem [
 	^ gameItemDisplayer
 ]
 
 { #category : #accessing }
-GameCollectorModel >> gameItem: anObject [
+GameCollectorPresenter >> gameItem: anObject [
 	gameItemDisplayer := anObject
 ]
 
 { #category : #initialization }
-GameCollectorModel >> initializePresenter [
+GameCollectorPresenter >> initializePresenter [
 	listDisplayer listModel whenSelectedItemChanged: [ :item | 
 		 item ifNotNil: [gameItemDisplayer gameItem: item ]]
 ]
 
 { #category : #initialization }
-GameCollectorModel >> initializeWidgets [
+GameCollectorPresenter >> initializeWidgets [
 	listDisplayer := self instantiate: SpItemListPresenter.
 	gameItemDisplayer := self instantiate: GameItemDisplayer.
 	self focusOrder add: listDisplayer ; add: gameItemDisplayer 
 ]
 
 { #category : #accessing }
-GameCollectorModel >> list [
+GameCollectorPresenter >> list [
 	^ listDisplayer
 ]
 
 { #category : #accessing }
-GameCollectorModel >> list: anObject [
+GameCollectorPresenter >> list: anObject [
 	listDisplayer := anObject
 ]
 
 { #category : #accessing }
-GameCollectorModel >> on: aGameCollector [
+GameCollectorPresenter >> on: aGameCollector [
 	gameCollector := aGameCollector.
 	listDisplayer on: aGameCollector.
 ]
