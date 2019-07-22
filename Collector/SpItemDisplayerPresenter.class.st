@@ -26,27 +26,18 @@ Class {
 
 { #category : #specs }
 SpItemDisplayerPresenter class >> defaultSpec [
-	^ SpBoxLayout newHorizontal 
+	^ SpBoxLayout newVertical 
 			add: #titleNameTextModel;
+			add: #consoleDropListModel;
+			add: #criticsTextModel;
+			add: #hasDocCheckBoxModel;
+			add: #hasBoxCheckBoxModel;
+			add: #finishedCheckBoxModel;
+			add: #quotationTextModel;
+			add: #conditionDropListModel;
+			add: #commentsTextModel;
 			yourself
-			"col
-				newRow: [ :row | 
-					row add: #consoleDropListModel width: 100.
-					row add: #criticsTextModel width: 30.
-						row newColumn: [ :e |  ].
-					row add: #quotationTextModel width: 30.
-					row newColumn: [ :e |  ].
-					row add: #conditionDropListModel width: 100 ]
-				height: self inputTextHeight.
-			col
-				newRow: [ :row | 
-					row add: #hasDocCheckBoxModel.
-					row add: #finishedCheckBoxModel.
-					row add: #hasBoxCheckBoxModel ]
-				height: self inputTextHeight.
-			col add: #commentsTextModel height: self inputTextHeight * 4.
-			col newRow: [ :e |  ] ];
-		yourself"
+			
 ]
 
 { #category : #accessing }
@@ -81,4 +72,53 @@ SpItemDisplayerPresenter >> initializePresenter [
 SpItemDisplayerPresenter >> initializeWidgets [
 	titleNameTextModel := self newTextInput.
 	titleNameTextModel placeholder: 'Name of game'.
+	self setConsoleDropList.
+	criticsTextModel := self newTextInput.
+	criticsTextModel placeholder: ' x / 20 '.
+	self setHasDocCheckBox.
+	self setHasBoxCheckBox.
+	self setFinishCheckBox.
+	self setConditionDropList.
+	quotationTextModel := self newTextInput.
+	quotationTextModel placeholder: 'in Euros'.
+	commentsTextModel := self newTextInput.
+	commentsTextModel placeholder: ' May be you want to add something... '
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> initializeWindow: aWindowPresenter [
+
+	aWindowPresenter title: 'Game Displayer'
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> setConditionDropList [
+	conditionDropListModel := self newDropList.
+	conditionDropListModel items: GameItem conditions.
+	conditionDropListModel displayBlock: [ :m | m asString ]
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> setConsoleDropList [
+	consoleDropListModel := self newDropList.
+	consoleDropListModel items: GameItem consoles.
+	consoleDropListModel displayBlock: [ :m | m ]
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> setFinishCheckBox [
+	finishedCheckBoxModel := self newCheckBox.
+	finishedCheckBoxModel label: 'Finished'
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> setHasBoxCheckBox [
+	hasBoxCheckBoxModel := self newCheckBox.
+	hasBoxCheckBoxModel label: 'Box'
+]
+
+{ #category : #initialization }
+SpItemDisplayerPresenter >> setHasDocCheckBox [
+	hasDocCheckBoxModel := self newCheckBox.
+	hasDocCheckBoxModel label: 'Doc'
 ]

@@ -150,7 +150,7 @@ GameItemDisplayer >> initializeWidgets [
 	criticsTextModel := self newTextInput.
 	criticsTextModel placeholder: ' x / 20 '.
 	commentsTextModel := self newTextInput.
-	criticsTextModel placeholder: ' May be you want to add something... '
+	commentsTextModel placeholder: ' May be you want to add something... '
 ]
 
 { #category : #'domain object' }
