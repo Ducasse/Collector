@@ -9,53 +9,84 @@ Class {
 	#name : #SpItemListPresenter,
 	#superclass : #SpPresenter,
 	#instVars : [
-		'items',
-		'listModel',
-		'collector'
+		'gamesListPresenter',
+		'gameDisplayer'
 	],
 	#category : #'Collector-UI'
 }
 
-{ #category : #specs }
-SpItemListPresenter class >> defaultSpec [
-	^ SpBoxLayout newVertical
-			add: #listModel;
-			yourself
+{ #category : #accessing }
+SpItemListPresenter class >> collection: aCollectionOfGames [
+	^ self new
+		collection: aCollectionOfGames;
+		yourself
 ]
 
 { #category : #specs }
-SpItemListPresenter class >> title [
-	^ 'Collector'
+SpItemListPresenter class >> defaultSpec [
+	^ SpPanedLayout newHorizontal
+		position: 30 percent;
+		add: #gamesListPresenter;
+		add: #gameDisplayer;
+		yourself
+]
+
+{ #category : #'instance creation' }
+SpItemListPresenter class >> open [
+	<script>
+	(self collection: (GameCollector smallCollection2 collectionNamed: #owned)) openWithSpec
+]
+
+{ #category : #accessing }
+SpItemListPresenter >> collection: aCollectionOfGames [
+	self gamesListPresenter
+		items: aCollectionOfGames;
+		selectIndex: 1
+]
+
+{ #category : #accessing }
+SpItemListPresenter >> gamesListPresenter [ 
+	^ gamesListPresenter
+]
+
+{ #category : #initialization }
+SpItemListPresenter >> initializePresenter [
+	super initializePresenter.
+	self gamesListPresenter
+		whenSelectionChangedDo: [ :selection | 
+			gameDisplayer gameItem: selection selectedItem.
+			self withWindowDo: [ :w | w title: self title ] ]
 ]
 
 { #category : #initialization }
 SpItemListPresenter >> initializeWidgets [
-	listModel := self newList.
-	listModel sortingBlock: [ :cls1 :cls2 | cls1 title < cls2 title ]
+	gamesListPresenter := self newList.
+	gameDisplayer := self instantiate: SpItemDisplayerPresenter.
+
+	gamesListPresenter
+		displayBlock: [ :item | item title , ' - ' , item console ];
+		sortingBlock: [ :cls1 :cls2 | cls1 title < cls2 title ];
+		enableItemSubstringFilter
 ]
 
 { #category : #initialization }
 SpItemListPresenter >> initializeWindow: aWindowPresenter [
-	aWindowPresenter title: 'List of Games'
+	aWindowPresenter
+		title: self title;
+		initialExtent: 600 @ 500
 ]
 
 { #category : #accessing }
-SpItemListPresenter >> listModel [ 
-	^ listModel
-]
-
-{ #category : #accessing }
-SpItemListPresenter >> on: aCollection [
-	listModel items: aCollection
+SpItemListPresenter >> selectedGame [
+	^ self gamesListPresenter selectedItem
 ]
 
 { #category : #initialization }
 SpItemListPresenter >> title [
-
-	^ 'Games'
+	^ 'List of Games ' , (self selectedGame ifNotNil: [ :game | ' - ' , game title ] ifNil: [ '' ])
 ]
 
 { #category : #initialization }
 SpItemListPresenter >> whenSelectedItemChanged: aBlock [
-  	listModel whenSelectedItemChanged: aBlock
+  	gamesListPresenter whenSelectedItemChanged: aBlock
 ]

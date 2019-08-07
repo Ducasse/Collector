@@ -126,13 +126,15 @@ GameCollector class >> smallCollection2 [
 		title: 'Dragon Quest VIII: Journey Of The Cursed King';
 		hasBox: true;
 		quotation: 10;
-		critics: 18.
+		critics: 18;
+		setPS2.
 	collector add: item2 to: #owned.
 	item3 := GameItem new
 		title: 'Persona 3';
 		hasBox: true;
 		quotation: 20;
-		critics: 18.
+		critics: 18;
+		setPS3.
 	collector add: item3 to: #owned.
 	^ collector
 ]
