@@ -140,9 +140,9 @@ GameItem class >> finalFantasyX2 [
 	<sampleInstance>
 	^ GameItem new
 		title: 'Final Fantasy X2';
-		hasDocumentation: false;
+		hasDocumentation: true;
 		finished: true;
-		quotation: 10;
+		quotation: 20;
 		setPS2;
 		critics: 18;
 		comments: 'quite cool in fact';
