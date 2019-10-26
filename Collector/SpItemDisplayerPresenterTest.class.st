@@ -11,7 +11,7 @@ Class {
 SpItemDisplayerPresenterTest >> setUp [
 	super setUp.
 	itemDisplayer := SpItemDisplayerPresenter new
-		gameItem: GameItem finalFantasyX;
+		gameItem: CGameItem finalFantasyX;
 		openWithSpec;
 		yourself.
 ]
@@ -24,11 +24,11 @@ SpItemDisplayerPresenterTest >> tearDown [
 
 { #category : #tests }
 SpItemDisplayerPresenterTest >> testInformationsAreUpdatedWhenGameItemChanges [
-	self assert: itemDisplayer quotationNumberModel number equals: GameItem finalFantasyX quotation.
-	self assert: itemDisplayer hasDocCheckBoxModel state equals: GameItem finalFantasyX hasDocumentation.
+	self assert: itemDisplayer quotationNumberModel number equals: CGameItem finalFantasyX quotation.
+	self assert: itemDisplayer hasDocCheckBoxModel state equals: CGameItem finalFantasyX hasDocumentation.
 
-	itemDisplayer gameItem: GameItem finalFantasyX2.
+	itemDisplayer gameItem: CGameItem finalFantasyX2.
 
-	self assert: itemDisplayer quotationNumberModel number equals: GameItem finalFantasyX2 quotation.
-	self assert: itemDisplayer hasDocCheckBoxModel state equals: GameItem finalFantasyX2 hasDocumentation
+	self assert: itemDisplayer quotationNumberModel number equals: CGameItem finalFantasyX2 quotation.
+	self assert: itemDisplayer hasDocCheckBoxModel state equals: CGameItem finalFantasyX2 hasDocumentation
 ]

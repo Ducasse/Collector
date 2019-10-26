@@ -10,18 +10,18 @@ Class {
 { #category : #tests }
 GameCollectorTest >> setUp [
 	
-	collector := GameCollector new.
+	collector := CGameCollector new.
 	collector declareNewCollection: #owned.	
 ]
 
 { #category : #tests }
 GameCollectorTest >> testAddThreeElements [
 	| item1 item2 item3 |
-	item1 := GameItem new title: 'Final Fantasy X'.
+	item1 := CGameItem new title: 'Final Fantasy X'.
 	collector add: item1 to: #owned.
-	item2 := GameItem new title: 'Final Fantasy XII'.
+	item2 := CGameItem new title: 'Final Fantasy XII'.
 	collector add: item2 to: #owned.
-	item3 := GameItem new title: 'Final Fantasy X-2'.
+	item3 := CGameItem new title: 'Final Fantasy X-2'.
 	collector add: item3 to: #owned.
 	self assert: (collector collectionNamed: #owned )size equals: 3
 ]
@@ -29,9 +29,9 @@ GameCollectorTest >> testAddThreeElements [
 { #category : #tests }
 GameCollectorTest >> testAddTwoCopies [
 	| item1 item2 |
-	item1 := GameItem new title: 'Final Fantasy X'.
+	item1 := CGameItem new title: 'Final Fantasy X'.
 	collector add: item1 to: #owned.
-	item2 := GameItem new title: 'Final Fantasy X'.
+	item2 := CGameItem new title: 'Final Fantasy X'.
 	collector add: item2 to: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 2
 ]
@@ -39,11 +39,11 @@ GameCollectorTest >> testAddTwoCopies [
 { #category : #tests }
 GameCollectorTest >> testConvertToSTON [
 	| collec item1 item2 |
-	collec := GameCollector new.
+	collec := CGameCollector new.
 	collec declareNewCollection: #owned.
-	item1 := GameItem finalFantasyX.
+	item1 := CGameItem finalFantasyX.
 	collec add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;
@@ -87,9 +87,9 @@ GameCollectorTest >> testConvertToSTON [
 GameCollectorTest >> testDeclareAlreadyNamedCollection [
 
 	| gc1 |
-	gc1 := GameCollector new.
+	gc1 := CGameCollector new.
 	gc1 declareNewCollection: #Collec1.
-	gc1 add: GameItem finalFantasyX to: #Collec1.
+	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	gc1 declareNewCollection: #Collec1.
 	self assert: (gc1 collectionNamed: #Collec1) size equals: 1
 ]
@@ -97,18 +97,18 @@ GameCollectorTest >> testDeclareAlreadyNamedCollection [
 { #category : #tests }
 GameCollectorTest >> testDeclareNewCollection [
 	| gc1 |
-	gc1 := GameCollector new.
+	gc1 := CGameCollector new.
 	gc1 declareNewCollection: #Collec1.
-	gc1 add: GameItem finalFantasyX to: #Collec1.
+	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	self assert: (gc1 collectionNamed: #Collec1) size equals: 1
 ]
 
 { #category : #tests }
 GameCollectorTest >> testDeclaredCollectionNames [
 	| gc1 |
-	gc1 := GameCollector new.
+	gc1 := CGameCollector new.
 	gc1 declareNewCollection: #Collec1.
-	gc1 add: GameItem finalFantasyX to: #Collec1.
+	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	self assert: (gc1 declaredCollectionNames includes: #Collec1).
 	self assert: gc1 declaredCollectionNames size equals: 1.
 	gc1 declareNewCollection: #Collec2.
@@ -118,7 +118,7 @@ GameCollectorTest >> testDeclaredCollectionNames [
 
 { #category : #tests }
 GameCollectorTest >> testFileName [
-	GameCollector smallCollection
+	CGameCollector smallCollection
 		fileName: 'TestCollec';
 		save.
 	self assert: (FileSystem workingDirectory / 'TestCollec.1.ston') exists.
@@ -128,7 +128,7 @@ GameCollectorTest >> testFileName [
 { #category : #tests }
 GameCollectorTest >> testFindInText [
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
@@ -136,7 +136,7 @@ GameCollectorTest >> testFindInText [
 		critics: 18;
 		comments: 'Super cool'.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Gitaroo Man';
 		hasBox: false;
 		quotation: 25;
@@ -161,11 +161,11 @@ GameCollectorTest >> testIsAnEmptyCollection [
 { #category : #tests }
 GameCollectorTest >> testRemoveExisting [
 	| item1 item2 item3 |
-	item1 := GameItem new title: 'Final Fantasy X'.
+	item1 := CGameItem new title: 'Final Fantasy X'.
 	collector add: item1 to: #owned.
-	item2 := GameItem new title: 'Final Fantasy XII'.
+	item2 := CGameItem new title: 'Final Fantasy XII'.
 	collector add: item2 to: #owned.
-	item3 := GameItem new title: 'Final Fantasy X-2'.
+	item3 := CGameItem new title: 'Final Fantasy X-2'.
 	collector add: item3 to: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 3.
 	(collector collectionNamed: #owned) remove: item1.
@@ -176,7 +176,7 @@ GameCollectorTest >> testRemoveExisting [
 { #category : #tests }
 GameCollectorTest >> testRemoveFrom [
 	| item |
-	collector := GameCollector smallCollection.
+	collector := CGameCollector smallCollection.
 	item := (collector collectionNamed: #owned) anyOne.
 	collector remove: item from: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 1
@@ -185,10 +185,10 @@ GameCollectorTest >> testRemoveFrom [
 { #category : #tests }
 GameCollectorTest >> testRemoveNonExisting [
 	| item1 item2 item3 |
-	item1 := GameItem new title: 'Final Fantasy X'.
-	item2 := GameItem new title: 'Final Fantasy XII'.
+	item1 := CGameItem new title: 'Final Fantasy X'.
+	item2 := CGameItem new title: 'Final Fantasy XII'.
 	collector add: item2 to: #owned.
-	item3 := GameItem new title: 'Final Fantasy X-2'.
+	item3 := CGameItem new title: 'Final Fantasy X-2'.
 	collector add: item3 to: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 2.
 	collector remove: item1 from: #owned.
@@ -199,21 +199,21 @@ GameCollectorTest >> testRemoveNonExisting [
 { #category : #tests }
 GameCollectorTest >> testSelectMultipleCollections [
 	| item1 item2 item3 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
 		critics: 18.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;
 		critics: 15.
 	collector add: item2 to: #owned.
 	collector declareNewCollection: #owned2.
-	item3 := GameItem new
+	item3 := CGameItem new
 		title: 'Final Fantasy XIII';
 		hasDocumentation: true.
 	collector add: item3 to: #owned2.
@@ -227,14 +227,14 @@ GameCollectorTest >> testSelectMultipleCollections [
 { #category : #tests }
 GameCollectorTest >> testSelectMultipleResults [
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
 		critics: 18.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;
@@ -250,14 +250,14 @@ GameCollectorTest >> testSelectMultipleResults [
 { #category : #tests }
 GameCollectorTest >> testSelectNoResults [
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
 		critics: 18.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;
@@ -271,14 +271,14 @@ GameCollectorTest >> testSelectNoResults [
 { #category : #tests }
 GameCollectorTest >> testSelectOneCollection [
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
 		quotation: 10;
 		critics: 18.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;

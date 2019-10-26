@@ -63,7 +63,7 @@ SpItemDisplayerPresenter class >> defaultSpec [
 { #category : #examples }
 SpItemDisplayerPresenter class >> example [
 	self new
-		gameItem: GameItem finalFantasyX;
+		gameItem: CGameItem finalFantasyX;
 		openWithSpec
 ]
 
@@ -75,8 +75,8 @@ SpItemDisplayerPresenter >> gameItem: aNewGameItem [
 { #category : #initialization }
 SpItemDisplayerPresenter >> gameItemChanged [
 	titleNameTextModel text: gameItem title.
-	consoleDropListModel selectedItem: gameItem console.
-	conditionDropListModel selectedItem: gameItem condition.
+	consoleDropListModel selectItem: gameItem console.
+	conditionDropListModel selectItem: gameItem condition.
 	hasDocCheckBoxModel state: gameItem hasDocumentation.
 	finishedCheckBoxModel state: gameItem finished.
 	quotationNumberModel number: gameItem quotation.
@@ -130,15 +130,15 @@ SpItemDisplayerPresenter >> quotationNumberModel [
 { #category : #initialization }
 SpItemDisplayerPresenter >> setConditionDropList [
 	conditionDropListModel := self newDropList.
-	conditionDropListModel items: GameItem conditions.
-	conditionDropListModel displayBlock: [ :m | m asString ]
+	conditionDropListModel items: CGameItem conditions.
+	conditionDropListModel display: [ :m | m asString ]
 ]
 
 { #category : #initialization }
 SpItemDisplayerPresenter >> setConsoleDropList [
 	consoleDropListModel := self newDropList.
-	consoleDropListModel items: GameItem consoles.
-	consoleDropListModel displayBlock: [ :m | m ]
+	consoleDropListModel items: CGameItem consoles.
+	consoleDropListModel display: [ :m | m ]
 ]
 
 { #category : #initialization }

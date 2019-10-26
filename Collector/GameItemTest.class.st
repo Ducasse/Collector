@@ -10,8 +10,8 @@ Class {
 { #category : #tests }
 GameItemTest >> testConsole [
 	| ff |
-	ff := GameItem finalFantasyX setPS2.
-	self assert: ff console equals: GameItem PS2
+	ff := CGameItem finalFantasyX setPS2.
+	self assert: ff console equals: CGameItem PS2
 ]
 
 { #category : #tests }
@@ -28,8 +28,8 @@ GameItemTest >> testConversionFromSTON [
 	#comments : ''quite cool in fact'',
 	#title : ''Final Fantasy X''
 }'.
-	item := GameItem fromSTON: string.
-	ff := GameItem finalFantasyX.
+	item := CGameItem fromSTON: string.
+	ff := CGameItem finalFantasyX.
 	self assert: item title equals: ff title.
 	self assert: item console equals: ff console.
 	self assert: item hasDocumentation equals: ff hasDocumentation.
@@ -44,7 +44,7 @@ GameItemTest >> testConversionFromSTON [
 { #category : #tests }
 GameItemTest >> testConversionToSTON [
 	| item |
-	item := GameItem finalFantasyX.
+	item := CGameItem finalFantasyX.
 	self
 		assert: item asSTON
 		equals:
@@ -66,7 +66,7 @@ GameItemTest >> testConversionToSTON [
 GameItemTest >> testGameItemHasAtLeastAName [
 
 	| item |
-	item := GameItem new 
+	item := CGameItem new 
 					title: 'Final Fantasy X'.
 	self assert: item title equals: 'Final Fantasy X'.				
 ]
@@ -74,7 +74,7 @@ GameItemTest >> testGameItemHasAtLeastAName [
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testGuessUrlPart [
 	| dg8 |
-	dg8 := GameItem new
+	dg8 := CGameItem new
 		title: 'Dragon Quest VIII: Journey Of The Cursed King';
 		setPS2.
 	self
@@ -85,7 +85,7 @@ GameItemTest >> testGuessUrlPart [
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testGuessUrlPartWithQuoteAndExclamationMark [
 	| zb |
-	zb := GameItem new
+	zb := CGameItem new
 		title: 'Zat-ch Bell!: Mamodo Battles';
 		setPS2.
 	self assert: zb guessUrlPart equals: 'zatchbell-mamodobattles'
@@ -94,13 +94,13 @@ GameItemTest >> testGuessUrlPartWithQuoteAndExclamationMark [
 { #category : #tests }
 GameItemTest >> testInitialize [
 	| item |
-	item := GameItem new.
+	item := CGameItem new.
 	self assert: item title isNil.
 	self assert: item console isNil.
 	self assert: item hasDocumentation equals: true.
 	self assert: item hasBox equals: true.
 	self assert: item isFinished equals: false.
-	self assert: item condition equals: GameItem goodCondition.
+	self assert: item condition equals: CGameItem goodCondition.
 	self assert: item quotation equals: 0.
 	self assert: item critics equals: 0.
 	self assert: item comments equals: ''
@@ -109,44 +109,44 @@ GameItemTest >> testInitialize [
 { #category : #tests }
 GameItemTest >> testIsBad [
 	| item |
-	item := GameItem new
+	item := CGameItem new
 		title: 'Final Fantasy X';
 		badCondition.
-	self assert: item condition equals: GameItem badCondition
+	self assert: item condition equals: CGameItem badCondition
 ]
 
 { #category : #tests }
 GameItemTest >> testIsGood [
 	| item |
-	item := GameItem new
+	item := CGameItem new
 		title: 'Final Fantasy X';
 		goodCondition.
-	self assert: item condition equals: GameItem goodCondition.
+	self assert: item condition equals: CGameItem goodCondition.
 ]
 
 { #category : #tests }
 GameItemTest >> testIsValid [
 	| ff |
-	ff := GameItem finalFantasyX setPS2.
+	ff := CGameItem finalFantasyX setPS2.
 	self assert: ff isValid.
 	
-	ff := GameItem new title: 'Final Fantasy X'.
+	ff := CGameItem new title: 'Final Fantasy X'.
 	self deny: ff isValid
 ]
 
 { #category : #tests }
 GameItemTest >> testIsVeryGood [
 	| item |
-	item := GameItem new
+	item := CGameItem new
 		title: 'Final Fantasy X';
 		veryGoodCondition.
-	self assert: item condition equals: GameItem veryGoodCondition
+	self assert: item condition equals: CGameItem veryGoodCondition
 ]
 
 { #category : #tests }
 GameItemTest >> testPrintOnUpgraded [
 	| item |
-	item := GameItem new
+	item := CGameItem new
 		title: 'Final Fantasy X';
 		setPS1;
 		hasDocumentation: false;
@@ -159,12 +159,12 @@ GameItemTest >> testPrintOnUpgraded [
 { #category : #tests }
 GameItemTest >> testTwoItemsCanHaveTheSameName [
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		setPS1;
 		hasDocumentation: false.
 		
-	item2 := GameItem new 
+	item2 := CGameItem new 
 		title: 'Final Fantasy X';
 		setPS1;
 		hasDocumentation: true.
@@ -176,12 +176,12 @@ GameItemTest >> testTwoItemsCanHaveTheSameName [
 GameItemTest >> testTwoItemsWithSameNameButDifferentConsolesAreDifferent [
 	"this is obvious since we do not redefine = but better be sure"
 	| item1 item2 |
-	item1 := GameItem new
+	item1 := CGameItem new
 		title: 'Final Fantasy X';
 		setPS2;
 		hasDocumentation: false.
 		
-	item2 := GameItem new 
+	item2 := CGameItem new 
 		title: 'Final Fantasy X';
 		setPS1;
 		hasDocumentation: true.
@@ -192,14 +192,14 @@ GameItemTest >> testTwoItemsWithSameNameButDifferentConsolesAreDifferent [
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testUrl [
 	self
-		assert: (GameItem finalFantasyX coverUrlPart: 'finalfantasyx_eu') coverUrl
+		assert: (CGameItem finalFantasyX coverUrlPart: 'finalfantasyx_eu') coverUrl
 		equals: 'http://www.thecoverproject.net/images/covers/ps2_finalfantasyx_eu_thumb.jpg'
 ]
 
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testWrongGuessedUrlPart [
 	| g |
-	g := GameItem new
+	g := CGameItem new
 		title: 'Jak II';
 		setPS2.
 	g fetchCover.

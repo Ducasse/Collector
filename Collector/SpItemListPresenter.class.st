@@ -34,7 +34,7 @@ SpItemListPresenter class >> defaultSpec [
 { #category : #'instance creation' }
 SpItemListPresenter class >> open [
 	<script>
-	(self collection: (GameCollector smallCollection2 collectionNamed: #owned)) openWithSpec
+	(self collection: (CGameCollector smallCollection2 collectionNamed: #owned)) openWithSpec
 ]
 
 { #category : #accessing }
@@ -62,9 +62,8 @@ SpItemListPresenter >> initializePresenter [
 SpItemListPresenter >> initializeWidgets [
 	gamesListPresenter := self newList.
 	gameDisplayer := self instantiate: SpItemDisplayerPresenter.
-
 	gamesListPresenter
-		displayBlock: [ :item | item title , ' - ' , item console ];
+		display: [ :item | item title , ' - ' , item console ];
 		sortingBlock: [ :cls1 :cls2 | cls1 title < cls2 title ];
 		enableItemSubstringFilter
 ]

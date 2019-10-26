@@ -1,5 +1,5 @@
 Class {
-	#name : #GameItem,
+	#name : #CGameItem,
 	#superclass : #Object,
 	#instVars : [
 		'console',
@@ -22,109 +22,109 @@ Class {
 }
 
 { #category : #constant }
-GameItem class >> DS [
+CGameItem class >> DS [
 
 	^ #DS
 ]
 
 { #category : #constant }
-GameItem class >> GBA [
+CGameItem class >> GBA [
 
 	^ #GBA
 ]
 
 { #category : #constant }
-GameItem class >> GameBoy [
+CGameItem class >> GameBoy [
 
 	^ #GameBoy
 ]
 
 { #category : #constant }
-GameItem class >> GameCube [
+CGameItem class >> GameCube [
 
 	^ #GameCube
 ]
 
 { #category : #constant }
-GameItem class >> PS1 [
+CGameItem class >> PS1 [
 	^ #PS1
 	
 ]
 
 { #category : #constant }
-GameItem class >> PS2 [
+CGameItem class >> PS2 [
 	^ #PS2
 	
 ]
 
 { #category : #constant }
-GameItem class >> PS3 [
+CGameItem class >> PS3 [
 	^ #PS3
 	
 ]
 
 { #category : #constant }
-GameItem class >> PS4 [
+CGameItem class >> PS4 [
 	^ #PS4
 	
 ]
 
 { #category : #constant }
-GameItem class >> PSP [
+CGameItem class >> PSP [
 
 	^ #PSP 
 ]
 
 { #category : #constant }
-GameItem class >> TDS [
+CGameItem class >> TDS [
 
 	^ #TDS
 ]
 
 { #category : #constant }
-GameItem class >> Wii [
+CGameItem class >> Wii [
 
 	^ #Wii
 ]
 
 { #category : #constant }
-GameItem class >> WiiU [
+CGameItem class >> WiiU [
 
 	^ #WiiU
 ]
 
 { #category : #constant }
-GameItem class >> badCondition [
+CGameItem class >> badCondition [
 	^ 'Bad'
 ]
 
 { #category : #constant }
-GameItem class >> blisterCondition [
+CGameItem class >> blisterCondition [
 	^ 'Under blister'
 ]
 
 { #category : #constant }
-GameItem class >> conditions [
+CGameItem class >> conditions [
 
 	^ { self badCondition . self goodCondition . self veryGoodCondition . self blisterCondition}
 ]
 
 { #category : #constant }
-GameItem class >> consoles [ 
+CGameItem class >> consoles [ 
 
 	^ Consoles 
 ]
 
 { #category : #constant }
-GameItem class >> declareConsoles [ 
+CGameItem class >> declareConsoles [ 
 
 	Consoles := { self PS4 . self PS3 . self PS2. self  PS1 . self PSP . self DS . self TDS . self Wii . self WiiU . self GameCube . self GameBoy. self GBA}
 ]
 
 { #category : #examples }
-GameItem class >> finalFantasyX [
+CGameItem class >> finalFantasyX [
 	<sampleInstance>
-	^ GameItem new
+	^ CGameItem new
 		title: 'Final Fantasy X';
 		hasDocumentation: false;
 		finished: true;
@@ -136,9 +136,9 @@ GameItem class >> finalFantasyX [
 ]
 
 { #category : #examples }
-GameItem class >> finalFantasyX2 [
+CGameItem class >> finalFantasyX2 [
 	<sampleInstance>
-	^ GameItem new
+	^ CGameItem new
 		title: 'Final Fantasy X2';
 		hasDocumentation: true;
 		finished: true;
@@ -150,30 +150,30 @@ GameItem class >> finalFantasyX2 [
 ]
 
 { #category : #'instance creation' }
-GameItem class >> fromSTON: aString [ 
+CGameItem class >> fromSTON: aString [ 
 	^ STON fromString: aString
 ]
 
 { #category : #constant }
-GameItem class >> goodCondition [
+CGameItem class >> goodCondition [
 
 	^ 'Good'
 ]
 
 { #category : #initialize }
-GameItem class >> initialize [
+CGameItem class >> initialize [
 	"self initialize"
 
 	self declareConsoles
 ]
 
 { #category : #constant }
-GameItem class >> veryGoodCondition [
+CGameItem class >> veryGoodCondition [
 	^ 'Very Good'
 ]
 
 { #category : #'constant consoles' }
-GameItem >> PS1 [
+CGameItem >> PS1 [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver PS1' 
@@ -181,7 +181,7 @@ GameItem >> PS1 [
 ]
 
 { #category : #'constant consoles' }
-GameItem >> PS2 [
+CGameItem >> PS2 [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver PS2' 
@@ -189,7 +189,7 @@ GameItem >> PS2 [
 ]
 
 { #category : #'constant consoles' }
-GameItem >> PS3 [
+CGameItem >> PS3 [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver PS3' 
@@ -197,7 +197,7 @@ GameItem >> PS3 [
 ]
 
 { #category : #'constant consoles' }
-GameItem >> PS4 [
+CGameItem >> PS4 [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver PS4' 
@@ -205,7 +205,7 @@ GameItem >> PS4 [
 ]
 
 { #category : #'constant consoles' }
-GameItem >> PSP [
+CGameItem >> PSP [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver PSP' 
@@ -213,73 +213,73 @@ GameItem >> PSP [
 ]
 
 { #category : #conversion }
-GameItem >> asSTON [
+CGameItem >> asSTON [
 	^ STON toStringPretty: self.
 ]
 
 { #category : #constant }
-GameItem >> badCondition [
+CGameItem >> badCondition [
 	condition := self class badCondition
 ]
 
 { #category : #accessing }
-GameItem >> bought [
+CGameItem >> bought [
 
 	^ bought
 ]
 
 { #category : #accessing }
-GameItem >> bought: anInteger [
+CGameItem >> bought: anInteger [
 	bought := anInteger
 ]
 
 { #category : #accessing }
-GameItem >> comments [
+CGameItem >> comments [
 	^ comments .
 ]
 
 { #category : #accessing }
-GameItem >> comments: aString [ 
+CGameItem >> comments: aString [ 
 	comments := aString
 ]
 
 { #category : #accessing }
-GameItem >> condition [
+CGameItem >> condition [
 	^ condition
 ]
 
 { #category : #accessing }
-GameItem >> console [
+CGameItem >> console [
 	^ console
 ]
 
 { #category : #accessing }
-GameItem >> coverUrl [
+CGameItem >> coverUrl [
 	^ 'http://www.thecoverproject.net/images/covers/' , self console asLowercase , '_' , self coverUrlPart , '_thumb.jpg'
 ]
 
 { #category : #accessing }
-GameItem >> coverUrlPart [
+CGameItem >> coverUrlPart [
 	^ coverUrlPart
 ]
 
 { #category : #accessing }
-GameItem >> coverUrlPart: aString [ 
+CGameItem >> coverUrlPart: aString [ 
 	coverUrlPart := aString
 ]
 
 { #category : #accessing }
-GameItem >> critics [
+CGameItem >> critics [
 	^critics
 ]
 
 { #category : #accessing }
-GameItem >> critics: anInteger [ 
+CGameItem >> critics: anInteger [ 
 	critics := anInteger
 ]
 
 { #category : #'cover fetching logic' }
-GameItem >> fetchCover [
+CGameItem >> fetchCover [
 	
 	(coverUrlPart isNil or: [ coverUrlPart = self urlPartIsNetworkError ])
 		ifTrue: [ coverUrlPart := self guessUrlPart ].
@@ -291,17 +291,17 @@ GameItem >> fetchCover [
 ]
 
 { #category : #accessing }
-GameItem >> finished [
+CGameItem >> finished [
 	^ finished
 ]
 
 { #category : #accessing }
-GameItem >> finished: aBoolean [ 
+CGameItem >> finished: aBoolean [ 
 	finished := aBoolean
 ]
 
 { #category : #'constant consoles' }
-GameItem >> gameCube [
+CGameItem >> gameCube [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver gameCube' 
@@ -309,12 +309,12 @@ GameItem >> gameCube [
 ]
 
 { #category : #constant }
-GameItem >> goodCondition [
+CGameItem >> goodCondition [
 	condition := self class goodCondition.
 ]
 
 { #category : #'cover fetching logic' }
-GameItem >> guessUrlPart [
+CGameItem >> guessUrlPart [
 	^ ((self title asLowercase copyWithoutAll: ';,- :''') 
 		copyReplaceAll: '!' with: '-')
 		copyReplaceAll: '&'
@@ -322,27 +322,27 @@ GameItem >> guessUrlPart [
 ]
 
 { #category : #accessing }
-GameItem >> hasBox [
+CGameItem >> hasBox [
 	^ hasBox 
 ]
 
 { #category : #accessing }
-GameItem >> hasBox: aBoolean [ 
+CGameItem >> hasBox: aBoolean [ 
 	hasBox := aBoolean
 ]
 
 { #category : #accessing }
-GameItem >> hasDocumentation [
+CGameItem >> hasDocumentation [
 	^ hasDocumentation
 ]
 
 { #category : #accessing }
-GameItem >> hasDocumentation: aBoolean [
+CGameItem >> hasDocumentation: aBoolean [
 	hasDocumentation := aBoolean
 ]
 
 { #category : #initialization }
-GameItem >> initialize [
+CGameItem >> initialize [
 	super initialize.
 	hasDocumentation := true.
 	hasBox := true.
@@ -354,33 +354,33 @@ GameItem >> initialize [
 ]
 
 { #category : #testing }
-GameItem >> isBadCondition [
+CGameItem >> isBadCondition [
 	^ condition = self class badCondition
 ]
 
 { #category : #testing }
-GameItem >> isFinished [
+CGameItem >> isFinished [
 	^ finished
 ]
 
 { #category : #testing }
-GameItem >> isGoodCondition [
+CGameItem >> isGoodCondition [
 	^ condition = self class goodCondition
 ]
 
 { #category : #testing }
-GameItem >> isValid [
+CGameItem >> isValid [
 
 	^ self title isNotNil and: [ self console isNotNil ]
 ]
 
 { #category : #testing }
-GameItem >> isVeryGoodCondition [
+CGameItem >> isVeryGoodCondition [
 	^ condition = self class veryGoodCondition
 ]
 
 { #category : #printing }
-GameItem >> printOn: aStream [
+CGameItem >> printOn: aStream [
 
 	aStream 
 		nextPutAll: self title;
@@ -389,72 +389,72 @@ GameItem >> printOn: aStream [
 ]
 
 { #category : #accessing }
-GameItem >> quotation [
+CGameItem >> quotation [
 	^ quotation
 ]
 
 { #category : #accessing }
-GameItem >> quotation: anInteger [ 
+CGameItem >> quotation: anInteger [ 
 	quotation := anInteger
 ]
 
 { #category : #'cover fetching logic' }
-GameItem >> setCover [
+CGameItem >> setCover [
 	cover := self fetchCover 
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setDS [
+CGameItem >> setDS [
 	console := self class setDS
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setGameCube [
+CGameItem >> setGameCube [
 	console := self class GameCube
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setPS1 [
+CGameItem >> setPS1 [
 	console := self class PS1
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setPS2 [
+CGameItem >> setPS2 [
 	console := self class PS2
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setPS3 [
+CGameItem >> setPS3 [
 	console := self class PS3
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setPS4 [
+CGameItem >> setPS4 [
 	console := self class PS4
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setPSP [
+CGameItem >> setPSP [
 	console := self class PSP
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setThreeDS [
+CGameItem >> setThreeDS [
 	console := self class TDS
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setWii [
+CGameItem >> setWii [
 	console := self class Wii
 ]
 
 { #category : #'constant consoles' }
-GameItem >> setWiiU [
+CGameItem >> setWiiU [
 	console := self class WiiU
 ]
 
 { #category : #'constant consoles' }
-GameItem >> threeDS [
+CGameItem >> threeDS [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver threeDS' 
@@ -462,28 +462,28 @@ GameItem >> threeDS [
 ]
 
 { #category : #accessing }
-GameItem >> title [ 
+CGameItem >> title [ 
 	^ title
 ]
 
 { #category : #accessing }
-GameItem >> title: aString [ 
+CGameItem >> title: aString [ 
 	title := aString
 ]
 
 { #category : #'cover fetching logic' }
-GameItem >> urlPartIsNetworkError [
+CGameItem >> urlPartIsNetworkError [
 
 	^ 'no network'
 ]
 
 { #category : #constant }
-GameItem >> veryGoodCondition [
+CGameItem >> veryGoodCondition [
 	condition := self class veryGoodCondition.
 ]
 
 { #category : #'constant consoles' }
-GameItem >> wii [
+CGameItem >> wii [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver wii' 
@@ -491,7 +491,7 @@ GameItem >> wii [
 ]
 
 { #category : #'constant consoles' }
-GameItem >> wiiU [
+CGameItem >> wiiU [
 	self
 		deprecated: 'Please use #assert:description: instead'
 		transformWith: '`@receiver wiiU' 
@@ -499,6 +499,6 @@ GameItem >> wiiU [
 ]
 
 { #category : #'cover fetching logic' }
-GameItem >> wrongUrlPart [
+CGameItem >> wrongUrlPart [
 	^ 'broken guessed url part'
 ]

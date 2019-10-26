@@ -67,7 +67,7 @@ GameCollector {
 }
 "
 Class {
-	#name : #GameCollector,
+	#name : #CGameCollector,
 	#superclass : #Object,
 	#instVars : [
 		'fileName',
@@ -77,18 +77,18 @@ Class {
 }
 
 { #category : #import }
-GameCollector class >> loadFromFileReference: aFileReference [
+CGameCollector class >> loadFromFileReference: aFileReference [
 	"self loadFromFileReference: (FileSystem workingDirectory / 'Games.1.ston') "
 	^ STON fromStream: aFileReference readStream
 ]
 
 { #category : #import }
-GameCollector class >> loadFromStream: aStream [
+CGameCollector class >> loadFromStream: aStream [
 	^ STON fromStream: aStream
 ]
 
 { #category : #import }
-GameCollector class >> loadLatestSTON [
+CGameCollector class >> loadLatestSTON [
 
 	| fs |
 	fs := FileSystem workingDirectory.
@@ -98,14 +98,14 @@ GameCollector class >> loadLatestSTON [
 ]
 
 { #category : #examples }
-GameCollector class >> smallCollection [
+CGameCollector class >> smallCollection [
 	<sampleInstance>
 	| collector item1 item2 |
 	collector := self new.
 	collector declareNewCollection: #owned.
-	item1 := GameItem finalFantasyX.
+	item1 := CGameItem finalFantasyX.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Final Fantasy XII';
 		hasBox: false;
 		quotation: 10;
@@ -115,21 +115,21 @@ GameCollector class >> smallCollection [
 ]
 
 { #category : #examples }
-GameCollector class >> smallCollection2 [
+CGameCollector class >> smallCollection2 [
 	<sampleInstance>
 	| collector item1 item2 item3 |
 	collector := self new.
 	collector declareNewCollection: #owned.
-	item1 := GameItem finalFantasyX.
+	item1 := CGameItem finalFantasyX.
 	collector add: item1 to: #owned.
-	item2 := GameItem new
+	item2 := CGameItem new
 		title: 'Dragon Quest VIII: Journey Of The Cursed King';
 		hasBox: true;
 		quotation: 10;
 		critics: 18;
 		setPS2.
 	collector add: item2 to: #owned.
-	item3 := GameItem new
+	item3 := CGameItem new
 		title: 'Persona 3';
 		hasBox: true;
 		quotation: 20;
@@ -140,61 +140,61 @@ GameCollector class >> smallCollection2 [
 ]
 
 { #category : #'adding/removing' }
-GameCollector >> add: aGameItem to: aCollectionSymbol [
+CGameCollector >> add: aGameItem to: aCollectionSymbol [
 	(collectionDictionary at: aCollectionSymbol) add: aGameItem .
 ]
 
 { #category : #conversion }
-GameCollector >> asSTON [
+CGameCollector >> asSTON [
 	^ String streamContents: [ :s | self asSTON: s ]
 ]
 
 { #category : #conversion }
-GameCollector >> asSTON: aStream [
+CGameCollector >> asSTON: aStream [
 	^  STON put: self onStreamPretty: aStream
 ]
 
 { #category : #'collection management' }
-GameCollector >> collectionNamed: aCollectionSymbol [ 
+CGameCollector >> collectionNamed: aCollectionSymbol [ 
 	^ collectionDictionary at: aCollectionSymbol
 ]
 
 { #category : #'collection management' }
-GameCollector >> declareNewCollection: aSymbol [
+CGameCollector >> declareNewCollection: aSymbol [
 	(collectionDictionary includesKey: aSymbol)
 	ifFalse: 
 	[ collectionDictionary at: aSymbol put: OrderedCollection new ]
 ]
 
 { #category : #'collection management' }
-GameCollector >> declaredCollectionNames [
+CGameCollector >> declaredCollectionNames [
 	^ collectionDictionary keys.
 ]
 
 { #category : #accessing }
-GameCollector >> fileName [
+CGameCollector >> fileName [
 	^ fileName
 ]
 
 { #category : #accessing }
-GameCollector >> fileName: aString [ 
+CGameCollector >> fileName: aString [ 
 	fileName := aString
 ]
 
 { #category : #selection }
-GameCollector >> findInText: aPattern [
+CGameCollector >> findInText: aPattern [
 	^ self select: [ :each | (aPattern match: each title) or: [ aPattern match: each comments ] ]
 ]
 
 { #category : #initialize }
-GameCollector >> initialize [
+CGameCollector >> initialize [
 	super initialize.
 	fileName := 'Games'.
 	collectionDictionary := Dictionary new
 ]
 
 { #category : #'adding/removing' }
-GameCollector >> remove: aGameItem from: aSymbol [
+CGameCollector >> remove: aGameItem from: aSymbol [
 	(self declaredCollectionNames includes: aSymbol)
 	ifFalse: [^self].
 	(self collectionNamed: aSymbol) remove: aGameItem 
@@ -202,7 +202,7 @@ GameCollector >> remove: aGameItem from: aSymbol [
 ]
 
 { #category : #'file saving' }
-GameCollector >> save [
+CGameCollector >> save [
 	| stream fs |
 	fs := FileSystem workingDirectory.
 	stream := (fs / (fs nextNameFor: self fileName extension: 'ston')) asFileReference writeStream.
@@ -210,7 +210,7 @@ GameCollector >> save [
 ]
 
 { #category : #selection }
-GameCollector >> select: aBlock [
+CGameCollector >> select: aBlock [
 	| result |
 	result := OrderedCollection new.
 	self declaredCollectionNames do: [ :aCollectionName | result addAll: ((self collectionNamed: aCollectionName) select: aBlock) ].
@@ -218,6 +218,6 @@ GameCollector >> select: aBlock [
 ]
 
 { #category : #accessing }
-GameCollector >> sizeOf: aSymbol [
+CGameCollector >> sizeOf: aSymbol [
 	^ (self collectionNamed: aSymbol) size
 ]
