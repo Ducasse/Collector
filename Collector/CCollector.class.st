@@ -123,13 +123,12 @@ CCollector >> collectionNamed: aCollectionSymbol [
 { #category : #'collection management' }
 CCollector >> declareNewCollection: aSymbol [
 	(collectionDictionary includesKey: aSymbol)
-	ifFalse: 
-	[ collectionDictionary at: aSymbol put: OrderedCollection new ]
+		ifFalse: [ collectionDictionary at: aSymbol put: (CCollection new tag: aSymbol) ]
 ]
 
 { #category : #'collection management' }
 CCollector >> declaredCollectionNames [
-	^ collectionDictionary keys.
+	^ collectionDictionary keys
 ]
 
 { #category : #accessing }
@@ -157,9 +156,9 @@ CCollector >> initialize [
 { #category : #'adding/removing' }
 CCollector >> remove: aGameItem from: aSymbol [
 	(self declaredCollectionNames includes: aSymbol)
-	ifFalse: [^self].
+		ifFalse: [^self].
 	(self collectionNamed: aSymbol) remove: aGameItem 
-	ifAbsent: [  ]
+		ifAbsent: [  ]
 ]
 
 { #category : #'file saving' }

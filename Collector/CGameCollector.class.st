@@ -1,7 +1,7 @@
 Class {
 	#name : #CGameCollector,
 	#superclass : #CCollector,
-	#category : #'Collector-Core'
+	#category : #'Collector-Games'
 }
 
 { #category : #examples }

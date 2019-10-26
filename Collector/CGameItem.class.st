@@ -18,7 +18,7 @@ Class {
 	#classVars : [
 		'Consoles'
 	],
-	#category : #'Collector-Core'
+	#category : #'Collector-Games'
 }
 
 { #category : #constant }

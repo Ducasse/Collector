@@ -13,8 +13,14 @@ Class {
 		'serie',
 		'number'
 	],
-	#category : #'Collector-Core'
+	#category : #'Collector-SimpleBooks'
 }
+
+{ #category : #adding }
+CBookItem >> addAuthor: anAuthor [
+	authors add: anAuthor.
+	anAuthor addBook: self
+]
 
 { #category : #converrting }
 CBookItem >> asSTON [
@@ -52,6 +58,17 @@ CBookItem >> condition: anObject [
 ]
 
 { #category : #accessing }
+CBookItem >> didRead [
+	read := true
+]
+
+{ #category : #initialization }
+CBookItem >> initialize [ 
+	super initialize.
+	authors := OrderedCollection new.
+]
+
+{ #category : #accessing }
 CBookItem >> links [
 	^ links
 ]
@@ -59,6 +76,11 @@ CBookItem >> links [
 { #category : #accessing }
 CBookItem >> links: anObject [
 	links := anObject
+]
+
+{ #category : #accessing }
+CBookItem >> notRead [
+	read := false
 ]
 
 { #category : #accessing }
