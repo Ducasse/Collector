@@ -1,11 +1,16 @@
 Class {
-	#name : #CGameCollector,
+	#name : #CBookCollector,
 	#superclass : #CCollector,
 	#category : #'Collector-Core'
 }
 
+{ #category : #import }
+CBookCollector class >> filename [
+	^ 'Books'
+]
+
 { #category : #examples }
-CGameCollector class >> smallCollection [
+CBookCollector class >> smallCollection [
 	<sampleInstance>
 	| collector item1 item2 |
 	collector := self new.
@@ -22,7 +27,7 @@ CGameCollector class >> smallCollection [
 ]
 
 { #category : #examples }
-CGameCollector class >> smallCollection2 [
+CBookCollector class >> smallCollection2 [
 	<sampleInstance>
 	| collector item1 item2 item3 |
 	collector := self new.

@@ -10,7 +10,7 @@ Class {
 { #category : #tests }
 GameCollectorTest >> setUp [
 	
-	collector := CGameCollector new.
+	collector := CCollector new.
 	collector declareNewCollection: #owned.	
 ]
 
@@ -39,7 +39,7 @@ GameCollectorTest >> testAddTwoCopies [
 { #category : #tests }
 GameCollectorTest >> testConvertToSTON [
 	| collec item1 item2 |
-	collec := CGameCollector new.
+	collec := CCollector new.
 	collec declareNewCollection: #owned.
 	item1 := CGameItem finalFantasyX.
 	collec add: item1 to: #owned.
@@ -87,7 +87,7 @@ GameCollectorTest >> testConvertToSTON [
 GameCollectorTest >> testDeclareAlreadyNamedCollection [
 
 	| gc1 |
-	gc1 := CGameCollector new.
+	gc1 := CCollector new.
 	gc1 declareNewCollection: #Collec1.
 	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	gc1 declareNewCollection: #Collec1.
@@ -97,7 +97,7 @@ GameCollectorTest >> testDeclareAlreadyNamedCollection [
 { #category : #tests }
 GameCollectorTest >> testDeclareNewCollection [
 	| gc1 |
-	gc1 := CGameCollector new.
+	gc1 := CCollector new.
 	gc1 declareNewCollection: #Collec1.
 	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	self assert: (gc1 collectionNamed: #Collec1) size equals: 1
@@ -106,7 +106,7 @@ GameCollectorTest >> testDeclareNewCollection [
 { #category : #tests }
 GameCollectorTest >> testDeclaredCollectionNames [
 	| gc1 |
-	gc1 := CGameCollector new.
+	gc1 := CCollector new.
 	gc1 declareNewCollection: #Collec1.
 	gc1 add: CGameItem finalFantasyX to: #Collec1.
 	self assert: (gc1 declaredCollectionNames includes: #Collec1).
@@ -118,7 +118,7 @@ GameCollectorTest >> testDeclaredCollectionNames [
 
 { #category : #tests }
 GameCollectorTest >> testFileName [
-	CGameCollector smallCollection
+	CCollector smallCollection
 		fileName: 'TestCollec';
 		save.
 	self assert: (FileSystem workingDirectory / 'TestCollec.1.ston') exists.
@@ -176,7 +176,7 @@ GameCollectorTest >> testRemoveExisting [
 { #category : #tests }
 GameCollectorTest >> testRemoveFrom [
 	| item |
-	collector := CGameCollector smallCollection.
+	collector := CCollector smallCollection.
 	item := (collector collectionNamed: #owned) anyOne.
 	collector remove: item from: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 1

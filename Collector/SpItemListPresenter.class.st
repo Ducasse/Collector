@@ -34,7 +34,7 @@ SpItemListPresenter class >> defaultSpec [
 { #category : #'instance creation' }
 SpItemListPresenter class >> open [
 	<script>
-	(self collection: (CGameCollector smallCollection2 collectionNamed: #owned)) openWithSpec
+	(self collection: (CCollector smallCollection2 collectionNamed: #owned)) openWithSpec
 ]
 
 { #category : #accessing }
