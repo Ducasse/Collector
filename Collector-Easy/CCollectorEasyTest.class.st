@@ -1,11 +1,11 @@
 Class {
-	#name : #CollectorEasyTest,
+	#name : #CCollectorEasyTest,
 	#superclass : #TestCase,
-	#category : #'Collector-Easy'
+	#category : #'Collector-Easy-Importer'
 }
 
 { #category : #resources }
-CollectorEasyTest >> minilist [
+CCollectorEasyTest >> minilist [
 
 	^ 'Adam, Douglas : 
   books: 
@@ -59,19 +59,36 @@ Anderson, Poul :
 sum : 30'
 ]
 
-{ #category : #resources }
-CollectorEasyTest >> testImport [
+{ #category : #tests }
+CCollectorEasyTest >> testExtractAuthor [
+
+	| author |
+	author := (CCollectorEasy new extractAuthor: ' Wilson  ').
+	self assert: author name equals: 'Wilson'.
+	self assert: author firstName equals: ''
+]
+
+{ #category : #tests }
+CCollectorEasyTest >> testExtractAuthorWithFirstNames [
+
+	| author |
+	author := (CCollectorEasy new extractAuthor: ' Wilson  ,   Charles Robert ').
+	self assert: author name equals: 'Wilson'.
+	self assert: author firstName equals: 'Charles Robert'
+]
+
+{ #category : #tests }
+CCollectorEasyTest >> testImport [
 
 	| ce |
-	ce := CollectorEasy new 
-	
+	ce := CCollectorEasy new 
 				import: self minilist.
 	
-	self assert: ce collection 
+	self assert: ce collection books size equals: 30.
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testNested [
+CCollectorEasyTest >> testNested [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -102,7 +119,7 @@ deploy:
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testNestedUnnested [
+CCollectorEasyTest >> testNestedUnnested [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -135,7 +152,7 @@ CollectorEasyTest >> testNestedUnnested [
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testSimpleAuthorSequences [
+CCollectorEasyTest >> testSimpleAuthorSequences [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -153,7 +170,26 @@ Zelasny:
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testSimpleAuthorWithSeriesSequences [
+CCollectorEasyTest >> testSimpleAuthorValues [
+
+	| dict |
+	dict := PPYAMLGrammar parse:
+'
+Wilcon, Robert Charles: 
+      - { title: Darwinia, one : two , three: four , }
+      - Mysterium (lu une partie d''une ville est teleporte dans un monde parallele)
+      - Spin (lu la terre mis dans un sachet)
+Zelasny:
+      - Les neuf princes d''ambre
+'. 
+
+	self assert: dict size equals: 2.
+	self assert: (dict at: 'Wilcon, Robert Charles') size equals: 3
+
+]
+
+{ #category : #'tests basic YAML' }
+CCollectorEasyTest >> testSimpleAuthorWithSeriesSequences [
 
 	| dict |
 	dict := 
@@ -187,7 +223,7 @@ zelazny:
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testSimpleYAMLAuthor [
+CCollectorEasyTest >> testSimpleYAMLAuthor [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -196,7 +232,7 @@ CollectorEasyTest >> testSimpleYAMLAuthor [
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testSimpleYAMLNoDoubleKeyAuthor [
+CCollectorEasyTest >> testSimpleYAMLNoDoubleKeyAuthor [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -208,7 +244,7 @@ author: Zelazny'
 ]
 
 { #category : #'tests basic YAML' }
-CollectorEasyTest >> testSimpleYAMLSequences [
+CCollectorEasyTest >> testSimpleYAMLSequences [
 
 	| dict |
 	dict := PPYAMLGrammar parse:

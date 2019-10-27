@@ -39,7 +39,8 @@ CBookAuthor >> firstName: anObject [
 CBookAuthor >> initialize [ 	
 
 	super initialize.
-	books := OrderedCollection new
+	books := OrderedCollection  new.
+	firstName := ''
 ]
 
 { #category : #accessing }
