@@ -15,6 +15,16 @@ CCollection >> add: aCBookItem [
 	^ aCBookItem 
 ]
 
+{ #category : #'in/out' }
+CCollection >> asSTON [
+	^ String streamContents: [ :s | self asSTON: s ]
+]
+
+{ #category : #'in/out' }
+CCollection >> asSTON: aStream [
+	^  STON put: self onStreamPretty: aStream
+]
+
 { #category : #accessing }
 CCollection >> initialize [ 
 	super initialize. 
