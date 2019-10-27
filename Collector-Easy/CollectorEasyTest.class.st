@@ -4,7 +4,7 @@ Class {
 	#category : #'Collector-Easy'
 }
 
-{ #category : #tests }
+{ #category : #'tests basic YAML' }
 CollectorEasyTest >> testSimpleAuthorSequences [
 
 	| dict |
@@ -22,7 +22,41 @@ Zelasny:
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests basic YAML' }
+CollectorEasyTest >> testSimpleAuthorWithSeriesSequences [
+
+	| dict |
+	dict := 
+PPYAMLGrammar parse: '
+sum: 11
+
+Wilson, Charles Robert: 
+ books:
+   - Darwinia (250
+   - Mysterium (lu une partie d''une ville est teleporte dans un monde parallele)
+   - Spin (lu la terre mis dans un sachet)
+
+Hobb: 
+ chamane: 
+   - 1 blpe
+   - 2 blop2
+
+zelazny:  
+ books: 
+   - le demon de la farce 2.25
+   - seigneur de lumiere 2.25
+   - Un pont de cendres 1.6
+   - Leserum de la deesse bleue 2.5
+ ambre:
+   - 1 les neufs prince d''ambre
+   - 2 la cours du chaos
+ '. 
+
+	self assert: dict size equals: 4
+
+]
+
+{ #category : #'tests basic YAML' }
 CollectorEasyTest >> testSimpleYAMLAuthor [
 
 	| dict |
@@ -31,7 +65,7 @@ CollectorEasyTest >> testSimpleYAMLAuthor [
 	self assert: (dict at: 'author') equals: 'Wilcon, Robert Charles'
 ]
 
-{ #category : #tests }
+{ #category : #'tests basic YAML' }
 CollectorEasyTest >> testSimpleYAMLNoDoubleKeyAuthor [
 
 	| dict |
@@ -43,7 +77,7 @@ author: Zelazny'
 	self assert: (dict at: 'author') equals: 'Zelazny'
 ]
 
-{ #category : #tests }
+{ #category : #'tests basic YAML' }
 CollectorEasyTest >> testSimpleYAMLSequences [
 
 	| dict |

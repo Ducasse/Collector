@@ -13,8 +13,7 @@ BaselineOfCollector >> baseline: spec [
 			with: [
 					spec
 						loads: #('YAMLCore');
-						repository: 'github://moosetechnology/PetitParser/:v2.2.0/src'
-		].
+						repository: 'github://moosetechnology/PetitParser/:v2.2.0/src' ].
 		spec 
 			package: 'Collector';
 			package: 'Collector-Easy' with: [
