@@ -78,6 +78,19 @@ CCollectorEasyTest >> testExtractAuthorWithFirstNames [
 ]
 
 { #category : #tests }
+CCollectorEasyTest >> testExtractBook [
+
+	| book |
+	book := (CCollectorEasy new extractAuthor: (PPYAMLGrammar parse: '{title : Les vents du changement, read : no, style : SF, price : 2.39} ')).
+	
+	self assert: book title equals: 'Les vents du changement'.
+	self assert: book price equals: 2.39.
+	self assert: book style equals: 'SF'.
+	self deny: book read
+	
+]
+
+{ #category : #tests }
 CCollectorEasyTest >> testImport [
 
 	| ce |

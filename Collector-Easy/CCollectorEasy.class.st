@@ -23,6 +23,16 @@ CCollectorEasy >> extractAuthor: aString [
 	^ auth
 ]
 
+{ #category : #extracting }
+CCollectorEasy >> extractBook: aDict [ 
+	"Precondition: aSTring is either 'name' or 'name, first names"
+	| book |
+	book := CBookItem new.
+	aDict keysAndValuesDo: [ :k :v | 
+		book perform: k with: v ].
+	^ book
+]
+
 { #category : #importing }
 CCollectorEasy >> import: yamlString [
 	| col yamlDicts sum  |

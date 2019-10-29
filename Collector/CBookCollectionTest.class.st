@@ -81,5 +81,5 @@ CBookCollectionTest >> testSortedByAuthors [
 	#sorter : CByAuthorsCollectionSorter { }
 }'.
 	self assert: collector sorted first class equals: CBookAuthor.
-	self assert: collector sorted first  equals: CBookAuthor.
+	self assert: collector sorted first name  equals: 'Adam'.
 ]
