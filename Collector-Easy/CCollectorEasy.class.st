@@ -4,8 +4,21 @@ PPYAMLGrammar parse: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.y
 Class {
 	#name : #CCollectorEasy,
 	#superclass : #Object,
+	#instVars : [
+		'mapper'
+	],
 	#category : #'Collector-Easy-Importer'
 }
+
+{ #category : #mapper }
+CCollectorEasy >> defaultMapper [
+
+	| map |
+	map := CMapper new.
+	map convert: 'price' using: [ :each | each asNumber ].
+	map convert: 'read' using: [ :each | each = 'No' ifTrue: [ false ] ifFalse: [ true ] ].
+		
+]
 
 { #category : #extracting }
 CCollectorEasy >> extractAuthor: aString [ 
@@ -56,4 +69,16 @@ CCollectorEasy >> import: yamlString [
 	^ col
 	
 	
+]
+
+{ #category : #mapper }
+CCollectorEasy >> initialize [ 
+	super initialize. 
+	mapper := self defaultMapper.
+]
+
+{ #category : #mapper }
+CCollectorEasy >> mapper: aMapper [
+
+	mapper := aMapper
 ]

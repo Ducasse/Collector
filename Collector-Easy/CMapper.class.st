@@ -20,7 +20,7 @@ CMapper >> convert: aString using: aBlockClosure [
 
 { #category : #conversion }
 CMapper >> convert: aString value: aString2 [ 
-	^ (convertor at: aString) value: aString2
+	^ (convertor at: aString ifAbsent: [ [:each2 |each2 ] ]) value: aString2
 ]
 
 { #category : #'selector protocols' }

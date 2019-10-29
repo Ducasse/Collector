@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #tests }
+CMapperTest >> testDefaultUnspecifiedConversionIsIdentity [
+
+	| map |
+	map := CMapper new.
+	self assert: (map convert: 'pricezzz' value: '2.39') equals: '2.39'
+]
+
+{ #category : #tests }
 CMapperTest >> testPriceConversion [
 
 	| map |
