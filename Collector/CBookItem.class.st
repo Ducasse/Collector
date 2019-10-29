@@ -11,7 +11,9 @@ Class {
 		'title',
 		'authors',
 		'serie',
-		'number'
+		'number',
+		'style',
+		'format'
 	],
 	#category : #'Collector-SimpleBooks'
 }
@@ -60,6 +62,16 @@ CBookItem >> condition: anObject [
 { #category : #accessing }
 CBookItem >> didRead [
 	read := true
+]
+
+{ #category : #accessing }
+CBookItem >> format [
+	^ format
+]
+
+{ #category : #accessing }
+CBookItem >> format: anObject [
+	format := anObject
 ]
 
 { #category : #initialization }
@@ -121,6 +133,16 @@ CBookItem >> serie [
 { #category : #accessing }
 CBookItem >> serie: anObject [
 	serie := anObject
+]
+
+{ #category : #accessing }
+CBookItem >> style [
+	^ style
+]
+
+{ #category : #accessing }
+CBookItem >> style: anObject [
+	style := anObject
 ]
 
 { #category : #accessing }

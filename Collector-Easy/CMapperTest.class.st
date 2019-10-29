@@ -31,3 +31,11 @@ CMapperTest >> testTitleSelector [
 	
 	self assert: (map selectorFor: 'title')  equals: #title
 ]
+
+{ #category : #tests }
+CMapperTest >> testUnknownSelectorIsAsSymbol [
+
+	| map |
+	map := CMapper new.	
+	self assert: (map selectorFor: 'titleXX')  equals: #titleXX
+]

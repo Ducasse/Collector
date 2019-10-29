@@ -17,6 +17,7 @@ CCollectorEasy >> defaultMapper [
 	map := CMapper new.
 	map convert: 'price' using: [ :each | each asNumber ].
 	map convert: 'read' using: [ :each | each = 'No' ifTrue: [ false ] ifFalse: [ true ] ].
+
 		
 ]
 
@@ -56,7 +57,7 @@ CCollectorEasy >> import: yamlString [
 	yamlDicts removeKey: 'sum'.
 	yamlDicts keysAndValuesDo: [ :k :v | 
 			| author |
-			author := self extractAuhor: k.
+			author := self extractAuthor: k.
 			(v at: 'books') 
 				do: [ :each | 
 						| book |

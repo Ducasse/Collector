@@ -33,7 +33,7 @@ CMapper >> initialize [
 
 { #category : #'selector protocols' }
 CMapper >> selectorFor: aString [
-	^ selectorMap at: aString
+	^ selectorMap at: aString ifAbsent: [ aString asSymbol ]
 ]
 
 { #category : #'selector protocols' }
