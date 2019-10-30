@@ -1,5 +1,13 @@
 "
-PPYAMLGrammar parse: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml' asFileReference readStream contents
+CCollectorEasy new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml' asFileReference readStream contents
+
+
+Banks, Iain :  
+  books :
+   - {title: ""La plage de verre"", read: no}
+   - {title: ""Entrefer"", read: no}
+   - {title: ""Trames"", read: yes, summary: ""une histoire de civilisation moyennageuse vivant dans un monde fait de mondes dans une planete fabriquees space opera"")}
+   - {title: ""Une forme de guerre"", read: no}
 
 
 
