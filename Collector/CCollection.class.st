@@ -2,9 +2,9 @@ Class {
 	#name : #CCollection,
 	#superclass : #Object,
 	#instVars : [
-		'tag',
 		'items',
-		'sorter'
+		'sorter',
+		'name'
 	],
 	#category : #'Collector-Core'
 }
@@ -42,6 +42,16 @@ CCollection >> items: anObject [
 ]
 
 { #category : #accessing }
+CCollection >> name [
+	^ name
+]
+
+{ #category : #accessing }
+CCollection >> name: anObject [
+	name := anObject
+]
+
+{ #category : #accessing }
 CCollection >> size [ 
 	^ items size
 ]
@@ -60,14 +70,4 @@ CCollection >> sorter [
 { #category : #accessing }
 CCollection >> sorter: anObject [
 	sorter := anObject
-]
-
-{ #category : #accessing }
-CCollection >> tag [
-	^ tag
-]
-
-{ #category : #accessing }
-CCollection >> tag: anObject [
-	tag := anObject
 ]

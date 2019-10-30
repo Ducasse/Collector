@@ -123,7 +123,7 @@ CCollector >> collectionNamed: aCollectionSymbol [
 { #category : #'collection management' }
 CCollector >> declareNewCollection: aSymbol [
 	(collectionDictionary includesKey: aSymbol)
-		ifFalse: [ collectionDictionary at: aSymbol put: (CCollection new tag: aSymbol) ]
+		ifFalse: [ collectionDictionary at: aSymbol put: (CCollection new name: aSymbol) ]
 ]
 
 { #category : #'collection management' }

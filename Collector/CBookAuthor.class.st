@@ -52,3 +52,11 @@ CBookAuthor >> name [
 CBookAuthor >> name: anObject [
 	name := anObject
 ]
+
+{ #category : #printing }
+CBookAuthor >> printOn: aStream [
+
+
+	aStream << name.
+	firstName ifNotNil: [ :fstName | aStream << ', ' << fstName ]	
+]

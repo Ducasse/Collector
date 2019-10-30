@@ -26,7 +26,7 @@ CBookCollectionTest >> testSortedByAuthors [
 	| collector |
 	"the Ston string was generated using CBookCollector smallCollection asSTON"
 	collector := STON fromString: 'CCollection {
-	#tag : #plain,
+	#name : #plain,
 	#items : OrderedCollection [
 		CBookItem {
 			#read : true,

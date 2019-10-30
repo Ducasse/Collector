@@ -115,6 +115,12 @@ CBookItem >> price: anObject [
 	price := anObject
 ]
 
+{ #category : #printing }
+CBookItem >> printOn: aStream [
+
+	aStream << self title 
+]
+
 { #category : #accessing }
 CBookItem >> read [
 	^ read

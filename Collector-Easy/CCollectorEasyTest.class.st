@@ -9,54 +9,21 @@ CCollectorEasyTest >> minilist [
 
 	^ 'Adam, Douglas : 
   books: 
-   - Le guide du voyageur inter-galactique (lu delirant)
-   - H2G2 4 2 euros
-   - H2G2 3 2 euros
-   - H2G2 2 2 euros
-
+   - {title: Le guide du voyageur inter-galactique, read: true, summary: "un gars est capture par un vaisseau spatial et il lui arrive plein d''histoire aussi debiles les unes que les autres", style: comic english humour}
+   - {title: H2G2 2, read: no,  style: comic english humour, price: 2}
+   - {title: H2G2 3, read: no,  style: comic english humour, price: 2}
+   - {title: H2G2 4, read: no,  style: comic english humour, price: 2}
+ 
 
 Aldiss, Brian :
-  books: 
-   - Le printemps d''helliconia 1 euos
-   - Helliconia, l''ete 1 euros
-   - L''hiver d''helliconia 1 euros
-   - L''instant de l''eclipse
+  helliconia:  
+   - {title: Le printemps d''helliconia, read: no,  style: SF, price: 1}
+   - {title: "Helliconia, l''ete", read: no,  style: SF, price: 1}
+   - {title: L''hiver d''helliconia, read: no,  style: SF, price: 1}
+  books:
+   - {title: L''instant de l''eclipse, read: no,  style: fantaisie, price: 1}
 
-
-Ayerdhal:
-   - l''Histrion 1 euros
-
-
-Asimov, Isaac :  
-  books : 
-   - Un défilé de robots (lu longtemps)
-   - La voie martienne (lu longtemps)
-   - Les robots et l''empire I,
-   - Les robots et l''empire II (lu longtemps)
-   - Les cavernes d''acier (lu longtemps)
-   - Les courants de l''espace 
-   - Les dieux eux-memes
-   - DESTINATION CERVEAU 2.69
-   - Légende 
-   - L''avenir commence demain
-   - Les vents du changement 2,39
-   - nemesis 2,69
-   - le voyage fantastique 2,39
-  foundation: 
-   - Fondation
-   - Second fondation 2,69
-   - Fondation et empire
-   - Fondation foudroyée
-
-
-Anderson, Poul : 
-  books : 
-   - la reine de l''air et des tenebres 2.3
-   - la patrouille du temps 2.3 
-   - la route etoilee 2.3 
-   - Tau Zero 2 Euros
-
-sum : 30'
+sum : 8'
 ]
 
 { #category : #tests }
@@ -81,7 +48,7 @@ CCollectorEasyTest >> testExtractAuthorWithFirstNames [
 CCollectorEasyTest >> testExtractBook [
 
 	| book |
-	book := (CCollectorEasy new extractAuthor: (PPYAMLGrammar parse: '{title : Les vents du changement, read : no, style : SF, price : 2.39} ')).
+	book := (CCollectorEasy new extractBook: (PPYAMLGrammar parse: '{title : Les vents du changement, read : no, style : SF, price : 2.39} ')).
 	
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
@@ -93,11 +60,14 @@ CCollectorEasyTest >> testExtractBook [
 { #category : #tests }
 CCollectorEasyTest >> testImport [
 
-	| ce |
-	ce := CCollectorEasy new 
-				import: self minilist.
-	
-	self assert: ce collection books size equals: 30.
+	| ce liconia |
+	ce := CCollectorEasy new import: self minilist.
+	self assert: ce importedItemSize  equals: 8.
+	liconia := ce importedCollection items select: [ :each |  '*liconia*' match: each title  ].
+	self assert: liconia size equals: 3.
+	liconia do: [ :each | 
+		self assert: ('*liconia*' match: each serie name)
+		]
 ]
 
 { #category : #'tests basic YAML' }

@@ -14,7 +14,7 @@ CBookCollector class >> smallCollection [
 	<sampleInstance>
 	| collection item2 author  item1 item3 item4 |
 	collection := CCollection new.
-	collection tag: #plain. 
+	collection name: #plain. 
 	collection sorter: CByAuthorsCollectionSorter new. 
 	
 	author := (CBookAuthor new firstName: 'Douglas'; name: 'Adam').

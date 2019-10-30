@@ -1,13 +1,18 @@
 Class {
 	#name : #CSerieItem,
-	#superclass : #Object,
+	#superclass : #CCollection,
 	#instVars : [
-		'complete',
-		'summary',
-		'links',
-		'comments',
-		'title',
-		'authors'
+		'complete'
 	],
 	#category : #'Collector-SimpleBooks'
 }
+
+{ #category : #accessing }
+CSerieItem >> complete [
+	^ complete
+]
+
+{ #category : #accessing }
+CSerieItem >> complete: anObject [
+	complete := anObject
+]
