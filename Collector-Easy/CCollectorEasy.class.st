@@ -123,15 +123,17 @@ CCollectorEasy >> mapper: aMapper [
 
 { #category : #importing }
 CCollectorEasy >> treatAuthorNamed: anAuthorKey withData: aDictionary [
-	| author |
+	| author bookSection |
 	author := self extractAuthor: anAuthorKey.
 	
-	(aDictionary at: 'books')
+	bookSection := (aDictionary at: 'books' ifAbsent: [#()]).
+	bookSection
 		do: [ :each | 
 			| book |
 			book := self extractFullBook: each authored: author.
 			col add: book ].
-	aDictionary removeKey: 'books'.
+	bookSection ifNotEmpty: [aDictionary removeKey: 'books'].
+	
 	aDictionary keysAndValuesDo: [ :aSerie :books | 
 			
 			| serie |
@@ -148,5 +150,5 @@ CCollectorEasy >> treatAuthorNamed: anAuthorKey withData: aDictionary [
 { #category : #importing }
 CCollectorEasy >> validateSumIsCorrect: sum [
 	col size = sum asNumber
-		ifFalse: [ CImporterError signal: 'Expecting ', sum asString, ' but imported ', col size asString ]
+		ifFalse: [ CImporterError new messageText: 'Expecting ', sum asString, ' but imported ', col size asString ; signal]
 ]
