@@ -13,7 +13,9 @@ Class {
 		'serie',
 		'number',
 		'style',
-		'format'
+		'format',
+		'part',
+		'originalTitle'
 	],
 	#category : #'Collector-SimpleBooks'
 }
@@ -103,6 +105,26 @@ CBookItem >> number [
 { #category : #accessing }
 CBookItem >> number: anObject [
 	number := anObject
+]
+
+{ #category : #accessing }
+CBookItem >> originalTitle [
+	^ originalTitle
+]
+
+{ #category : #accessing }
+CBookItem >> originalTitle: anObject [
+	originalTitle := anObject
+]
+
+{ #category : #accessing }
+CBookItem >> part [
+	^ part
+]
+
+{ #category : #accessing }
+CBookItem >> part: anObject [
+	part := anObject
 ]
 
 { #category : #accessing }
