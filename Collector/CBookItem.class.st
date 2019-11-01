@@ -15,7 +15,8 @@ Class {
 		'style',
 		'format',
 		'part',
-		'originalTitle'
+		'originalTitle',
+		'year'
 	],
 	#category : #'Collector-SimpleBooks'
 }
@@ -191,4 +192,14 @@ CBookItem >> title [
 { #category : #accessing }
 CBookItem >> title: anObject [
 	title := anObject
+]
+
+{ #category : #accessing }
+CBookItem >> year [
+	^ year
+]
+
+{ #category : #accessing }
+CBookItem >> year: anObject [
+	year := anObject
 ]
