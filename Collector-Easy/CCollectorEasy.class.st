@@ -39,6 +39,7 @@ CCollectorEasy >> defaultMapper [
 	| map |
 	map := CMapper new.
 	map convert: 'price' using: [ :each | each asNumber ].
+	map convert: 'year' using: [ :each | each asNumber ].
 	map convert: 'read' using: [ :each | each asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] ].
 	^ map
 
