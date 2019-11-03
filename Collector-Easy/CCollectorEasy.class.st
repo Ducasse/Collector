@@ -88,6 +88,7 @@ CCollectorEasy >> extractBook: aDict [
 CCollectorEasy >> extractFullBook: each authored: author [
 	| book |
 	book := self extractBook: each.
+	book addAuthor: author.
 	author addBook: book.
 	^ book
 ]
