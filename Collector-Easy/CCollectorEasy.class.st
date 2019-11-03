@@ -1,5 +1,9 @@
 "
+CCollectorEasy new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'
+
+
 CCollectorEasy new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml' asFileReference readStream contents
+
 
 
 Banks, Iain :  
@@ -32,6 +36,12 @@ Class {
 	],
 	#category : #'Collector-Easy-Importer'
 }
+
+{ #category : #'as yet unclassified' }
+CCollectorEasy class >> importFromFileName: aName [
+	"self importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'  "
+	^ self new import: aName asFileReference readStream contents; yourself
+]
 
 { #category : #mapper }
 CCollectorEasy >> defaultMapper [

@@ -70,6 +70,16 @@ CCollectorEasyTest >> testImport [
 		]
 ]
 
+{ #category : #tests }
+CCollectorEasyTest >> testImportAuthor [
+
+	| ce liconia book1 |
+	ce := CCollectorEasy new import: self minilist.
+	self assert: ce importedItemSize  equals: 8.
+	book1 := (ce importedCollection items select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
+	self assert: book1 authors size equals: 1.
+]
+
 { #category : #'tests basic YAML' }
 CCollectorEasyTest >> testNested [
 

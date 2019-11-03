@@ -1,6 +1,7 @@
 "
 GameCollector loadLatestSTON
 
+A Collector contains several collections of items. 
 
 Todo: 
 - gestion des collections. 
