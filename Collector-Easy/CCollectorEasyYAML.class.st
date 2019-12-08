@@ -28,7 +28,7 @@ Aldiss, Brian :
    - {title: ""L'instant de l'eclipse"", read: no,  style: fantaisie, price: 1}
 "
 Class {
-	#name : #CCollectorEasy,
+	#name : #CCollectorEasyYAML,
 	#superclass : #Object,
 	#instVars : [
 		'mapper',
@@ -38,13 +38,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-CCollectorEasy class >> importFromFileName: aName [
+CCollectorEasyYAML class >> importFromFileName: aName [
 	"self importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'  "
 	^ self new import: aName asFileReference readStream contents; yourself
 ]
 
 { #category : #mapper }
-CCollectorEasy >> defaultMapper [
+CCollectorEasyYAML >> defaultMapper [
 
 	| map |
 	map := CMapper new.
@@ -57,7 +57,7 @@ CCollectorEasy >> defaultMapper [
 ]
 
 { #category : #extracting }
-CCollectorEasy >> extractAuthor: aString [ 
+CCollectorEasyYAML >> extractAuthor: aString [ 
 	"Precondition: aSTring is either 'name' or 'name, first names"
 	| auth split |
 	auth := CBookAuthor new.
@@ -73,7 +73,7 @@ CCollectorEasy >> extractAuthor: aString [
 ]
 
 { #category : #extracting }
-CCollectorEasy >> extractBook: aDict [ 
+CCollectorEasyYAML >> extractBook: aDict [ 
 	"Precondition: aSTring is either 'name' or 'name, first names"
 	| book |
 	book := CBookItem new.
@@ -85,7 +85,7 @@ CCollectorEasy >> extractBook: aDict [
 ]
 
 { #category : #importing }
-CCollectorEasy >> extractFullBook: each authored: author [
+CCollectorEasyYAML >> extractFullBook: each authored: author [
 	| book |
 	book := self extractBook: each.
 	book addAuthor: author.
@@ -94,7 +94,7 @@ CCollectorEasy >> extractFullBook: each authored: author [
 ]
 
 { #category : #importing }
-CCollectorEasy >> import: yamlString [
+CCollectorEasyYAML >> import: yamlString [
 	| yamlDicts sum |
 	yamlDicts := PPYAMLGrammar parse: yamlString.
 	sum := (yamlDicts at: 'sum') asString.
@@ -108,19 +108,19 @@ CCollectorEasy >> import: yamlString [
 ]
 
 { #category : #importing }
-CCollectorEasy >> importedCollection [
+CCollectorEasyYAML >> importedCollection [
 
 	^ col 
 ]
 
 { #category : #importing }
-CCollectorEasy >> importedItemSize [
+CCollectorEasyYAML >> importedItemSize [
 
 	^ col size
 ]
 
 { #category : #initialize }
-CCollectorEasy >> initialize [
+CCollectorEasyYAML >> initialize [
 
 	super initialize.
 	col := CCollection new.
@@ -128,13 +128,13 @@ CCollectorEasy >> initialize [
 ]
 
 { #category : #mapper }
-CCollectorEasy >> mapper: aMapper [
+CCollectorEasyYAML >> mapper: aMapper [
 
 	mapper := aMapper
 ]
 
 { #category : #importing }
-CCollectorEasy >> treatAuthorNamed: anAuthorKey withData: aDictionary [
+CCollectorEasyYAML >> treatAuthorNamed: anAuthorKey withData: aDictionary [
 	| author bookSection |
 	author := self extractAuthor: anAuthorKey.
 	
@@ -160,7 +160,7 @@ CCollectorEasy >> treatAuthorNamed: anAuthorKey withData: aDictionary [
 ]
 
 { #category : #importing }
-CCollectorEasy >> validateSumIsCorrect: sum [
+CCollectorEasyYAML >> validateSumIsCorrect: sum [
 	col size = sum asNumber
 		ifFalse: [ CImporterError new messageText: 'Expecting ', sum asString, ' but imported ', col size asString ; signal]
 ]

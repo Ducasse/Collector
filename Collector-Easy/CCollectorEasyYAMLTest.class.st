@@ -1,11 +1,11 @@
 Class {
-	#name : #CCollectorEasyTest,
+	#name : #CCollectorEasyYAMLTest,
 	#superclass : #TestCase,
 	#category : #'Collector-Easy-Importer'
 }
 
 { #category : #resources }
-CCollectorEasyTest >> minilist [
+CCollectorEasyYAMLTest >> minilist [
 
 	^ 'Adam, Douglas : 
   books: 
@@ -27,28 +27,28 @@ sum : 8'
 ]
 
 { #category : #tests }
-CCollectorEasyTest >> testExtractAuthor [
+CCollectorEasyYAMLTest >> testExtractAuthor [
 
 	| author |
-	author := (CCollectorEasy new extractAuthor: ' Wilson  ').
+	author := (CCollectorEasyYAML new extractAuthor: ' Wilson  ').
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: ''
 ]
 
 { #category : #tests }
-CCollectorEasyTest >> testExtractAuthorWithFirstNames [
+CCollectorEasyYAMLTest >> testExtractAuthorWithFirstNames [
 
 	| author |
-	author := (CCollectorEasy new extractAuthor: ' Wilson  ,   Charles Robert ').
+	author := (CCollectorEasyYAML new extractAuthor: ' Wilson  ,   Charles Robert ').
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: 'Charles Robert'
 ]
 
 { #category : #tests }
-CCollectorEasyTest >> testExtractBook [
+CCollectorEasyYAMLTest >> testExtractBook [
 
 	| book |
-	book := (CCollectorEasy new extractBook: (PPYAMLGrammar parse: '{title : Les vents du changement, read : no, style : SF, price : 2.39} ')).
+	book := (CCollectorEasyYAML new extractBook: (PPYAMLGrammar parse: '{title : Les vents du changement, read : no, style : SF, price : 2.39} ')).
 	
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
@@ -58,10 +58,10 @@ CCollectorEasyTest >> testExtractBook [
 ]
 
 { #category : #tests }
-CCollectorEasyTest >> testImport [
+CCollectorEasyYAMLTest >> testImport [
 
 	| ce liconia |
-	ce := CCollectorEasy new import: self minilist.
+	ce := CCollectorEasyYAML new import: self minilist.
 	self assert: ce importedItemSize  equals: 8.
 	liconia := ce importedCollection items select: [ :each |  '*liconia*' match: each title  ].
 	self assert: liconia size equals: 3.
@@ -71,17 +71,17 @@ CCollectorEasyTest >> testImport [
 ]
 
 { #category : #tests }
-CCollectorEasyTest >> testImportAuthor [
+CCollectorEasyYAMLTest >> testImportAuthor [
 
 	| ce liconia book1 |
-	ce := CCollectorEasy new import: self minilist.
+	ce := CCollectorEasyYAML new import: self minilist.
 	self assert: ce importedItemSize  equals: 8.
 	book1 := (ce importedCollection items select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
 	self assert: book1 authors size equals: 1.
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testNested [
+CCollectorEasyYAMLTest >> testNested [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -112,7 +112,7 @@ deploy:
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testNestedUnnested [
+CCollectorEasyYAMLTest >> testNestedUnnested [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -145,7 +145,7 @@ CCollectorEasyTest >> testNestedUnnested [
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleAuthorSequences [
+CCollectorEasyYAMLTest >> testSimpleAuthorSequences [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -163,7 +163,7 @@ Zelasny:
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleAuthorValues [
+CCollectorEasyYAMLTest >> testSimpleAuthorValues [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -182,7 +182,7 @@ Zelasny:
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleAuthorWithSeriesSequences [
+CCollectorEasyYAMLTest >> testSimpleAuthorWithSeriesSequences [
 
 	| dict |
 	dict := 
@@ -216,7 +216,7 @@ zelazny:
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleYAMLAuthor [
+CCollectorEasyYAMLTest >> testSimpleYAMLAuthor [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -225,7 +225,7 @@ CCollectorEasyTest >> testSimpleYAMLAuthor [
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleYAMLNoDoubleKeyAuthor [
+CCollectorEasyYAMLTest >> testSimpleYAMLNoDoubleKeyAuthor [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
@@ -237,7 +237,7 @@ author: Zelazny'
 ]
 
 { #category : #'tests basic YAML' }
-CCollectorEasyTest >> testSimpleYAMLSequences [
+CCollectorEasyYAMLTest >> testSimpleYAMLSequences [
 
 	| dict |
 	dict := PPYAMLGrammar parse:
