@@ -16,7 +16,7 @@ BaselineOfCollector >> baseline: spec [
 						loads: #('YAMLCore');
 						repository: 'github://moosetechnology/PetitParser:v2.2.0/src' ].
 		spec
-			baseline: 'DLittle'
+			baseline: 'Descent'
 			with: [
 					spec repository: 'github://Ducasse/Descent/' ].
 		spec 
@@ -24,7 +24,7 @@ BaselineOfCollector >> baseline: spec [
 			package: 'Collector-Easy' with: [
 				spec requires: #('Collector' #'PetitParser')];
 			package: 'Collector-DLittle' with: [
-				spec requires: #('Collector' #'DLittle')].
+				spec requires: #('Collector' #'Descent')].
 		spec 
 			group: 'default' with: #('Collector' 'Collector-Easy' 'Collector-DLittle') ]
 ]

@@ -1,3 +1,6 @@
+"
+A BookCollector contains several collections of items related to books.
+"
 Class {
 	#name : #CBookCollector,
 	#superclass : #CCollector,

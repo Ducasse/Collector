@@ -1,17 +1,22 @@
 "
-GameCollector loadLatestSTON
-
 A Collector contains several collections of items. 
+still heavily under flux.
+
+Main API is 
+	- collectionNamed: aCollectionSymbol 
+	- declareNewCollection: aSymbol
 
 Todo: 
-- gestion des collections. 
-       - [Done] the user may want to add a new collection like (#shittyTitles).
-       - move all items from collection to another. 
-	  - Remove collection without losing the items. may be put them in a limbo collection 
+gestion des collections. 
+	- [Done] the user may want to add a new collection like (#shittyTitles).
+	- move all items from collection to another. 
+	- Remove collection without losing the items. may be put them in a limbo collection 
 	 
+	
+When using STONCStyleCommentsSkipStreamTest 
+GameCollector loadLatestSTON
 
-
-
+Example of STON 
 
 GameCollector {
 	#fileName : 'Games',
