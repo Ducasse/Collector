@@ -7,3 +7,9 @@ Class {
 	#superclass : #Object,
 	#category : #'Collector-Core'
 }
+
+{ #category : #sorting }
+CCollectionSorter >> sort: items [ 
+
+	^ items
+]

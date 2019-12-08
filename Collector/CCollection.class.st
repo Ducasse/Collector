@@ -15,6 +15,12 @@ CCollection >> add: aCBookItem [
 	^ aCBookItem 
 ]
 
+{ #category : #initialization }
+CCollection >> anyOne [
+
+	^ items anyOne
+]
+
 { #category : #'in/out' }
 CCollection >> asSTON [
 	^ String streamContents: [ :s | self asSTON: s ]
@@ -26,9 +32,22 @@ CCollection >> asSTON: aStream [
 ]
 
 { #category : #accessing }
+CCollection >> at: index ifAbsent: aBlock [ 
+	
+	^ items at: index ifAbsent: aBlock 
+]
+
+{ #category : #'collection api' }
+CCollection >> includes: anItem [
+
+	^ items includes: anItem
+]
+
+{ #category : #initialization }
 CCollection >> initialize [ 
 	super initialize. 
 	self items: OrderedCollection new. 
+	self sorter: CCollectionSorter new
 ]
 
 { #category : #accessing }
@@ -51,6 +70,18 @@ CCollection >> name: anObject [
 	name := anObject
 ]
 
+{ #category : #'collection api' }
+CCollection >> remove: anItem [
+
+	items remove: anItem
+]
+
+{ #category : #'collection api' }
+CCollection >> select: aBlock [
+
+	^ items select: aBlock
+]
+
 { #category : #accessing }
 CCollection >> size [ 
 	^ items size
@@ -60,6 +91,12 @@ CCollection >> size [
 CCollection >> sorted [ 
 
 	^ self sorter sort: self items
+]
+
+{ #category : #sorting }
+CCollection >> sorted: aBlock [
+
+	^ self sorter sort: items
 ]
 
 { #category : #accessing }

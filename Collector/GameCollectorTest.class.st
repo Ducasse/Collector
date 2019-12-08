@@ -10,7 +10,7 @@ Class {
 { #category : #tests }
 GameCollectorTest >> setUp [
 	
-	collector := CCollector new.
+	collector := CGameCollector new.
 	collector declareNewCollection: #owned.	
 ]
 
@@ -39,7 +39,7 @@ GameCollectorTest >> testAddTwoCopies [
 { #category : #tests }
 GameCollectorTest >> testConvertToSTON [
 	| collec item1 item2 |
-	collec := CCollector new.
+	collec := CGameCollector new.
 	collec declareNewCollection: #owned.
 	item1 := CGameItem finalFantasyX.
 	collec add: item1 to: #owned.
@@ -52,33 +52,36 @@ GameCollectorTest >> testConvertToSTON [
 	self
 		assert: collec asSTON
 		equals:
-			'GameCollector {
+			 'CGameCollector {
 	#fileName : ''Games'',
 	#collectionDictionary : {
-		#owned : OrderedCollection [
-			GameItem {
-				#console : #PS2,
-				#hasDocumentation : false,
-				#hasBox : true,
-				#finished : true,
-				#condition : ''Good'',
-				#quotation : 10,
-				#critics : 18,
-				#comments : ''quite cool in fact'',
-				#coverUrlPart : ''finalfantasyx_eu'',
-				#title : ''Final Fantasy X''
-			},
-			GameItem {
-				#hasDocumentation : true,
-				#hasBox : false,
-				#finished : false,
-				#condition : ''Good'',
-				#quotation : 10,
-				#critics : 15,
-				#comments : '''',
-				#title : ''Final Fantasy XII''
-			}
-		]
+		#owned : CCollection {
+			#items : OrderedCollection [
+				CGameItem {
+					#console : #PS2,
+					#hasDocumentation : false,
+					#hasBox : true,
+					#finished : true,
+					#condition : ''Good'',
+					#quotation : 10,
+					#critics : 18,
+					#comments : ''quite cool in fact'',
+					#coverUrlPart : ''finalfantasyx_eu'',
+					#title : ''Final Fantasy X''
+				},
+				CGameItem {
+					#hasDocumentation : true,
+					#hasBox : false,
+					#finished : false,
+					#condition : ''Good'',
+					#quotation : 10,
+					#critics : 15,
+					#comments : '''',
+					#title : ''Final Fantasy XII''
+				}
+			],
+			#name : #owned
+		}
 	}
 }'
 ]
@@ -118,7 +121,7 @@ GameCollectorTest >> testDeclaredCollectionNames [
 
 { #category : #tests }
 GameCollectorTest >> testFileName [
-	CCollector smallCollection
+	CGameCollector smallCollection
 		fileName: 'TestCollec';
 		save.
 	self assert: (FileSystem workingDirectory / 'TestCollec.1.ston') exists.
@@ -176,7 +179,7 @@ GameCollectorTest >> testRemoveExisting [
 { #category : #tests }
 GameCollectorTest >> testRemoveFrom [
 	| item |
-	collector := CCollector smallCollection.
+	collector := CGameCollector smallCollection.
 	item := (collector collectionNamed: #owned) anyOne.
 	collector remove: item from: #owned.
 	self assert: (collector collectionNamed: #owned) size equals: 1
