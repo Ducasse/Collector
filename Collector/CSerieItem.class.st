@@ -1,3 +1,8 @@
+"
+I'm a kind of collection and I know if I'm complete or not.
+This behavior may make more sense in the superclass. 
+So we should reevaluate it. 
+"
 Class {
 	#name : #CSerieItem,
 	#superclass : #CCollection,

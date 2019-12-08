@@ -1,5 +1,7 @@
 "
 A BookCollector contains several collections of items related to books.
+
+It is unclear that we will need it and still plain brainstorming. 
 "
 Class {
 	#name : #CBookCollector,

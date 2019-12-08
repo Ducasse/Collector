@@ -10,7 +10,7 @@ Class {
 		'selectorMap',
 		'convertor'
 	],
-	#category : #'Collector-Easy'
+	#category : #'Collector-Importer'
 }
 
 { #category : #conversion }

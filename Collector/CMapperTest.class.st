@@ -1,7 +1,7 @@
 Class {
 	#name : #CMapperTest,
 	#superclass : #TestCase,
-	#category : #'Collector-Easy'
+	#category : #'Collector-Importer'
 }
 
 { #category : #tests }
