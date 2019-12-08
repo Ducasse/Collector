@@ -52,7 +52,7 @@ GameCollectorTest >> testConvertToSTON [
 	self
 		assert: collec asSTON
 		equals:
-			 'CGameCollector {
+			  'CGameCollector {
 	#fileName : ''Games'',
 	#collectionDictionary : {
 		#owned : CCollection {
@@ -80,6 +80,7 @@ GameCollectorTest >> testConvertToSTON [
 					#title : ''Final Fantasy XII''
 				}
 			],
+			#sorter : CCollectionSorter { },
 			#name : #owned
 		}
 	}

@@ -31,7 +31,13 @@ CCollection >> asSTON: aStream [
 	^  STON put: self onStreamPretty: aStream
 ]
 
-{ #category : #accessing }
+{ #category : #'collection api' }
+CCollection >> at: index [ 
+	
+	^ items at: index
+]
+
+{ #category : #'collection api' }
 CCollection >> at: index ifAbsent: aBlock [ 
 	
 	^ items at: index ifAbsent: aBlock 
@@ -74,6 +80,12 @@ CCollection >> name: anObject [
 CCollection >> remove: anItem [
 
 	items remove: anItem
+]
+
+{ #category : #'collection api' }
+CCollection >> remove: anItem ifAbsent: aBlock [
+
+	items remove: anItem ifAbsent: aBlock
 ]
 
 { #category : #'collection api' }
