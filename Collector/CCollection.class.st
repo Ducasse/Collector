@@ -58,7 +58,7 @@ CCollection >> size [
 
 { #category : #sorting }
 CCollection >> sorted [ 
-	self halt.
+
 	^ self sorter sort: self items
 ]
 

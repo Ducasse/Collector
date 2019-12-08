@@ -17,7 +17,7 @@ GameItemTest >> testConsole [
 { #category : #tests }
 GameItemTest >> testConversionFromSTON [
 	| string item ff |
-	string := 'GameItem {
+	string :=  'CGameItem {
 	#console : #PS2,
 	#hasDocumentation : false,
 	#hasBox : true,
@@ -26,6 +26,7 @@ GameItemTest >> testConversionFromSTON [
 	#quotation : 10,
 	#critics : 18,
 	#comments : ''quite cool in fact'',
+	#coverUrlPart : ''finalfantasyx_eu'',
 	#title : ''Final Fantasy X''
 }'.
 	item := CGameItem fromSTON: string.
@@ -48,7 +49,7 @@ GameItemTest >> testConversionToSTON [
 	self
 		assert: item asSTON
 		equals:
-			'GameItem {
+			 'CGameItem {
 	#console : #PS2,
 	#hasDocumentation : false,
 	#hasBox : true,
