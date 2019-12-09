@@ -45,6 +45,18 @@ CCollectorDLittleImporter class >> importFromFileName: aName [
 	^ self new import: aName asFileReference readStream contents; yourself
 ]
 
+{ #category : #extracting }
+CCollectorDLittleImporter >> bookFrom: aList [
+	
+	| book |
+	book := CBookItem new.
+	aList keysAndValuesDo: [ :k :v | 
+		book 
+			perform: (mapper selectorFor: k) asMutator
+			with: (mapper convert: k value: v) ].
+	^ book
+]
+
 { #category : #mapper }
 CCollectorDLittleImporter >> defaultMapper [
 
@@ -58,10 +70,10 @@ CCollectorDLittleImporter >> defaultMapper [
 		
 ]
 
-{ #category : #extracting }
-CCollectorDLittleImporter >> extractAuthor: aString [ 
+{ #category : #helpers }
+CCollectorDLittleImporter >> extractAuthorFromString: aString [ 
 	"Precondition: aString is either 'name' or 'name, first names"
-
+	"Return an author does not add it to anything"
 	| auth split |
 	auth := CBookAuthor new.
 	split := aString trimBoth splitOn: $,.
@@ -75,38 +87,28 @@ CCollectorDLittleImporter >> extractAuthor: aString [
 ]
 
 { #category : #extracting }
-CCollectorDLittleImporter >> extractBook: aList [
-	
-	| book |
-	book := CBookItem new.
-	aList keysAndValuesDo: [ :k :v | 
-		book 
-			perform: (mapper selectorFor: k) asMutator
-			with: (mapper convert: k value: v) ].
-	^ book
-]
-
-{ #category : #importing }
-CCollectorDLittleImporter >> extractFullBook: each authored: author [
-	| book |
-	book := self extractBook: each.
-	book addAuthor: author.
-	author addBook: book.
-	^ book
-]
-
-{ #category : #extracting }
 CCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
-
+	"Create a serie and add all its books to the collection"
+	
 	| serie |
 	serie := CSerieItem new name: aList value. 
 	aList restDo: [ :each | 
 			| book |
-			book := self extractFullBook: each authored: anAuthor.
+			book := self fullBook: each authored: anAuthor.
 			serie add: book.
 			book serie: serie.
 			col add: book ]
 	
+]
+
+{ #category : #extracting }
+CCollectorDLittleImporter >> fullBook: each authored: author [
+	"Return a book from"
+	| book |
+	book := self bookFrom: each.
+	book addAuthor: author.
+	author addBook: book.
+	^ book
 ]
 
 { #category : #importing }
@@ -118,21 +120,21 @@ CCollectorDLittleImporter >> import: aString [
 	
 	list restDo: [ :b | 
 		| author |
-		author := self extractAuthor: b value.
+		author := self extractAuthorFromString: b value.
 		b restDo: [ :aSerie | 
 			self extractSerieFrom: aSerie withAuthor: author ]].
 			
-	self validateSumIsCorrect: sum.
+	self validateSumIsCorrect: sum value.
 	
 ]
 
-{ #category : #importing }
+{ #category : #accessing }
 CCollectorDLittleImporter >> importedCollection [
 
 	^ col 
 ]
 
-{ #category : #importing }
+{ #category : #accessing }
 CCollectorDLittleImporter >> importedItemSize [
 
 	^ col size
@@ -151,31 +153,6 @@ CCollectorDLittleImporter >> initialize [
 CCollectorDLittleImporter >> mapper: aMapper [
 
 	mapper := aMapper
-]
-
-{ #category : #importing }
-CCollectorDLittleImporter >> treatAuthorNamed: anAuthorKey withData: aDictionary [
-	| author bookSection |
-	author := self extractAuthor: anAuthorKey.
-	
-	bookSection := (aDictionary at: 'books' ifAbsent: [#()]).
-	bookSection
-		do: [ :each | 
-			| book |
-			book := self extractFullBook: each authored: author.
-			col add: book ].
-	bookSection ifNotEmpty: [aDictionary removeKey: 'books'].
-	
-	aDictionary keysAndValuesDo: [ :aSerie :books |
-			| serie |
-			serie := CSerieItem new name: aSerie. 
-			books do: [ :each | 
-				| book |
-				book := self extractFullBook: each authored: author.
-				serie add: book.
-				book serie: serie.
-				col add: book ].
-	]
 ]
 
 { #category : #importing }
