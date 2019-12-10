@@ -21,3 +21,11 @@ CSerieItem >> complete [
 CSerieItem >> complete: anObject [
 	complete := anObject
 ]
+
+{ #category : #printing }
+CSerieItem >> printOn: aStream [
+
+	aStream << 'S-'.
+	aStream << name.
+
+]

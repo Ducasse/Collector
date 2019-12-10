@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #resources }
-CCollectorDLittleImporterTest >> minilist [
+CCollectorDLittleImporterTest class >> minilist [
 
 	^ '
 (collection: SFBooks
@@ -82,7 +82,7 @@ CCollectorDLittleImporterTest >> testExtractSerie [
 CCollectorDLittleImporterTest >> testImport [
 
 	| ce liconia |
-	ce := CCollectorDLittleImporter new import: self minilist.
+	ce := CCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	liconia := ce importedCollection items select: [ :each |  '*liconia*' match: each title  ].
 	self assert: liconia size equals: 3.

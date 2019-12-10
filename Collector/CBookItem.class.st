@@ -141,6 +141,7 @@ CBookItem >> price: anObject [
 { #category : #printing }
 CBookItem >> printOn: aStream [
 
+	aStream << 'B-'.
 	aStream << self title 
 ]
 

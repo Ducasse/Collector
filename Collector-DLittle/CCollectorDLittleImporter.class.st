@@ -1,10 +1,9 @@
 "
 I am a copy of class CCollectorEasyYAML. This comment is copied from there, and might not be entirely accurate
 
-CCollectorEasy new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'
+CCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl'
 
-
-CCollectorEasy new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml' asFileReference readStream contents
+CCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
 
 
 
