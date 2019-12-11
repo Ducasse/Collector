@@ -46,6 +46,25 @@ CDLittleLPrinter >> visitAuthor: anAuthor [
 ]
 
 { #category : #visiting }
+CDLittleLPrinter >> visitBook: aBook [
+
+	stream << '(title : '.
+	stream << aBook title.
+	(aBook class instVarNames asOrderedCollection removeAll: #(#title #authors #serie) ; yourself) sorted
+	"kind of primary key and foreign key"
+	do: [ :each | 
+			| value |
+			value := aBook perform: each.
+			value ifNotNil: [  
+			stream << ' ('.
+			stream << each asString. 
+			stream << ' : '. 
+			stream << value  asString.
+			stream << ')' ] ].
+ 	stream << ')'
+]
+
+{ #category : #visiting }
 CDLittleLPrinter >> visitCollection: aCollection [
 	self halt. 
 	stream << '(collection : '.

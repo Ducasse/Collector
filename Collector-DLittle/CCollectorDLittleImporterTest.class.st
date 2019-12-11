@@ -44,6 +44,16 @@ CCollectorDLittleImporterTest class >> oneAuthor [
 ]
 
 { #category : #tests }
+CCollectorDLittleImporterTest >> testConvertAuthor [
+
+	| ce books |
+	ce := CCollectorDLittleImporter new 
+				convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	books := ce importedCollection sorted.
+	self assert: books size equals: 4
+]
+
+{ #category : #tests }
 CCollectorDLittleImporterTest >> testExtractAuthor [
 
 	| author |
@@ -111,16 +121,6 @@ CCollectorDLittleImporterTest >> testImport2 [
 	self assert: book1 title equals: 'Le printemps d''helliconia'.
 	"with some other situations I lost the title"
 	self assert: book1 authors size equals: 1.
-]
-
-{ #category : #tests }
-CCollectorDLittleImporterTest >> testImportAuthor [
-
-	| ce books |
-	ce := CCollectorDLittleImporter new 
-				convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	books := ce importedCollection sorted.
-	self assert: books size equals: 4
 ]
 
 { #category : #tests }
