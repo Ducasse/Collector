@@ -1,6 +1,6 @@
 Class {
 	#name : #CBookItem,
-	#superclass : #Object,
+	#superclass : #CObject,
 	#instVars : [
 		'read',
 		'summary',
@@ -21,13 +21,19 @@ Class {
 	#category : #'Collector-SimpleBooks'
 }
 
+{ #category : #visiting }
+CBookItem >> accept: aVisitor [
+
+	aVisitor visitBook: self
+]
+
 { #category : #adding }
 CBookItem >> addAuthor: anAuthor [
 	authors add: anAuthor.
 	anAuthor addBook: self
 ]
 
-{ #category : #converrting }
+{ #category : #converting }
 CBookItem >> asSTON [
 	^ STON toStringPretty: self
 ]

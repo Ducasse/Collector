@@ -8,6 +8,6 @@ Class {
 CBookCollectorTest >> testLoadingSTON [
 
 	| collector |
-	collector := STON fromString: (CBookCollector smallCollector asSTON).
+	collector := STON fromString: CBookCollector smallCollectorNoSerie asSTON.
 	self assert: (collector collectionNamed: #owned) size equals: 4
 ]

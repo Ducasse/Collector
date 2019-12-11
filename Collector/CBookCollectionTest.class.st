@@ -8,7 +8,7 @@ Class {
 CBookCollectionTest >> testSorted [ 
 
 	| c s |
-	c := CBookCollector smallCollection.
+	c := CBookCollector smallCollectionNoSerie.
 	self assert: c size equals: 4.
 	
 	"when we sort book we do not get anymore all the books in on row but the authors."

@@ -16,6 +16,11 @@ CSimpleBookVisitor >> visitBook: aBookItem [
 ]
 
 { #category : #visiting }
+CSimpleBookVisitor >> visitCollection: aCollection [
+	
+]
+
+{ #category : #visiting }
 CSimpleBookVisitor >> visitSerie: aSerieItem [
 
 	

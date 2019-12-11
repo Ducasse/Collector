@@ -15,7 +15,7 @@ CBookCollector class >> filename [
 ]
 
 { #category : #examples }
-CBookCollector class >> smallCollection [
+CBookCollector class >> smallCollectionNoSerie [
 	<sampleInstance>
 	| collection item2 author  item1 item3 item4 |
 	collection := CCollection new.
@@ -55,7 +55,7 @@ CBookCollector class >> smallCollection [
 ]
 
 { #category : #examples }
-CBookCollector class >> smallCollector [
+CBookCollector class >> smallCollectorNoSerie [
 	<sampleInstance>
 	| collector item2 author  item1 item3 item4 |
 	collector := self new.
@@ -89,4 +89,10 @@ CBookCollector class >> smallCollector [
 	collector add: item3 to: #owned.
 	collector add: item4 to: #owned.
 	^ collector
+]
+
+{ #category : #visiting }
+CBookCollector >> accept: aVisitor [
+
+	^ aVisitor visitCollection: self
 ]

@@ -12,6 +12,12 @@ Class {
 	#category : #'Collector-SimpleBooks'
 }
 
+{ #category : #visiting }
+CSerieItem >> accept: aVisitor [
+
+	aVisitor visitSerie: self
+]
+
 { #category : #accessing }
 CSerieItem >> complete [
 	^ complete

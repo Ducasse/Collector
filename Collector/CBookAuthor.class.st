@@ -1,6 +1,6 @@
 Class {
 	#name : #CBookAuthor,
-	#superclass : #Object,
+	#superclass : #CObject,
 	#instVars : [
 		'books',
 		'firstName',
@@ -8,6 +8,12 @@ Class {
 	],
 	#category : #'Collector-SimpleBooks'
 }
+
+{ #category : #visiting }
+CBookAuthor >> accept: aVisitor [
+
+	aVisitor visitAuthor: self
+]
 
 { #category : #adding }
 CBookAuthor >> addBook: aBook [
@@ -56,7 +62,14 @@ CBookAuthor >> name: anObject [
 { #category : #printing }
 CBookAuthor >> printOn: aStream [
 
-
 	aStream << name.
 	firstName ifNotNil: [ :fstName | aStream << ', ' << fstName ]	
+]
+
+{ #category : #iterating }
+CBookAuthor >> series [
+
+	^ self books collect: [ :eachBook | eachBook serie  ] as: Set
+
+	
 ]

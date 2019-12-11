@@ -90,10 +90,10 @@ CCollectorDLittleImporterTest >> testImport [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testImportAuthor [
+CCollectorDLittleImporterTest >> testImport2 [
 
 	| ce book1 |
-	ce := CCollectorDLittleImporter new import: self minilist.
+	ce := CCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	book1 := (ce importedCollection items select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
 	self assert: book1 authors size equals: 1.
@@ -102,5 +102,5 @@ CCollectorDLittleImporterTest >> testImportAuthor [
 { #category : #tests }
 CCollectorDLittleImporterTest >> testParseMinilist [
 
-	self shouldnt: [ DLittleLParser parse: self minilist] raise: Error
+	self shouldnt: [ DLittleLParser parse: self class minilist] raise: Error
 ]

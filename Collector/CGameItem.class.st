@@ -1,6 +1,6 @@
 Class {
 	#name : #CGameItem,
-	#superclass : #Object,
+	#superclass : #CObject,
 	#instVars : [
 		'console',
 		'hasDocumentation',
