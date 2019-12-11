@@ -31,6 +31,18 @@ CCollectorDLittleImporterTest class >> minilist [
 (sum : 8))'
 ]
 
+{ #category : #resources }
+CCollectorDLittleImporterTest class >> oneAuthor [
+
+	^ '(author : Aldiss, Brian 
+		(serie : helliconia  
+  	 		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  		 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
+ 	 	 	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1)))
+ 	 	(books : default
+  	 	 	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))))'
+]
+
 { #category : #tests }
 CCollectorDLittleImporterTest >> testExtractAuthor [
 
@@ -96,7 +108,19 @@ CCollectorDLittleImporterTest >> testImport2 [
 	ce := CCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	book1 := (ce importedCollection items select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
+	self assert: book1 title equals: 'Le printemps d''helliconia'.
+	"with some other situations I lost the title"
 	self assert: book1 authors size equals: 1.
+]
+
+{ #category : #tests }
+CCollectorDLittleImporterTest >> testImportAuthor [
+
+	| ce books |
+	ce := CCollectorDLittleImporter new 
+				convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	books := ce importedCollection sorted.
+	self assert: books size equals: 4
 ]
 
 { #category : #tests }

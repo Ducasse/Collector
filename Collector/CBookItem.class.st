@@ -87,6 +87,7 @@ CBookItem >> format: anObject [
 CBookItem >> initialize [ 
 	super initialize.
 	authors := OrderedCollection new.
+	title := 'notitle'
 ]
 
 { #category : #accessing }

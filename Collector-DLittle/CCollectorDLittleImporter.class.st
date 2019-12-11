@@ -1,32 +1,17 @@
 "
-I am a copy of class CCollectorEasyYAML. This comment is copied from there, and might not be entirely accurate
-
 CCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl'
 
 CCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
 
-
-
-Banks, Iain :  
-  books :
-   - {title: ""La plage de verre"", read: no}
-   - {title: ""Entrefer"", read: no}
-   - {title: ""Trames"", read: yes, summary: ""une histoire de civilisation moyennageuse vivant dans un monde fait de mondes dans une planete fabriquees space opera"")}
-   - {title: ""Une forme de guerre"", read: no}
-
-
-
-Possible todo: 
-
-	Could have serie complete validation by just adding a number of items
-
-Aldiss, Brian :
-  helliconia: 3
-   - {title: ""Le printemps d'helliconia"", number: 1, read: no,  style: SF, price: 1}
-   - {title: ""Helliconia, l'ete"", read: no, number: 2, style: SF, price: 1}
-   - {title: ""L'hiver d'helliconia"", read: no, number: 3, style: SF, price: 1}
-  books:
-   - {title: ""L'instant de l'eclipse"", read: no,  style: fantaisie, price: 1}
+(collection : SF
+	(author : Aldiss, Brian 
+		(serie : helliconia  
+  	 		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  		 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
+ 	 	 	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1)))
+ 	 	(books : default
+  	 	 	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))))
+)
 "
 Class {
 	#name : #CCollectorDLittleImporter,
@@ -50,10 +35,27 @@ CCollectorDLittleImporter >> bookFrom: aList [
 	| book |
 	book := CBookItem new.
 	aList keysAndValuesDo: [ :k :v | 
+		Transcript show: k asString ; cr.
 		book 
 			perform: (mapper selectorFor: k) asMutator
 			with: (mapper convert: k value: v) ].
 	^ book
+]
+
+{ #category : #importing }
+CCollectorDLittleImporter >> convertAuthor: list [
+	"list = (a:b (c:d) (e:f))"
+  | author |
+  author := self extractAuthorFromString: list value.
+  list restDo: [:aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
+]
+
+{ #category : #importing }
+CCollectorDLittleImporter >> convertAuthors: list [
+  "Here list = ((a:b (c:d) (e:f))
+					  (A:B (C:D) (E:F))
+					) "
+  list restDo: [:b | self convertAuthor: b ]
 ]
 
 { #category : #mapper }
@@ -112,19 +114,12 @@ CCollectorDLittleImporter >> fullBook: each authored: author [
 
 { #category : #importing }
 CCollectorDLittleImporter >> import: aString [
-	| list sum |
-	list := DLittleLParser parse: aString.
-	sum := list last.
-	list removeFromRest: sum.
-	
-	list restDo: [ :b | 
-		| author |
-		author := self extractAuthorFromString: b value.
-		b restDo: [ :aSerie | 
-			self extractSerieFrom: aSerie withAuthor: author ]].
-			
-	self validateSumIsCorrect: sum value.
-	
+  | list sum |
+  list := DLittleLParser parse: aString.
+  sum := list last.
+  list removeFromRest: sum.
+  self convertAuthors: list.
+  self validateSumIsCorrect: sum value
 ]
 
 { #category : #accessing }
