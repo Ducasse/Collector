@@ -35,3 +35,19 @@ CDLittleLPrinterTest >> testPrintBook [
 		equals: '(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
 
 ]
+
+{ #category : #tests }
+CDLittleLPrinterTest >> testPrintSerie [
+	| importer printer |
+	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	printer := CDLittleLPrinter new.
+	self 
+		assert: (printer print: importer importedCollection sorted first serie) 
+		equals: 
+		'(serie : helliconia', Character lf asString, Character tab asString,
+			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
+			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
+			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, 
+			')'
+
+]

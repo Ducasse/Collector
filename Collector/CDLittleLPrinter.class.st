@@ -72,3 +72,16 @@ CDLittleLPrinter >> visitCollection: aCollection [
 	aCollection items sorted do: [ :each | each accept: self ].
 	stream << '( sum : ', aCollection items size asString, '))'.
 ]
+
+{ #category : #visiting }
+CDLittleLPrinter >> visitSerie: aSerie [
+  stream << '(serie : '.
+  stream << aSerie name.
+  stream lf.
+
+  aSerie books do: [:each |    
+	stream tab.
+	self visitBook: each.
+	stream lf ].
+  stream << ')'
+]

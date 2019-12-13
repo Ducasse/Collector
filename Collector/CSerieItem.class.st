@@ -18,6 +18,12 @@ CSerieItem >> accept: aVisitor [
 	aVisitor visitSerie: self
 ]
 
+{ #category : #printing }
+CSerieItem >> books [ 
+	
+	^ items
+]
+
 { #category : #accessing }
 CSerieItem >> complete [
 	^ complete
