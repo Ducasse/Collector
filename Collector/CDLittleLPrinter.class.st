@@ -21,6 +21,11 @@ Class {
 	#category : #'Collector-SimpleBooks'
 }
 
+{ #category : #visiting }
+CDLittleLPrinter >> contents [ 
+	^ stream contents
+]
+
 { #category : #initialization }
 CDLittleLPrinter >> initialize [ 
 	super initialize.
@@ -33,6 +38,16 @@ CDLittleLPrinter >> print: aCcollection [
 
 	aCcollection accept: self.
 	^ stream contents
+]
+
+{ #category : #visiting }
+CDLittleLPrinter >> printAuthorName: anAuthor [
+	
+	stream << '(author : '.
+	stream << anAuthor name.
+	stream << ', '.
+	stream << anAuthor firstName.
+	stream << ')'
 ]
 
 { #category : #visiting }

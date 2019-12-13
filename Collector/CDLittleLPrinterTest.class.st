@@ -21,7 +21,8 @@ CDLittleLPrinterTest >> testPrintAuthor [
 	| author printer |
 	author := CCollectorDLittleImporter new extractAuthorFromString: 'Ducasse, Stéphane'.
 	printer := CDLittleLPrinter new.
-	self assert: (printer print: author) equals: '(author : Ducasse, Stéphane)'
+	printer printAuthorName: author.
+	self assert: printer contents equals: '(author : Ducasse, Stéphane)'
 	
 ]
 
@@ -34,6 +35,24 @@ CDLittleLPrinterTest >> testPrintBook [
 		assert: (printer print: importer importedCollection sorted first) 
 		equals: '(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
 
+]
+
+{ #category : #tests }
+CDLittleLPrinterTest >> testPrintFullBookEntrie [
+	| importer printer |
+	importer := CCollectorDLittleImporter new convertAuthor:
+		            (DLittleLParser parse: self class oneAuthor).
+	printer := CDLittleLPrinter new.
+	self
+		assert:
+		(printer print: importer importedCollection sorted first authors first)
+		equals:
+			'(serie : helliconia', Character lf asString, Character tab asString,
+			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', 
+			Character lf asString, Character tab asString,
+			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))', Character lf asString, 
+			Character tab asString, '(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF))', 
+			Character lf asString, ')'
 ]
 
 { #category : #tests }
