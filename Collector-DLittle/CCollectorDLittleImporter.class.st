@@ -47,14 +47,18 @@ CCollectorDLittleImporter >> convertAuthor: list [
 	"list = (a:b (c:d) (e:f))"
   | author |
   author := self extractAuthorFromString: list value.
-  list restDo: [:aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
+  list restDo: [ :aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> convertAuthors: list [
-  "Here list = ((a:b (c:d) (e:f))
-					  (A:B (C:D) (E:F))
-					) "
+CCollectorDLittleImporter >> convertTopLevelItems: list [
+  "Here list = (
+						(a:b (c:d) (e:f))
+						(A:B (C:D) (E:F))
+					), 
+	we perform convertA:, converta: when methods are available,
+	else raises an error"
+		
   list restDo: [:b | self convertAuthor: b ]
 ]
 
@@ -114,12 +118,13 @@ CCollectorDLittleImporter >> fullBook: each authored: author [
 
 { #category : #importing }
 CCollectorDLittleImporter >> import: aString [
-  | list sum |
-  list := DLittleLParser parse: aString.
-  sum := list last.
-  list removeFromRest: sum.
-  self convertAuthors: list.
-  self validateSumIsCorrect: sum value
+	| list sum |
+	list := DLittleLParser parse: aString.
+	sum := list last.
+	col name: list value.
+	list removeFromRest: sum.
+	self convertTopLevelItems: list.
+	self validateSumIsCorrect: sum value
 ]
 
 { #category : #accessing }

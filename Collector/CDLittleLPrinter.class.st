@@ -74,6 +74,7 @@ CDLittleLPrinter >> printAuthorName: anAuthor [
 
 { #category : #visiting }
 CDLittleLPrinter >> visitAuthor: anAuthor [
+	self emitTabs.
 	stream << '('.
 	self printAuthorName: anAuthor.
 	self newline.
@@ -120,10 +121,12 @@ CDLittleLPrinter >> visitCollection: aCollection [
 	stream << aCollection name.
 	self newline.
 	self increaseTabs.
+	aCollection sorted 
+		do: [ :anAuthor | anAuthor accept: self ]
+		separatedBy: [ self newline ].
+	self newline.
 	self emitTabs.
-	aCollection sorted do: [ :each | each accept: self ].
-	self decreaseTabs.
-	stream << '( sum : ' , aCollection items size asString , '))'
+	stream << '( sum : ' << aCollection items size asString <<  '))'
 ]
 
 { #category : #visiting }

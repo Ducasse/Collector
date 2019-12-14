@@ -64,7 +64,6 @@ CDLittleLPrinterTest >> testPrintCollection [
 	| importer printer |
 	importer := CCollectorDLittleImporter new import: self class oneCollection.
 	printer := CDLittleLPrinter new.
-	self halt.
 	self
 		assert:
 		(printer print:
