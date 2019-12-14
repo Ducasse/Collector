@@ -42,6 +42,11 @@ CCollectorDLittleImporter >> bookFrom: aList [
 	^ book
 ]
 
+{ #category : #testing }
+CCollectorDLittleImporter >> checkMethodExist: aSelector [ 
+	^ self class canUnderstand: aSelector
+]
+
 { #category : #importing }
 CCollectorDLittleImporter >> convertAuthor: list [
 	"list = (a:b (c:d) (e:f))"
@@ -58,8 +63,12 @@ CCollectorDLittleImporter >> convertTopLevelItems: list [
 					), 
 	we perform convertA:, converta: when methods are available,
 	else raises an error"
+	"we can do something more static one we will have a metamodel"
 		
-  list restDo: [:b | self convertAuthor: b ]
+	list restDo: [:b | | sel | 
+		sel := (#convert, b key capitalized , ':') asSymbol. 
+		(self checkMethodExist: sel) 
+				ifTrue: [self perform: sel with: b ]]
 ]
 
 { #category : #mapper }
