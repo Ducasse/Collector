@@ -26,11 +26,34 @@ CDLittleLPrinter >> contents [
 	^ stream contents
 ]
 
+{ #category : #visiting }
+CDLittleLPrinter >> decreaseTabs [
+
+	tabs := tabs - 1
+]
+
+{ #category : #visiting }
+CDLittleLPrinter >> emitTabs [
+
+	tabs timesRepeat: [ stream tab ]
+]
+
+{ #category : #visiting }
+CDLittleLPrinter >> increaseTabs [
+
+	tabs := tabs + 1
+]
+
 { #category : #initialization }
 CDLittleLPrinter >> initialize [ 
 	super initialize.
 	stream := WriteStream on: ''.
 	tabs := 0
+]
+
+{ #category : #visiting }
+CDLittleLPrinter >> newline [
+	stream lf
 ]
 
 { #category : #printing }
@@ -42,22 +65,31 @@ CDLittleLPrinter >> print: aCcollection [
 
 { #category : #visiting }
 CDLittleLPrinter >> printAuthorName: anAuthor [
-	
-	stream << '(author : '.
+	stream << 'author : '.
 	stream << anAuthor name.
 	stream << ', '.
 	stream << anAuthor firstName.
-	stream << ')'
+
 ]
 
 { #category : #visiting }
 CDLittleLPrinter >> visitAuthor: anAuthor [
+	stream << '('.
+	self printAuthorName: anAuthor.
+	self newline.
+	self increaseTabs.
+	anAuthor series
+		do: [ :aSerie | 
+			self emitTabs.
+			self visitSerie: aSerie.
+			self decreaseTabs ]
+		separatedBy: [ self newline ].
+	"we could avoid this separatedby but I prefer"
+	self decreaseTabs.
+	self newline.
+	self emitTabs.
+	stream << ')'.
 	
-	stream << '(author : '.
-	stream << anAuthor name.
-	stream << ', '.
-	stream << anAuthor firstName.
-	stream << ')'
 ]
 
 { #category : #visiting }
@@ -90,13 +122,13 @@ CDLittleLPrinter >> visitCollection: aCollection [
 
 { #category : #visiting }
 CDLittleLPrinter >> visitSerie: aSerie [
-  stream << '(serie : '.
-  stream << aSerie name.
-  stream lf.
-
-  aSerie books do: [:each |    
-	stream tab.
-	self visitBook: each.
-	stream lf ].
-  stream << ')'
+	stream << '(serie : '.
+	stream << aSerie name.
+	self newline.
+	self increaseTabs.
+	aSerie books do: [ :each | 
+		self emitTabs.
+		self visitBook: each ]
+		separatedBy: [ self newline ].
+	stream << ')'
 ]
