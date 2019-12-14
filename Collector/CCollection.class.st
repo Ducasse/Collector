@@ -9,6 +9,12 @@ Class {
 	#category : #'Collector-Core'
 }
 
+{ #category : #visiting }
+CCollection >> accept: aVisitor [
+
+	aVisitor visitCollection: self
+]
+
 { #category : #adding }
 CCollection >> add: aCBookItem [ 
 	items add: aCBookItem.

@@ -90,9 +90,3 @@ CBookCollector class >> smallCollectorNoSerie [
 	collector add: item4 to: #owned.
 	^ collector
 ]
-
-{ #category : #visiting }
-CBookCollector >> accept: aVisitor [
-
-	^ aVisitor visitCollection: self
-]

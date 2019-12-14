@@ -23,7 +23,7 @@ Class {
 	#category : #'Collector-DLittle'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 CCollectorDLittleImporter class >> importFromFileName: aName [
 	"self importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'  "
 	^ self new import: aName asFileReference readStream contents; yourself
