@@ -62,32 +62,55 @@ CDLittleLPrinterTest >> testPrintBook [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintCollection [
 	| importer printer |
-	importer := CCollectorDLittleImporter new import: self class oneCollection.
+	importer := CCollectorDLittleImporter new import:
+		            self class oneCollection.
 	printer := CDLittleLPrinter new.
 	self
-		assert:
-		(printer print:
-			 importer importedCollection)
-		equals: '(author : Aldiss, Brian' , Character lf asString
+		assert: (printer print: importer importedCollection)
+		equals:
+			'(collection : SF' , Character lf asString , Character tab asString
+			, '(author : Adam, Douglas' , Character lf asString , Character tab asString
+			, Character tab asString , '(serie : Guide du routard galactique'
+			, Character lf asString , Character tab asString
+			, Character tab asString , Character tab asString
+			,
+			'(title : Le guide du voyageur inter-galactique (read : true) (style : comic english humour) (summary : un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres))'
+			, Character lf asString , Character tab asString
+			, Character tab asString , Character tab asString
+			,
+			'(title : H2G2 2 (price : 2) (read : false) (style : comic english humour))' 
+			, Character lf asString , Character tab asString
+			, Character tab asString , Character tab asString
+			,
+			'(title : H2G2 3 (price : 2) (read : false) (style : comic english humour))'
+			, Character lf asString , Character tab asString
+			, Character tab asString , Character tab asString
+			,
+			'(title : H2G2 4 (price : 2) (read : false) (style : comic english humour)))'
+			, Character lf asString , Character tab asString , ')', Character lf asString
+			, Character tab asString , '(author : Aldiss, Brian'
+			, Character lf asString , Character tab asString
 			, Character tab asString , '(serie : helliconia'
 			, Character lf asString , Character tab asString
-			, Character tab asString
+			, Character tab asString , Character tab asString
 			,
 			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
 			, Character lf asString , Character tab asString
-			, Character tab asString
+			, Character tab asString , Character tab asString
 			,
 			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
 			, Character lf asString , Character tab asString
-			, Character tab asString
-			,
-			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
-			, Character lf asString , Character tab asString
-			, '(serie : default' , Character lf asString
 			, Character tab asString , Character tab asString
 			,
+			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
+			, Character lf asString , Character tab asString  , Character tab asString
+			, '(serie : default' , Character lf asString
+			, Character tab asString , Character tab asString
+			, Character tab asString
+			,
 			'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
-			, Character lf asString , ')'
+			,Character lf asString ,  Character tab asString, ')' , Character lf asString
+			, Character tab asString , '( sum : 8))'
 ]
 
 { #category : #tests }
