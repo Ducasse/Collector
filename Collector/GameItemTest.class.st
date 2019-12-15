@@ -200,6 +200,7 @@ GameItemTest >> testUrl [
 { #category : #'tests - url for fetching cover' }
 GameItemTest >> testWrongGuessedUrlPart [
 	| g |
+	self skip. "we should not rely on network"
 	g := CGameItem new
 		title: 'Jak II';
 		setPS2.

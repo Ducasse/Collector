@@ -53,8 +53,9 @@ CDLittleLPrinterTest >> testPrintBook [
 	| importer printer |
 	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
+	printer print: importer importedCollection sorted first.
 	self 
-		assert: (printer print: importer importedCollection sorted first) 
+		assert: printer contents
 		equals: '(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
 
 ]
@@ -64,8 +65,9 @@ CDLittleLPrinterTest >> testPrintCollection [
 	| importer printer |
 	importer := CCollectorDLittleImporter new import: self class oneCollection.
 	printer := CDLittleLPrinter new.
+	printer print: importer importedCollection.
 	self
-		assert: (printer print: importer importedCollection)
+		assert: printer contents
 		equals:
 			'(collection : SF' , Character lf asString , Character tab asString
 			, '(author : Adam, Douglas' , Character lf asString , Character tab asString
@@ -115,12 +117,11 @@ CDLittleLPrinterTest >> testPrintCollection [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintFullBookEntrie [
 	| importer printer |
-	importer := CCollectorDLittleImporter new convertAuthor:
-		            (DLittleLParser parse: self class oneAuthor).
+	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
+	printer print: importer importedCollection sorted first authors first.
 	self
-		assert:
-		(printer print: importer importedCollection sorted first authors first)
+		assert: printer contents
 		equals:
 			'(author : Aldiss, Brian', Character lf asString, 
 			Character tab asString, '(serie : helliconia', Character lf asString, 
@@ -139,8 +140,9 @@ CDLittleLPrinterTest >> testPrintSerie [
 	| importer printer |
 	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
+	printer print: importer importedCollection sorted first serie. 
 	self 
-		assert: (printer print: importer importedCollection sorted first serie) 
+		assert: printer contents
 		equals: 
 		'(serie : helliconia', Character lf asString, Character tab asString,
 			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,

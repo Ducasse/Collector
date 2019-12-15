@@ -136,6 +136,14 @@ CCollectorDLittleImporter >> import: aString [
 	self validateSumIsCorrect: sum value
 ]
 
+{ #category : #importing }
+CCollectorDLittleImporter >> importFromFileName: afileName [
+
+	| fileRef |
+	fileRef := afileName asFileReference. 
+	self import: fileRef readStream contents. 
+]
+
 { #category : #accessing }
 CCollectorDLittleImporter >> importedCollection [
 

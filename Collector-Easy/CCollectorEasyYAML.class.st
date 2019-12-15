@@ -135,15 +135,19 @@ CCollectorEasyYAML >> mapper: aMapper [
 
 { #category : #importing }
 CCollectorEasyYAML >> treatAuthorNamed: anAuthorKey withData: aDictionary [
-	| author bookSection |
+	| author bookSection bookSerie |
 	author := self extractAuthor: anAuthorKey.
 	
 	bookSection := (aDictionary at: 'books' ifAbsent: [#()]).
+	bookSerie := CSerieItem new name: 'books'.
 	bookSection
 		do: [ :each | 
 			| book |
 			book := self extractFullBook: each authored: author.
+			bookSerie add: book.
+			book serie: bookSerie.
 			col add: book ].
+		
 	bookSection ifNotEmpty: [aDictionary removeKey: 'books'].
 	
 	aDictionary keysAndValuesDo: [ :aSerie :books | 

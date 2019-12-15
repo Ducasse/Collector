@@ -60,7 +60,7 @@ CDLittleLPrinter >> newline [
 CDLittleLPrinter >> print: aCcollection [ 
 
 	aCcollection accept: self.
-	^ stream contents
+	
 ]
 
 { #category : #visiting }
