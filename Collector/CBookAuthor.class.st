@@ -68,8 +68,10 @@ CBookAuthor >> printOn: aStream [
 
 { #category : #iterating }
 CBookAuthor >> series [
-
-	^ self books collect: [ :eachBook | eachBook serie  ] as: Set
-
-	
+	| series |
+	"we should probably change this in the future by sotring authors instead of books but for now set is not a good idea to 
+	remove duplicated entries when computing series since the order is changing."
+	series := OrderedCollection new. 
+	self books do: [ :eachBook | (series includes: eachBook serie) ifFalse: [series add: eachBook serie ]].
+	^ series
 ]
