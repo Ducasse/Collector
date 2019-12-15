@@ -72,6 +72,12 @@ CDLittleLPrinter >> printAuthorName: anAuthor [
 
 ]
 
+{ #category : #accessing }
+CDLittleLPrinter >> stream: aStream [
+
+	stream := aStream
+]
+
 { #category : #visiting }
 CDLittleLPrinter >> visitAuthor: anAuthor [
 	self emitTabs.

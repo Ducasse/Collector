@@ -62,8 +62,7 @@ CDLittleLPrinterTest >> testPrintBook [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintCollection [
 	| importer printer |
-	importer := CCollectorDLittleImporter new import:
-		            self class oneCollection.
+	importer := CCollectorDLittleImporter new import: self class oneCollection.
 	printer := CDLittleLPrinter new.
 	self
 		assert: (printer print: importer importedCollection)
@@ -88,8 +87,15 @@ CDLittleLPrinterTest >> testPrintCollection [
 			,
 			'(title : H2G2 4 (price : 2) (read : false) (style : comic english humour)))'
 			, Character lf asString , Character tab asString , ')', Character lf asString
-			, Character tab asString , '(author : Aldiss, Brian'
-			, Character lf asString , Character tab asString
+			, Character tab asString , '(author : Aldiss, Brian', Character lf asString, Character tab asString  , Character tab asString
+			, '(serie : default' , Character lf asString
+			, Character tab asString , Character tab asString
+			, Character tab asString
+			,
+			'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))', Character lf asString
+			
+			
+			,  Character tab asString
 			, Character tab asString , '(serie : helliconia'
 			, Character lf asString , Character tab asString
 			, Character tab asString , Character tab asString
@@ -103,14 +109,9 @@ CDLittleLPrinterTest >> testPrintCollection [
 			, Character tab asString , Character tab asString
 			,
 			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
-			, Character lf asString , Character tab asString  , Character tab asString
-			, '(serie : default' , Character lf asString
-			, Character tab asString , Character tab asString
-			, Character tab asString
-			,
-			'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
-			,Character lf asString ,  Character tab asString, ')' , Character lf asString
-			, Character tab asString , '( sum : 8))'
+			, Character lf asString, Character tab asString ,')', Character lf asString,
+			
+		 Character tab asString , '( sum : 8))'
 ]
 
 { #category : #tests }
@@ -146,7 +147,5 @@ CDLittleLPrinterTest >> testPrintSerie [
 		'(serie : helliconia', Character lf asString, Character tab asString,
 			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
 			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
-			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, 
-			')'
-
+			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
 ]
