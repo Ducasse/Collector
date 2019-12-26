@@ -14,30 +14,16 @@ CGmCollectorDLittleImporter class >> importFromFileName: aName [
 	^ self new import: aName asFileReference readStream contents; yourself
 ]
 
-{ #category : #extracting }
-CGmCollectorDLittleImporter >> bookFrom: aList [
-	
-	| book |
-	book := CBookItem new.
-	aList keysAndValuesDo: [ :k :v | 
-		Transcript show: k asString ; cr.
-		book 
-			perform: (mapper selectorFor: k) asMutator
-			with: (mapper convert: k value: v) ].
-	^ book
-]
-
-{ #category : #testing }
+{ #category : #'meta testing' }
 CGmCollectorDLittleImporter >> checkMethodExist: aSelector [ 
 	^ self class canUnderstand: aSelector
 ]
 
 { #category : #importing }
-CGmCollectorDLittleImporter >> convertAuthor: list [
+CGmCollectorDLittleImporter >> convertTitle: list [
 	"list = (a:b (c:d) (e:f))"
-  | author |
-  author := self extractAuthorFromString: list value.
-  list restDo: [ :aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
+	
+ 	col add: (self gameFrom: list)
 ]
 
 { #category : #importing }
@@ -56,7 +42,7 @@ CGmCollectorDLittleImporter >> convertTopLevelItems: list [
 				ifTrue: [self perform: sel with: b ]]
 ]
 
-{ #category : #mapper }
+{ #category : #initialization }
 CGmCollectorDLittleImporter >> defaultMapper [
 
 	| map |
@@ -69,55 +55,12 @@ CGmCollectorDLittleImporter >> defaultMapper [
 		
 ]
 
-{ #category : #helpers }
-CGmCollectorDLittleImporter >> extractAuthorFromString: aString [ 
-	"Precondition: aString is either 'name' or 'name, first names"
-	"Return an author does not add it to anything"
-	| auth split |
-	auth := CBookAuthor new.
-	split := aString trimBoth splitOn: $,.
-	split size = 2
-		ifTrue: [ 
-			auth name: split first trimRight. 
-			auth firstName: split second trimLeft ]
-		ifFalse: [ 
-			auth name: aString trimBoth ].
-	^ auth
-]
-
-{ #category : #extracting }
-CGmCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
-	"Create a serie and add all its books to the collection"
-	
-	| serie |
-	serie := CSerieItem new name: aList value. 
-	aList restDo: [ :each | 
-			| book |
-			book := self fullBook: each authored: anAuthor.
-			serie add: book.
-			book serie: serie.
-			col add: book ]
-	
-]
-
-{ #category : #extracting }
-CGmCollectorDLittleImporter >> fullBook: each authored: author [
-	"Return a book from"
-	| book |
-	book := self bookFrom: each.
-	book addAuthor: author.
-	author addBook: book.
-	^ book
-]
-
 { #category : #extracting }
 CGmCollectorDLittleImporter >> gameFrom: aList [
 	
 	| book |
 	book := CGameItem new.
-	"class should be dtermined automatically"
 	aList keysAndValuesDo: [ :k :v | 
-		Transcript show: k asString ; cr.
 		book 
 			perform: (mapper selectorFor: k) asMutator
 			with: (mapper convert: k value: v) ].
@@ -126,6 +69,7 @@ CGmCollectorDLittleImporter >> gameFrom: aList [
 
 { #category : #importing }
 CGmCollectorDLittleImporter >> import: aString [
+
 	| list sum |
 	list := DLittleLParser parse: aString.
 	sum := list last.
@@ -160,7 +104,6 @@ CGmCollectorDLittleImporter >> initialize [
 
 	super initialize.
 	col := CCollection new.
-	self flag: #toLook. "We will have to decide if we use of not subclasses of CCollection"
 	mapper := self defaultMapper
 ]
 
