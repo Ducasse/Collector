@@ -379,6 +379,16 @@ CGameItem >> isVeryGoodCondition [
 	^ condition = self class veryGoodCondition
 ]
 
+{ #category : #accessing }
+CGameItem >> price [
+	^ bought 
+]
+
+{ #category : #accessing }
+CGameItem >> price: anInteger [
+	bought := anInteger
+]
+
 { #category : #printing }
 CGameItem >> printOn: aStream [
 

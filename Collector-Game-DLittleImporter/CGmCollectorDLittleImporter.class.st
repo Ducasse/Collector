@@ -110,6 +110,20 @@ CGmCollectorDLittleImporter >> fullBook: each authored: author [
 	^ book
 ]
 
+{ #category : #extracting }
+CGmCollectorDLittleImporter >> gameFrom: aList [
+	
+	| book |
+	book := CGameItem new.
+	"class should be dtermined automatically"
+	aList keysAndValuesDo: [ :k :v | 
+		Transcript show: k asString ; cr.
+		book 
+			perform: (mapper selectorFor: k) asMutator
+			with: (mapper convert: k value: v) ].
+	^ book
+]
+
 { #category : #importing }
 CGmCollectorDLittleImporter >> import: aString [
 	| list sum |

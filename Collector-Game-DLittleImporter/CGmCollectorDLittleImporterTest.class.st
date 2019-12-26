@@ -8,10 +8,10 @@ Class {
 CGmCollectorDLittleImporterTest class >> minilist [
 
 	^ '(collection : OurPS4
-	(game : Aragami (price : 15))
-	(game : Arcania (price : 10))
-	(game : Battle Chasers Nightwar (price : 20))
-	(game : Bloodborne collector (price : 17))
+	(title : Aragami (price : 15))
+	(title : Arcania (price : 10))
+	(title : Battle Chasers Nightwar (price : 20))
+	(title : Bloodborne collector (price : 17))
 	(sum : 4))
 '
 ]
@@ -19,20 +19,17 @@ CGmCollectorDLittleImporterTest class >> minilist [
 { #category : #resources }
 CGmCollectorDLittleImporterTest class >> oneGame [
 
-	^ '(game : Aragami (price : 15))'
+	^ '(title : Aragami (price : 15))'
 ]
 
 { #category : #tests }
-CGmCollectorDLittleImporterTest >> testExtractBook [
+CGmCollectorDLittleImporterTest >> testExtractGame [
 
-	| book |
-		self skip.
-	book := (CBkCollectorDLittleImporter new bookFrom: (DLittleLParser parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))')).
-	
-	self assert: book title equals: 'Les vents du changement'.
-	self assert: book price equals: 2.39.
-	self assert: book style equals: 'SF'.
-	self deny: book read
+	| game |
+	game := (CGmCollectorDLittleImporter new 
+					gameFrom: (DLittleLParser parse: self class oneGame)).
+	self assert: game name equals: 'Aragami'.
+	self assert: game price equals: 15.
 	
 ]
 
