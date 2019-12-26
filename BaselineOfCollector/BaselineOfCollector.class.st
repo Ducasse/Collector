@@ -28,6 +28,6 @@ BaselineOfCollector >> baseline: spec [
 			package: 'Collector-Game-DLittleImporter' with: 
 				[ spec requires: #('Collector' #'Descent')].
 		spec 
-			group: 'default' with: #('Collector' 'Collector-Easy' 'Collector-DLittle'
+			group: 'default' with: #('Collector' 'Collector-Easy'
 			'Collector-Game-DLittleImporter' 'Collector-Book-DLittleImporter' ) ]
 ]
