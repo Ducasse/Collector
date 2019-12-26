@@ -41,7 +41,7 @@ CDLittleLPrinterTest class >> oneCollection [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintAuthor [
 	| author printer |
-	author := CCollectorDLittleImporter new extractAuthorFromString:
+	author := CBkCollectorDLittleImporter new extractAuthorFromString:
 		          'Ducasse, Stéphane'.
 	printer := CDLittleLPrinter new.
 	printer printAuthorName: author.
@@ -51,7 +51,7 @@ CDLittleLPrinterTest >> testPrintAuthor [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintBook [
 	| importer printer |
-	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
 	printer print: importer importedCollection sorted first.
 	self 
@@ -63,7 +63,7 @@ CDLittleLPrinterTest >> testPrintBook [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintCollection [
 	| importer printer |
-	importer := CCollectorDLittleImporter new import: self class oneCollection.
+	importer := CBkCollectorDLittleImporter new import: self class oneCollection.
 	printer := CDLittleLPrinter new.
 	printer print: importer importedCollection.
 	self
@@ -117,7 +117,7 @@ CDLittleLPrinterTest >> testPrintCollection [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintFullBookEntrie [
 	| importer printer |
-	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
 	printer print: importer importedCollection sorted first authors first.
 	self
@@ -138,7 +138,7 @@ CDLittleLPrinterTest >> testPrintFullBookEntrie [
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintSerie [
 	| importer printer |
-	importer := CCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	printer := CDLittleLPrinter new.
 	printer print: importer importedCollection sorted first serie. 
 	self 

@@ -4,13 +4,13 @@ I am a copy of class CCollectorEasyYAMLTest. This comment is copied from there, 
 This class contains tests
 "
 Class {
-	#name : #CCollectorDLittleImporterTest,
+	#name : #CBkCollectorDLittleImporterTest,
 	#superclass : #TestCase,
 	#category : #'Collector-DLittle'
 }
 
 { #category : #resources }
-CCollectorDLittleImporterTest class >> minilist [
+CBkCollectorDLittleImporterTest class >> minilist [
 
 	^ '
 (collection: SFBooks
@@ -32,7 +32,7 @@ CCollectorDLittleImporterTest class >> minilist [
 ]
 
 { #category : #resources }
-CCollectorDLittleImporterTest class >> oneAuthor [
+CBkCollectorDLittleImporterTest class >> oneAuthor [
 
 	^ '(author : Aldiss, Brian 
 		(serie : helliconia  
@@ -44,38 +44,38 @@ CCollectorDLittleImporterTest class >> oneAuthor [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testConvertAuthor [
+CBkCollectorDLittleImporterTest >> testConvertAuthor [
 
 	| ce books |
-	ce := CCollectorDLittleImporter new 
+	ce := CBkCollectorDLittleImporter new 
 				convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	books := ce importedCollection sorted.
 	self assert: books size equals: 4
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testExtractAuthor [
+CBkCollectorDLittleImporterTest >> testExtractAuthor [
 
 	| author |
-	author := (CCollectorDLittleImporter new extractAuthorFromString: ' Wilson  ').
+	author := (CBkCollectorDLittleImporter new extractAuthorFromString: ' Wilson  ').
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: ''
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
+CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 
 	| author |
-	author := (CCollectorDLittleImporter new extractAuthorFromString: ' Wilson  ,   Charles Robert ').
+	author := (CBkCollectorDLittleImporter new extractAuthorFromString: ' Wilson  ,   Charles Robert ').
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: 'Charles Robert'
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testExtractBook [
+CBkCollectorDLittleImporterTest >> testExtractBook [
 
 	| book |
-	book := (CCollectorDLittleImporter new bookFrom: (DLittleLParser parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))')).
+	book := (CBkCollectorDLittleImporter new bookFrom: (DLittleLParser parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))')).
 	
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
@@ -85,10 +85,10 @@ CCollectorDLittleImporterTest >> testExtractBook [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testExtractSerie [
+CBkCollectorDLittleImporterTest >> testExtractSerie [
 
 	| import author |
-	import := CCollectorDLittleImporter new.
+	import := CBkCollectorDLittleImporter new.
 	author := import extractAuthorFromString:  ' John'.
 	import extractSerieFrom: (DLittleLParser parse: '(serie : Guide du routard galactique  
   	 		(title: Le guide du voyageur inter-galactique (read: true) (summary: un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres) (style: comic english humour))
@@ -101,10 +101,10 @@ CCollectorDLittleImporterTest >> testExtractSerie [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testImport [
+CBkCollectorDLittleImporterTest >> testImport [
 
 	| ce liconia |
-	ce := CCollectorDLittleImporter new import: self class minilist.
+	ce := CBkCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	liconia := ce importedCollection items select: [ :each |  '*liconia*' match: each title  ].
 	self assert: liconia size equals: 3.
@@ -112,10 +112,10 @@ CCollectorDLittleImporterTest >> testImport [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testImport2 [
+CBkCollectorDLittleImporterTest >> testImport2 [
 
 	| ce book1 |
-	ce := CCollectorDLittleImporter new import: self class minilist.
+	ce := CBkCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	book1 := (ce importedCollection items select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
 	self assert: book1 title equals: 'Le printemps d''helliconia'.
@@ -124,7 +124,7 @@ CCollectorDLittleImporterTest >> testImport2 [
 ]
 
 { #category : #tests }
-CCollectorDLittleImporterTest >> testParseMinilist [
+CBkCollectorDLittleImporterTest >> testParseMinilist [
 
 	self shouldnt: [ DLittleLParser parse: self class minilist] raise: Error
 ]

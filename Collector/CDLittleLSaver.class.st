@@ -43,7 +43,7 @@ CDLittleLSaver >> save: aCollection inFileNamed: aName [
 	printer print: aCollection. ]
 	ensure: [ stream close ]. 
 	
-	[ CCollectorDLittleImporter new importFromFileName: aName]
+	[ CBkCollectorDLittleImporter new importFromFileName: aName]
 		on: Error do: [ :ex | Stdio stdout << 'There is an error close to ...' ]
 	
 	

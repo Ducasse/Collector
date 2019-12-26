@@ -14,7 +14,7 @@ CCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Work
 )
 "
 Class {
-	#name : #CCollectorDLittleImporter,
+	#name : #CBkCollectorDLittleImporter,
 	#superclass : #Object,
 	#instVars : [
 		'mapper',
@@ -24,13 +24,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-CCollectorDLittleImporter class >> importFromFileName: aName [
+CBkCollectorDLittleImporter class >> importFromFileName: aName [
 	"self importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'  "
 	^ self new import: aName asFileReference readStream contents; yourself
 ]
 
 { #category : #extracting }
-CCollectorDLittleImporter >> bookFrom: aList [
+CBkCollectorDLittleImporter >> bookFrom: aList [
 	
 	| book |
 	book := CBookItem new.
@@ -43,12 +43,12 @@ CCollectorDLittleImporter >> bookFrom: aList [
 ]
 
 { #category : #testing }
-CCollectorDLittleImporter >> checkMethodExist: aSelector [ 
+CBkCollectorDLittleImporter >> checkMethodExist: aSelector [ 
 	^ self class canUnderstand: aSelector
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> convertAuthor: list [
+CBkCollectorDLittleImporter >> convertAuthor: list [
 	"list = (a:b (c:d) (e:f))"
   | author |
   author := self extractAuthorFromString: list value.
@@ -56,7 +56,7 @@ CCollectorDLittleImporter >> convertAuthor: list [
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> convertTopLevelItems: list [
+CBkCollectorDLittleImporter >> convertTopLevelItems: list [
   "Here list = (
 						(a:b (c:d) (e:f))
 						(A:B (C:D) (E:F))
@@ -72,7 +72,7 @@ CCollectorDLittleImporter >> convertTopLevelItems: list [
 ]
 
 { #category : #mapper }
-CCollectorDLittleImporter >> defaultMapper [
+CBkCollectorDLittleImporter >> defaultMapper [
 
 	| map |
 	map := CMapper new.
@@ -85,7 +85,7 @@ CCollectorDLittleImporter >> defaultMapper [
 ]
 
 { #category : #helpers }
-CCollectorDLittleImporter >> extractAuthorFromString: aString [ 
+CBkCollectorDLittleImporter >> extractAuthorFromString: aString [ 
 	"Precondition: aString is either 'name' or 'name, first names"
 	"Return an author does not add it to anything"
 	| auth split |
@@ -101,7 +101,7 @@ CCollectorDLittleImporter >> extractAuthorFromString: aString [
 ]
 
 { #category : #extracting }
-CCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
+CBkCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
 	"Create a serie and add all its books to the collection"
 	
 	| serie |
@@ -116,7 +116,7 @@ CCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
 ]
 
 { #category : #extracting }
-CCollectorDLittleImporter >> fullBook: each authored: author [
+CBkCollectorDLittleImporter >> fullBook: each authored: author [
 	"Return a book from"
 	| book |
 	book := self bookFrom: each.
@@ -126,7 +126,7 @@ CCollectorDLittleImporter >> fullBook: each authored: author [
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> import: aString [
+CBkCollectorDLittleImporter >> import: aString [
 	| list sum |
 	list := DLittleLParser parse: aString.
 	sum := list last.
@@ -137,7 +137,7 @@ CCollectorDLittleImporter >> import: aString [
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> importFromFileName: afileName [
+CBkCollectorDLittleImporter >> importFromFileName: afileName [
 
 	| fileRef |
 	fileRef := afileName asFileReference. 
@@ -145,19 +145,19 @@ CCollectorDLittleImporter >> importFromFileName: afileName [
 ]
 
 { #category : #accessing }
-CCollectorDLittleImporter >> importedCollection [
+CBkCollectorDLittleImporter >> importedCollection [
 
 	^ col 
 ]
 
 { #category : #accessing }
-CCollectorDLittleImporter >> importedItemSize [
+CBkCollectorDLittleImporter >> importedItemSize [
 
 	^ col size
 ]
 
 { #category : #initialization }
-CCollectorDLittleImporter >> initialize [
+CBkCollectorDLittleImporter >> initialize [
 
 	super initialize.
 	col := CCollection new.
@@ -166,13 +166,13 @@ CCollectorDLittleImporter >> initialize [
 ]
 
 { #category : #initialization }
-CCollectorDLittleImporter >> mapper: aMapper [
+CBkCollectorDLittleImporter >> mapper: aMapper [
 
 	mapper := aMapper
 ]
 
 { #category : #importing }
-CCollectorDLittleImporter >> validateSumIsCorrect: sum [
+CBkCollectorDLittleImporter >> validateSumIsCorrect: sum [
 
 	^ col size = sum asNumber
 		ifFalse: [ CImporterError new messageText: 'Expecting ', sum asString, ' but imported ', col size asString ; signal]
