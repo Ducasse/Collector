@@ -39,7 +39,7 @@ CGmCollectorDLittleImporterTest >> testImport [
 	| ce |
 	ce := CGmCollectorDLittleImporter new import: self class minilist.
 	self assert: ce importedItemSize equals: 4.
-	ce importedCollection items
+	self assert: (ce importedCollection items select: [ :each | each title = 'Aragami' ]) first price equals: 15
 	
 ]
 
