@@ -8,5 +8,6 @@ Class {
 CByAuthorsCollectionSorter >> sort: items [ 
 	| dict | 
 	dict := (items groupedBy: [:each | each authors]).
+		self halt.
 	^ dict keys flattened sorted: [ :a :b | a name < b name ] 
 ]
