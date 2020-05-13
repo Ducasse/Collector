@@ -1,7 +1,7 @@
 "
-CCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl'
+(CBkCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
 
-CCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
+CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
 
 (collection : SF
 	(author : Aldiss, Brian 

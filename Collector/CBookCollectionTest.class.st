@@ -5,6 +5,72 @@ Class {
 }
 
 { #category : #tests }
+CBookCollectionTest >> testInformationIsKeep [
+
+	| collector |
+	"the Ston string was generated using CBookCollector smallCollection asSTON"
+	collector := STON fromString: 'CCollection {
+	#name : #plain,
+	#items : OrderedCollection [
+		CBookItem {
+			#read : true,
+			#price : 2,
+			#title : ''Le guide du voyageur inter-galactique'',
+			#authors : OrderedCollection [
+				CBookAuthor {
+					#books : OrderedCollection [
+						@3,
+						CBookItem {
+							#read : false,
+							#price : 2,
+							#title : ''Le guide du voyageur inter-galactique 2'',
+							#authors : OrderedCollection [
+								@5
+							],
+							#number : 2
+						},
+						CBookItem {
+							#read : false,
+							#price : 2,
+							#title : ''Le guide du voyageur inter-galactique 3'',
+							#authors : OrderedCollection [
+								@5
+							],
+							#number : 3
+						}
+					],
+					#firstName : ''Douglas'',
+					#name : ''Adam''
+				}
+			]
+		},
+		@7,
+		@9,
+		CBookItem {
+			#read : true,
+			#summary : ''La terre mise dans un sachet pour touner moins vite que le reste de l\''Univers'',
+			#price : 2,
+			#title : ''Le vaisseau des voyageurs'',
+			#authors : OrderedCollection [
+				CBookAuthor {
+					#books : OrderedCollection [
+						@11
+					],
+					#firstName : ''Robert Charles'',
+					#name : ''Wilson''
+				}
+			]
+		}
+	],
+	#sorter : CByAuthorsCollectionSorter { }
+}'.
+	
+	self assert: (collector items detect: [:b | b title = 'Le guide du voyageur inter-galactique']) read.
+	self deny: (collector items detect: [:b | b title = 'Le guide du voyageur inter-galactique 2']) read.
+
+]
+
+{ #category : #tests }
 CBookCollectionTest >> testSorted [ 
 
 	| c s |
@@ -82,4 +148,6 @@ CBookCollectionTest >> testSortedByAuthors [
 }'.
 	self assert: collector sorted first class equals: CBookAuthor.
 	self assert: collector sorted first name  equals: 'Adam'.
+
+
 ]

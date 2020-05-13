@@ -1,3 +1,7 @@
+"
+An importer for the game collector.
+So far not fully tested.
+"
 Class {
 	#name : #CGmCollectorDLittleImporter,
 	#superclass : #Object,
