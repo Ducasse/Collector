@@ -21,13 +21,13 @@ BaselineOfCollector >> baseline: spec [
 					spec repository: 'github://Ducasse/Descent/' ].
 		spec 
 			package: 'Collector';
-			package: 'Collector-Easy' with: 
+			package: 'Collector-Book-YAMLImporter' with: 
 				[ spec requires: #('Collector' #'PetitParser')];
 			package: 'Collector-Book-DLittleImporter' with: 
 				[ spec requires: #('Collector' #'Descent')];
 			package: 'Collector-Game-DLittleImporter' with: 
 				[ spec requires: #('Collector' #'Descent')].
 		spec 
-			group: 'default' with: #('Collector' 'Collector-Easy'
+			group: 'default' with: #('Collector' 'Collector-Book-YAMLImporter'
 			'Collector-Game-DLittleImporter' 'Collector-Book-DLittleImporter' ) ]
 ]
