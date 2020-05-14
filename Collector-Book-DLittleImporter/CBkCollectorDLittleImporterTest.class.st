@@ -68,7 +68,7 @@ CBkCollectorDLittleImporterTest >> testConvertAuthor [
 	self assert: books first authors first books size equals: 4
 ]
 
-{ #category : #tests }
+{ #category : #'test extraction' }
 CBkCollectorDLittleImporterTest >> testExtractAuthor [
 	| author |
 	author := importer extractAuthorFromString: ' Wilson  '.
@@ -76,7 +76,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthor [
 	self assert: author firstName equals: ''
 ]
 
-{ #category : #tests }
+{ #category : #'test extraction' }
 CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 	| author |
 	author := importer extractAuthorFromString: ' Wilson  ,   Charles Robert '.
@@ -84,7 +84,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 	self assert: author firstName equals: 'Charles Robert'
 ]
 
-{ #category : #tests }
+{ #category : #'test extraction' }
 CBkCollectorDLittleImporterTest >> testExtractBook [
 	| book |
 	book := importer
@@ -95,7 +95,11 @@ CBkCollectorDLittleImporterTest >> testExtractBook [
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
 	self assert: book style equals: 'SF'.
-	self deny: book read
+	self deny: book read.
+	
+	"since it is nested in parent (serie or author) we do not set the author yet."
+	self assert: book authors isEmpty.
+	
 ]
 
 { #category : #tests }
@@ -111,9 +115,27 @@ CBkCollectorDLittleImporterTest >> testExtractSerie [
    			(title: H2G2 2 (read: no) (style: comic english humour) (price: 2)))')
 		withAuthor: author.
 	self assert: importer importedItemSize equals: 2.
+	
 	self
 		assert: importer importedCollection items first serie name
-		equals: 'Guide du routard galactique'
+		equals: 'Guide du routard galactique'.
+	self assert: importer importedCollection items first mainAuthor books size equals: 2
+]
+
+{ #category : #tests }
+CBkCollectorDLittleImporterTest >> testExtractSerieWithBooksSection [
+	| author books |
+	author := importer extractAuthorFromString: ' John'.
+	importer
+		extractSerieFrom: (DLittleLParser parse: '(books : default
+  	 	 	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1)))')
+		withAuthor: author.
+	self assert: importer importedItemSize equals: 1.
+	books := importer importedCollection items.
+	self
+		assert: (books collect: [ :bk | bk serie ]) size
+		equals: 1.
+	
 ]
 
 { #category : #tests }
@@ -136,7 +158,6 @@ CBkCollectorDLittleImporterTest >> testImport2 [
 	book1 := (ce importedCollection items
 		select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
 	self assert: book1 title equals: 'Le printemps d''helliconia'.
-	"with some other situations I lost the title"
 	self assert: book1 authors size equals: 1
 ]
 

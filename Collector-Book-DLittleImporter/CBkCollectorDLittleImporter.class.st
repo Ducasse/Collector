@@ -1,4 +1,9 @@
 "
+I'm a dedicated importer for book collection. 
+This is not really great in terms of reuse but this is a try to understand 
+how this logic could be directed via a metamodel.
+
+
 (CBkCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
 
 CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
@@ -12,6 +17,18 @@ CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Wo
  	 	(books : default
   	 	 	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))))
 )
+
+Notes for later. 
+- the logic is strange because
+	when importing a serie we require an author   (extractSerieFrom:withAuthor:)
+   while when importing a book we do not require a serie (extractBook:). 
+
+
+
+
+
+
+
 "
 Class {
 	#name : #CBkCollectorDLittleImporter,
@@ -31,11 +48,16 @@ CBkCollectorDLittleImporter class >> importFromFileName: aName [
 
 { #category : #extracting }
 CBkCollectorDLittleImporter >> bookFrom: aList [
+	"create a book from a book descrition, since it is nested in parent (serie or author)
+	we do not set the author yet. 
+	
+	aList is in the form of 
+		(title: H2G2 2 (read: no) (style: comic english humour) (price: 2))"
+	
 	
 	| book |
 	book := CBookItem new.
 	aList keysAndValuesDo: [ :k :v | 
-		"Transcript show: k asString ; cr."
 		book 
 			perform: (mapper selectorFor: k) asMutator
 			with: (mapper convert: k value: v) ].
@@ -49,7 +71,15 @@ CBkCollectorDLittleImporter >> checkMethodExist: aSelector [
 
 { #category : #importing }
 CBkCollectorDLittleImporter >> convertAuthor: list [
-	"list = (a:b (c:d) (e:f))"
+	"list = (a:b (c:d) (e:f))
+	for example
+	
+	(author : Aldiss, Brian 
+		(serie : helliconia  
+  	 		(title: Le printemps (read: no) (style: SF) (price: 1)))
+ 	 	(books : default
+  	 	 	( title: Eclips (read: no) (style: fantaisie) (price: 1))))"
+		
   | author |
   author := self extractAuthorFromString: list value.
   list restDo: [ :aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
@@ -121,7 +151,6 @@ CBkCollectorDLittleImporter >> fullBook: each authored: author [
 	| book |
 	book := self bookFrom: each.
 	book addAuthor: author.
-	author addBook: book.
 	^ book
 ]
 
