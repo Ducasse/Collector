@@ -6,6 +6,9 @@ This class contains tests
 Class {
 	#name : #CBkCollectorDLittleImporterTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'importer'
+	],
 	#category : #'Collector-Book-DLittleImporter'
 }
 
@@ -48,12 +51,18 @@ CBkCollectorDLittleImporterTest >> importer [
 	^ CBkCollectorDLittleImporter new
 ]
 
+{ #category : #running }
+CBkCollectorDLittleImporterTest >> setUp [
+	"Hooks that subclasses may override to define the fixture of test."
+	super setUp. 
+	importer := self importer
+]
+
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testConvertAuthor [
 
 	| ce books |
-	ce := CBkCollectorDLittleImporter new 
-				convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	ce := importer convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	books := ce importedCollection sorted.
 	self assert: books size equals: 4.
 	self assert: books first authors first books size equals: 4
@@ -62,7 +71,7 @@ CBkCollectorDLittleImporterTest >> testConvertAuthor [
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testExtractAuthor [
 	| author |
-	author := self importer extractAuthorFromString: ' Wilson  '.
+	author := importer extractAuthorFromString: ' Wilson  '.
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: ''
 ]
@@ -70,8 +79,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthor [
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 	| author |
-	author := self importer
-		extractAuthorFromString: ' Wilson  ,   Charles Robert '.
+	author := importer extractAuthorFromString: ' Wilson  ,   Charles Robert '.
 	self assert: author name equals: 'Wilson'.
 	self assert: author firstName equals: 'Charles Robert'
 ]
@@ -79,7 +87,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testExtractBook [
 	| book |
-	book := self importer
+	book := importer
 		bookFrom:
 			(DLittleLParser
 				parse:
@@ -92,10 +100,9 @@ CBkCollectorDLittleImporterTest >> testExtractBook [
 
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testExtractSerie [
-	| import author |
-	import := self importer.
-	author := import extractAuthorFromString: ' John'.
-	import
+	|  author |
+	author := importer extractAuthorFromString: ' John'.
+	importer
 		extractSerieFrom:
 			(DLittleLParser
 				parse:
@@ -103,16 +110,16 @@ CBkCollectorDLittleImporterTest >> testExtractSerie [
   	 		(title: Le guide du voyageur inter-galactique (read: true) (summary: un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres) (style: comic english humour))
    			(title: H2G2 2 (read: no) (style: comic english humour) (price: 2)))')
 		withAuthor: author.
-	self assert: import importedItemSize equals: 2.
+	self assert: importer importedItemSize equals: 2.
 	self
-		assert: import importedCollection items first serie name
+		assert: importer importedCollection items first serie name
 		equals: 'Guide du routard galactique'
 ]
 
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testImport [
 	| ce liconia |
-	ce := self importer import: self class minilist.
+	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	liconia := ce importedCollection items
 		select: [ :each | '*liconia*' match: each title ].
@@ -124,7 +131,7 @@ CBkCollectorDLittleImporterTest >> testImport [
 { #category : #tests }
 CBkCollectorDLittleImporterTest >> testImport2 [
 	| ce book1 |
-	ce := self importer import: self class minilist.
+	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	book1 := (ce importedCollection items
 		select: [ :each | each title = 'Le printemps d''helliconia' ]) first.
