@@ -35,7 +35,7 @@ CBkCollectorDLittleImporter >> bookFrom: aList [
 	| book |
 	book := CBookItem new.
 	aList keysAndValuesDo: [ :k :v | 
-		Transcript show: k asString ; cr.
+		"Transcript show: k asString ; cr."
 		book 
 			perform: (mapper selectorFor: k) asMutator
 			with: (mapper convert: k value: v) ].

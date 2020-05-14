@@ -1,6 +1,9 @@
 Class {
 	#name : #CDLittleLPrinterTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'printer'
+	],
 	#category : #'Collector-Tests'
 }
 
@@ -39,20 +42,32 @@ CDLittleLPrinterTest class >> oneCollection [
 ]
 
 { #category : #tests }
+CDLittleLPrinterTest >> printer [
+	^ CDLittleLPrinter new
+]
+
+{ #category : #tests }
+CDLittleLPrinterTest >> setUp [ 
+	super setUp.
+	printer := self printer.
+]
+
+{ #category : #tests }
 CDLittleLPrinterTest >> testPrintAuthor [
-	| author printer |
-	author := CBkCollectorDLittleImporter new extractAuthorFromString:
-		          'Ducasse, Stéphane'.
-	printer := CDLittleLPrinter new.
+	| author  |
+	author := CBkCollectorDLittleImporter new
+		extractAuthorFromString: 'Ducasse, Stéphane'.
+	
 	printer printAuthorName: author.
 	self assert: printer contents equals: 'author : Ducasse, Stéphane'
 ]
 
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintBook [
-	| importer printer |
-	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	printer := CDLittleLPrinter new.
+	| importer  |
+	importer := CBkCollectorDLittleImporter new 
+		convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	
 	printer print: importer importedCollection sorted first.
 	self 
 		assert: printer contents
@@ -62,90 +77,107 @@ CDLittleLPrinterTest >> testPrintBook [
 
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintCollection [
-	| importer printer |
-	importer := CBkCollectorDLittleImporter new import: self class oneCollection.
-	printer := CDLittleLPrinter new.
+	| importer |
+	importer := CBkCollectorDLittleImporter new
+		import: self class oneCollection.
+	
 	printer print: importer importedCollection.
 	self
 		assert: printer contents
 		equals:
 			'(collection : SF' , Character lf asString , Character tab asString
-			, '(author : Adam, Douglas' , Character lf asString , Character tab asString
-			, Character tab asString , '(serie : Guide du routard galactique'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : Le guide du voyageur inter-galactique (read : true) (style : comic english humour) (summary : un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres))'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : H2G2 2 (price : 2) (read : false) (style : comic english humour))' 
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : H2G2 3 (price : 2) (read : false) (style : comic english humour))'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : H2G2 4 (price : 2) (read : false) (style : comic english humour)))'
-			, Character lf asString , Character tab asString , ')', Character lf asString
-			, Character tab asString , '(author : Aldiss, Brian'
-			, Character lf asString , Character tab asString
-			, Character tab asString , '(serie : helliconia'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
-			, Character lf asString , Character tab asString
-			, Character tab asString , Character tab asString
-			,
-			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
-			, Character lf asString , Character tab asString  , Character tab asString
-			, '(serie : default' , Character lf asString
-			, Character tab asString , Character tab asString
-			, Character tab asString
-			,
-			'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
-			,Character lf asString ,  Character tab asString, ')' , Character lf asString
-			, Character tab asString , '( sum : 8))'
+				, '(author : Adam, Douglas' , Character lf asString
+				, Character tab asString , Character tab asString
+				, '(serie : Guide du routard galactique' , Character lf asString
+				, Character tab asString , Character tab asString
+				, Character tab asString
+				,
+					'(title : Le guide du voyageur inter-galactique (read : true) (style : comic english humour) (summary : un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : H2G2 2 (price : 2) (read : false) (style : comic english humour))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : H2G2 3 (price : 2) (read : false) (style : comic english humour))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : H2G2 4 (price : 2) (read : false) (style : comic english humour)))'
+				, Character lf asString , Character tab asString , ')'
+				, Character lf asString , Character tab asString
+				, '(author : Aldiss, Brian' , Character lf asString
+				, Character tab asString , Character tab asString
+				, '(serie : helliconia' , Character lf asString
+				, Character tab asString , Character tab asString
+				, Character tab asString
+				,
+					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
+				, Character lf asString , Character tab asString
+				, Character tab asString , '(serie : default'
+				, Character lf asString , Character tab asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
+				, Character lf asString , Character tab asString , ')'
+				, Character lf asString , Character tab asString , '( sum : 8))'
 ]
 
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintFullBookEntrie [
-	| importer printer |
-	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	printer := CDLittleLPrinter new.
+	| importer |
+	importer := CBkCollectorDLittleImporter new
+		convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	
 	printer print: importer importedCollection sorted first authors first.
 	self
 		assert: printer contents
 		equals:
-			'(author : Aldiss, Brian', Character lf asString, 
-			Character tab asString, '(serie : helliconia', Character lf asString, 
-			Character tab asString, Character tab asString,
-			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, 
-			Character tab asString, Character tab asString,
-			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))', Character lf asString, 
-			Character tab asString, Character tab asString, '(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))', 
-			Character lf asString, 
-			Character tab asString, '(serie : default', Character lf asString, 
-			Character tab asString, Character tab asString, '(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))', Character lf asString, ')'
+			'(author : Aldiss, Brian' , Character lf asString
+				, Character tab asString , '(serie : helliconia'
+				, Character lf asString , Character tab asString
+				, Character tab asString
+				,
+					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				, Character tab asString
+				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				, Character tab asString
+				,
+					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
+				, Character lf asString , Character tab asString
+				, '(serie : default' , Character lf asString
+				, Character tab asString , Character tab asString
+				,
+					'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
+				, Character lf asString , ')'
 ]
 
 { #category : #tests }
 CDLittleLPrinterTest >> testPrintSerie [
-	| importer printer |
-	importer := CBkCollectorDLittleImporter new convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	printer := CDLittleLPrinter new.
-	printer print: importer importedCollection sorted first serie. 
-	self 
+	| importer |
+	importer := CBkCollectorDLittleImporter new
+		convertAuthor: (DLittleLParser parse: self class oneAuthor).
+
+	printer print: importer importedCollection sorted first serie.
+	self
 		assert: printer contents
-		equals: 
-		'(serie : helliconia', Character lf asString, Character tab asString,
-			'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
-			'(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))', Character lf asString, Character tab asString,
-			'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
+		equals:
+			'(serie : helliconia' , Character lf asString , Character tab asString
+				,
+					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
+				, Character lf asString , Character tab asString
+				,
+					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
 ]

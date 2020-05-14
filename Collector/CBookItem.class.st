@@ -101,6 +101,12 @@ CBookItem >> links: anObject [
 ]
 
 { #category : #accessing }
+CBookItem >> mainAuthor [
+
+	^ self authors first
+]
+
+{ #category : #accessing }
 CBookItem >> notRead [
 	read := false
 ]

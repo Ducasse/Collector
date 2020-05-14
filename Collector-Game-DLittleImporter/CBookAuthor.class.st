@@ -6,7 +6,7 @@ Class {
 		'firstName',
 		'name'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-Game-DLittleImporter'
 }
 
 { #category : #visiting }

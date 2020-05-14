@@ -43,8 +43,5 @@ CBookCollectorTest >> testNoDoubleItemAfterFlattened [
 	( sum : 12 ))') importedCollection.
 	
 	self assert: collection size equals: 12.
-	collection 
-		sorter: CByAuthorsCollectionSorter new;
-		sorted.
-	self assert: collection size equals: 12.
+	self assert: collection items first mainAuthor books size equals: 4.
 ]

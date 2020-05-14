@@ -1,4 +1,6 @@
 "
+This is an old package for loading collection in Yaml crap.
+
 CCollectorEasy new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.yml'
 
 
