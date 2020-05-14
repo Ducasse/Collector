@@ -82,6 +82,13 @@ CCollection >> name: anObject [
 	name := anObject
 ]
 
+{ #category : #printing }
+CCollection >> printOn: aStream [
+
+	super printOn: aStream.
+	aStream nextPutAll: ' #', items size printString
+]
+
 { #category : #'collection api' }
 CCollection >> remove: anItem [
 
