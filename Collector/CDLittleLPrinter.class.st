@@ -67,8 +67,10 @@ CDLittleLPrinter >> print: aCcollection [
 CDLittleLPrinter >> printAuthorName: anAuthor [
 	stream << 'author : '.
 	stream << anAuthor name.
+	anAuthor firstName isEmpty
+		ifFalse: [  
 	stream << ', '.
-	stream << anAuthor firstName.
+	stream << anAuthor firstName. ]
 
 ]
 

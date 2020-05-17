@@ -63,6 +63,16 @@ CDLittleLPrinterTest >> testPrintAuthor [
 ]
 
 { #category : #tests }
+CDLittleLPrinterTest >> testPrintAuthorWithJustAName [
+	| author  |
+	author := CBkCollectorDLittleImporter new
+		extractAuthorFromString: 'Barjavel'.
+	
+	printer printAuthorName: author.
+	self assert: printer contents equals: 'author : Barjavel'
+]
+
+{ #category : #tests }
 CDLittleLPrinterTest >> testPrintBook [
 	| importer  |
 	importer := CBkCollectorDLittleImporter new 
