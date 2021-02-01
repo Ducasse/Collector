@@ -42,7 +42,21 @@ CBkCollectorDLittleImporter2Test >> testExtractBook [
 					'(title : Les vents du changement (read : no) (style : SF) (price : 2.39))').
 					
 	self assert: book title equals: 'Les vents du changement'.
-	self assert: book price equals: '2.39'.
+	self assert: book price equals: 2.39.
 	self assert: book style equals: 'SF'.
+	self deny: book read
+
+]
+
+{ #category : #accessing }
+CBkCollectorDLittleImporter2Test >> testExtractBookKeepExtraInformation [
+	| book |
+	book := importer
+		bookFrom:
+			(DLittleLParser
+				parse:
+					'(title : Les vents du changement (read : no) (style : SF) (price : 2.39) (ffo : this is an imporant information))').
+					
+	self assert: (book propertyAt: 'ffo') equals: 'this is an imporant information'
 
 ]
