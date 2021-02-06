@@ -25,50 +25,7 @@ CBkCollectorDLittleImporter2Test >> setUp [
 
 ]
 
-{ #category : #'test - old' }
-CBkCollectorDLittleImporter2Test >> testExtractBasicBook [
-	| book |
-	book := importer
-		bookFrom:
-			(self
-				parse:
-					'(title : Les vents du changement)').
-					
-	self assert: book title equals: 'Les vents du changement'.
-
-]
-
-{ #category : #'test - old' }
-CBkCollectorDLittleImporter2Test >> testExtractBook [
-	| book |
-	book := importer
-		bookFrom:
-			(self
-				parse:
-					'(title : Les vents du changement (read : no) (style : SF) (price : 2.39))').
-					
-	self assert: book title equals: 'Les vents du changement'.
-	self assert: book price equals: 2.39.
-	self assert: book style equals: 'SF'.
-	self deny: book read
-
-]
-
-{ #category : #'test - old' }
-CBkCollectorDLittleImporter2Test >> testExtractBookKeepExtraInformation [
-	| book |
-	book := importer
-		bookFrom:
-			(self
-				parse:
-					'(title : Les vents du changement (read : no) (style : SF) (price : 2.39) (bar : 3) (ffo : this is an important information))').
-					
-	self assert: (book propertyAt: 'ffo') equals: 'this is an important information'.
-	self assert: (book propertyAt: 'bar') equals: '3'
-
-]
-
-{ #category : #'test - importing' }
+{ #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportEntity [
 	| book |
 	book := importer
@@ -84,7 +41,7 @@ CBkCollectorDLittleImporter2Test >> testImportEntity [
 
 ]
 
-{ #category : #'test - importing' }
+{ #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
 	
 	| book dl |
@@ -96,7 +53,7 @@ CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
 
 ]
 
-{ #category : #'test - importing' }
+{ #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportProperties [
 	
 	| book dl |
@@ -110,7 +67,7 @@ CBkCollectorDLittleImporter2Test >> testImportProperties [
 
 ]
 
-{ #category : #'test - importing' }
+{ #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportUnknownProperty [
 	
 	| book dl |
