@@ -9,6 +9,12 @@ Class {
 	#category : #'Collector-Core'
 }
 
+{ #category : #'instance creation' }
+CCollection class >> newWith: aString [
+
+	^ self new name: aString ; yourself
+]
+
 { #category : #visiting }
 CCollection >> accept: aVisitor [
 

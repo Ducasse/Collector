@@ -1,5 +1,5 @@
 Class {
-	#name : #CBkCollectorDLittleImporter2Test,
+	#name : #CCollectorDLittleImporter2Test,
 	#superclass : #TestCase,
 	#instVars : [
 		'importer'
@@ -8,25 +8,56 @@ Class {
 }
 
 { #category : #utils }
-CBkCollectorDLittleImporter2Test >> importer [
-	^ CBkCollectorDLittleImporter2 new
+CCollectorDLittleImporter2Test >> importer [
+	^ CCollectorDLittleImporter2 new
 ]
 
 { #category : #utils }
-CBkCollectorDLittleImporter2Test >> parse: aText [
+CCollectorDLittleImporter2Test >> parse: aText [
 
 	^ DLittleLParser new parse: aText
 ]
 
 { #category : #running }
-CBkCollectorDLittleImporter2Test >> setUp [ 
+CCollectorDLittleImporter2Test >> setUp [ 
 	super setUp.
 	importer := self importer. 
 
 ]
 
-{ #category : #'test - importing basic' }
-CBkCollectorDLittleImporter2Test >> testImportEntity [
+{ #category : #'tests - conversion' }
+CCollectorDLittleImporter2Test >> testConversionOfProperties [
+	
+	| book dl |
+	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
+	self flag: #toRevisitOnceConfigIsManaged.
+	book := CBookItem newWith: 'Les vents du changement'.
+	importer importLeaf: dl head for: book.					
+	self assert: book price equals: 2.39.
+
+
+]
+
+{ #category : #'tests - import configuration' }
+CCollectorDLittleImporter2Test >> testImportConfigure [
+	| config dl |
+	self flag: #Todo. 
+	"ShoudIntegrateIlyasChangeForOptionalValue".
+	dl := self parse: '(configuration : configuration 
+		(types : types
+			(price : number)
+			(read : boolean)
+			(complete : boolean)
+			(style : string)))
+			
+			'.
+	config := CImporterConfiguration new.
+	importer importDL: dl into: CImporterConfiguration new.
+	self halt.
+]
+
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testImportEntity [
 	| book dl |
 	dl := self parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))'.
 	book := importer import: dl.
@@ -38,8 +69,8 @@ CBkCollectorDLittleImporter2Test >> testImportEntity [
 
 ]
 
-{ #category : #'test - inmporting nested' }
-CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProperties [
+{ #category : #'tests - inmporting nested' }
+CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProperties [
 	| serie dl |
 	dl := (self
 				parse:
@@ -63,8 +94,8 @@ CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProp
 	
 ]
 
-{ #category : #'test - inmporting nested' }
-CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndProperties [
+{ #category : #'tests - inmporting nested' }
+CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndProperties [
 	| serie dl |
 	dl := (self
 				parse:
@@ -83,8 +114,8 @@ CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndPropertie
 	self assert: serie complete
 ]
 
-{ #category : #'test - inmporting nested' }
-CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndUnknownProperties [
+{ #category : #'tests - inmporting nested' }
+CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndUnknownProperties [
 	| serie dl |
 	dl := (self
 				parse:
@@ -103,8 +134,8 @@ CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndUnknownPr
 	self assert: (serie propertyAt: #ZORKZORK) equals: 'true'
 ]
 
-{ #category : #'test - importing basic' }
-CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testImportKnownProperty [
 	
 	| book dl |
 	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
@@ -115,8 +146,8 @@ CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
 
 ]
 
-{ #category : #'test - inmporting nested' }
-CBkCollectorDLittleImporter2Test >> testImportNestedEntity [
+{ #category : #'tests - inmporting nested' }
+CCollectorDLittleImporter2Test >> testImportNestedEntity [
 	| serie dl firstBook secondBook |
 	dl := (self
 				parse:
@@ -148,8 +179,8 @@ CBkCollectorDLittleImporter2Test >> testImportNestedEntity [
 	
 ]
 
-{ #category : #'test - importing basic' }
-CBkCollectorDLittleImporter2Test >> testImportProperties [
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testImportProperties [
 	
 	| book dl |
 	dl := self parse: '(empty : empty 
@@ -162,8 +193,8 @@ CBkCollectorDLittleImporter2Test >> testImportProperties [
 
 ]
 
-{ #category : #'test - importing basic' }
-CBkCollectorDLittleImporter2Test >> testImportUnknownProperty [
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testImportUnknownProperty [
 	
 	| book dl |
 	dl := self parse: '(zork : 2.39) (read : no) (style : SF))'.

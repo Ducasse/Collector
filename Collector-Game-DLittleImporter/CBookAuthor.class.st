@@ -9,6 +9,12 @@ Class {
 	#category : #'Collector-Game-DLittleImporter'
 }
 
+{ #category : #'instance creation' }
+CBookAuthor class >> newWith: aString [
+
+	^ self new name: aString; yourself
+]
+
 { #category : #visiting }
 CBookAuthor >> accept: aVisitor [
 

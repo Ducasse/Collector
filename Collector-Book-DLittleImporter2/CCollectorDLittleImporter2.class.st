@@ -1,5 +1,8 @@
+"
+(CCollectorDLittleImporter2 new importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
+"
 Class {
-	#name : #CBkCollectorDLittleImporter2,
+	#name : #CCollectorDLittleImporter2,
 	#superclass : #Object,
 	#instVars : [
 		'current',
@@ -10,13 +13,13 @@ Class {
 }
 
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> convert: aPair [
+CCollectorDLittleImporter2 >> convert: aPair [
 
 	^ elementaryConverter convert: aPair key value: aPair value
 ]
 
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> createEntity: aPair [
+CCollectorDLittleImporter2 >> createEntity: aPair [
 	"Return the entity object corresponding to aPair"
 	"Precondition: aPair key identifies an entity and not a property."
 	
@@ -24,7 +27,7 @@ CBkCollectorDLittleImporter2 >> createEntity: aPair [
 ]
 
 { #category : #mapper }
-CBkCollectorDLittleImporter2 >> defaultMapper [
+CCollectorDLittleImporter2 >> defaultMapper [
 
 	| map |
 	map := CMapper new.
@@ -39,12 +42,12 @@ CBkCollectorDLittleImporter2 >> defaultMapper [
 ]
 
 { #category : #testing }
-CBkCollectorDLittleImporter2 >> hasMappingFor: aSymbol [
+CCollectorDLittleImporter2 >> hasMappingFor: aSymbol [
 	^ mapping keys includes: aSymbol asSymbol
 ]
 
 { #category : #'importing public API' }
-CBkCollectorDLittleImporter2 >> import: aDL [
+CCollectorDLittleImporter2 >> import: aDL [
 	"Toplevel import: creates an entity from aDL that is of the form: key value list key-val"
 	
 	^ self importList: aDL rest into: (self createEntity: aDL head) 
@@ -52,7 +55,7 @@ CBkCollectorDLittleImporter2 >> import: aDL [
 ]
 
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> importDL: aDL into: anElement [ 
+CCollectorDLittleImporter2 >> importDL: aDL into: anElement [ 
 	"aDL is key val List of DL where key val pair can either be a property or an entity.
 	aDL 
 		key val (aDL*)
@@ -71,8 +74,26 @@ CBkCollectorDLittleImporter2 >> importDL: aDL into: anElement [
 			self importLeaf: aDL for: anElement ].
 ]
 
+{ #category : #files }
+CCollectorDLittleImporter2 >> importFromFileName: afileName [
+
+	| fileRef |
+	fileRef := afileName asFileReference. 
+	^ self importFromString: fileRef readStream contents. 
+]
+
+{ #category : #'importing public API' }
+CCollectorDLittleImporter2 >> importFromString: aString [
+	"Toplevel import: creates an entity from aDL that is of the form: key value list key-val"
+	
+	| aDL |
+	aDL := DLittleLParser parse: aString.
+	^ self importList: aDL rest into: (self createEntity: aDL head) 
+	
+]
+
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> importLeaf: aDL for: anItem [	
+CCollectorDLittleImporter2 >> importLeaf: aDL for: anItem [	
 	"Given a property expressed as a pair key val modifies an item to hold this property."
 
 	(anItem class canUnderstand: aDL key asSymbol)
@@ -82,7 +103,7 @@ CBkCollectorDLittleImporter2 >> importLeaf: aDL for: anItem [
 ]
 
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> importList: aDLCol into: anElement [ 
+CCollectorDLittleImporter2 >> importList: aDLCol into: anElement [ 
 	"aDL is of a collection of dl elements where key val pair can either be a property or an entity"
 
 	aDLCol do: [ :aDL |
@@ -92,7 +113,7 @@ CBkCollectorDLittleImporter2 >> importList: aDLCol into: anElement [
 ]
 
 { #category : #'importing - private' }
-CBkCollectorDLittleImporter2 >> importProperties: aCollection for: anItem [
+CCollectorDLittleImporter2 >> importProperties: aCollection for: anItem [
 	"aDL is a list of key value. Import them as properties of anItem."
 
 	aCollection do: [ :aPair |
@@ -104,19 +125,21 @@ CBkCollectorDLittleImporter2 >> importProperties: aCollection for: anItem [
 ]
 
 { #category : #initialization }
-CBkCollectorDLittleImporter2 >> initialize [ 
+CCollectorDLittleImporter2 >> initialize [ 
 	super initialize.
 	current := OrderedCollection new. 
 	elementaryConverter := self defaultMapper.
 	mapping := Dictionary new.
 	mapping 
 		at: #title put: CBookItem;
-		at: #series put: CSerieItem
+		at: #series put: CSerieItem;
+		at: #author put: CBookAuthor;
+		at: #collection put: CCollection
 		
 		
 ]
 
 { #category : #query }
-CBkCollectorDLittleImporter2 >> mappingFor: aSymbol [ 
+CCollectorDLittleImporter2 >> mappingFor: aSymbol [ 
 	^ mapping at: aSymbol ifAbsent: [ nil ]
 ]
