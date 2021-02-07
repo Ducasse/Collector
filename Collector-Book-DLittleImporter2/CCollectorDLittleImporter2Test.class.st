@@ -55,8 +55,10 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 	config := CImporterConfiguration new.
 	importer importList: dl rest into: config.
 	importer configureUsing: config.
-	self assert: (importer convertSelectorFor: #price) equals: #convertNumber.
-	self assert: (importer convertSelectorFor: #read) equals: #convertBoolean.
+	self assert: (importer convertSelectorFor: #price) equals: #convertNumber:.
+	self assert: (importer convertSelectorFor: #read) equals: #convertBoolean:.
+	self assert: (importer convertSelectorFor: #style) equals: #convertString:.
+	self assert: (importer convertSelectorFor: #foo) equals: #convertToTheSame:.
 ]
 
 { #category : #'tests - importing basic' }

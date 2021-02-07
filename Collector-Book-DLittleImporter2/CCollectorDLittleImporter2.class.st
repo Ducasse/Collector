@@ -20,12 +20,6 @@ CCollectorDLittleImporter2 >> configureUsing: aConfiguration [
 ]
 
 { #category : #'importing - private' }
-CCollectorDLittleImporter2 >> convert: aPair [
-
-	^ elementaryConverter convert: aPair key value: aPair value
-]
-
-{ #category : #'importing - private' }
 CCollectorDLittleImporter2 >> convert: aPair for: anItem [
 	
 	^ anItem shouldConvert 
@@ -35,7 +29,7 @@ CCollectorDLittleImporter2 >> convert: aPair for: anItem [
 
 { #category : #'conversion logic' }
 CCollectorDLittleImporter2 >> convertSelectorFor: aSymbol [
-	^ converterMapping at: aSymbol asSymbol
+	^ converterMapping at: aSymbol asSymbol ifAbsent: [ #convertToTheSame: ]
 ]
 
 { #category : #'conversion logic' }
@@ -48,6 +42,18 @@ CCollectorDLittleImporter2 >> convertToBoolean: aString [
 CCollectorDLittleImporter2 >> convertToNumber: aString [
 
 	^ aString asNumber
+]
+
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> convertToString: aString [
+
+	^ aString
+]
+
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> convertToTheSame: aString [
+
+	^ aString
 ]
 
 { #category : #'importing - private' }
