@@ -31,6 +31,9 @@ CBkCollectorDLittleImporter2 >> defaultMapper [
 	map convert: #price using: [ :each | each asNumber ].
 	map convert: #year using: [ :each | each asNumber ].
 	map convert: #read using: [ :each | each asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] ].
+	map convert: #complete using: [ :each | each asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] ].
+	map convert: #finished using: [ :each | each asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] ].
+	map convert: #numberOfBooks using: [:each | each asNumber ].
 	^ map
 
 ]

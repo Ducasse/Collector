@@ -38,6 +38,51 @@ CBkCollectorDLittleImporter2Test >> testImportEntity [
 
 ]
 
+{ #category : #'test - inmporting nested' }
+CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProperties [
+	| serie dl |
+	dl := (self
+				parse:
+					'(series : la cour
+						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
+						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
+						(complete : no)
+						(finished : yes)
+						(numberOfBooks : 5)
+						)').
+	serie := importer import: dl.
+
+	"a Series got created. "
+	self assert: serie name equals: 'la cour'.
+
+	"the entities composing it got created too."
+	self assert: serie items size equals: 2.
+	self deny: serie complete.
+	self assert: serie numberOfBooks equals: 5.
+	self assert: serie finished.
+	
+]
+
+{ #category : #'test - inmporting nested' }
+CBkCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndProperties [
+	| serie dl |
+	dl := (self
+				parse:
+					'(series : la cour
+						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
+						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
+						(complete : true)
+						)').
+	serie := importer import: dl.
+
+	"a Series got created. "
+	self assert: serie name equals: 'la cour'.
+
+	"the entities composing it got created too."
+	self assert: serie items size equals: 2.
+	self assert: serie complete
+]
+
 { #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
 	

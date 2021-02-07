@@ -7,7 +7,9 @@ Class {
 	#name : #CSerieItem,
 	#superclass : #CCollection,
 	#instVars : [
-		'complete'
+		'complete',
+		'numberOfBooks',
+		'finished'
 	],
 	#category : #'Collector-SimpleBooks'
 }
@@ -39,6 +41,28 @@ CSerieItem >> complete [
 { #category : #accessing }
 CSerieItem >> complete: anObject [
 	complete := anObject
+]
+
+{ #category : #accessing }
+CSerieItem >> finished [
+	^ finished
+]
+
+{ #category : #accessing }
+CSerieItem >> finished: aBoolean [
+	finished := aBoolean
+]
+
+{ #category : #printing }
+CSerieItem >> numberOfBooks [
+	
+	^ numberOfBooks
+]
+
+{ #category : #printing }
+CSerieItem >> numberOfBooks: aNumber [
+	
+	numberOfBooks := aNumber
 ]
 
 { #category : #printing }
