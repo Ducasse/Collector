@@ -14,6 +14,12 @@ CObject >> ensureProperties [
 ]
 
 { #category : #accessing }
+CObject >> propertiesKeysAndValuesDo: aBlock [
+
+	properties keysAndValuesDo: aBlock
+]
+
+{ #category : #accessing }
 CObject >> propertyAt: propName [
 	^ self ensureProperties
 		at: propName

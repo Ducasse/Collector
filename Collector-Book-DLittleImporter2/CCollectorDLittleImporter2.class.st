@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'current',
 		'mapping',
-		'elementaryConverter'
+		'elementaryConverter',
+		'converterMapping'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
@@ -15,7 +16,7 @@ Class {
 { #category : #configuration }
 CCollectorDLittleImporter2 >> configureUsing: aConfiguration [
 
-	self halt.
+	aConfiguration configureImporter: self
 ]
 
 { #category : #'importing - private' }
@@ -32,12 +33,37 @@ CCollectorDLittleImporter2 >> convert: aPair for: anItem [
 		ifFalse: [  aPair value ]
 ]
 
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> convertSelectorFor: aSymbol [
+	^ converterMapping at: aSymbol asSymbol
+]
+
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> convertToBoolean: aString [
+
+	^ aString asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] 
+]
+
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> convertToNumber: aString [
+
+	^ aString asNumber
+]
+
 { #category : #'importing - private' }
 CCollectorDLittleImporter2 >> createEntity: aPair [
 	"Return the entity object corresponding to aPair"
 	"Precondition: aPair key identifies an entity and not a property."
 	
 	^ (self mappingFor: aPair key) newWith: aPair value
+]
+
+{ #category : #'conversion logic' }
+CCollectorDLittleImporter2 >> declareConversionSelector: aSelector for: anAttributeName [
+	
+	converterMapping 
+		at: anAttributeName asSymbol 
+		put: aSelector
 ]
 
 { #category : #mapper }
@@ -143,6 +169,7 @@ CCollectorDLittleImporter2 >> initialize [
 	super initialize.
 	current := OrderedCollection new. 
 	elementaryConverter := self defaultMapper.
+	converterMapping := Dictionary new. 
 	mapping := Dictionary new.
 	mapping 
 		at: #title put: CBookItem;
