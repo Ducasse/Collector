@@ -27,12 +27,9 @@ CBkCollectorDLittleImporter2Test >> setUp [
 
 { #category : #'test - importing basic' }
 CBkCollectorDLittleImporter2Test >> testImportEntity [
-	| book |
-	book := importer
-		importFrom:
-			(self
-				parse:
-					'(title : Les vents du changement (read : no) (style : SF) (price : 2.39))').
+	| book dl |
+	dl := self parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))'.
+	book := importer import: dl.
 					
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
@@ -47,10 +44,43 @@ CBkCollectorDLittleImporter2Test >> testImportKnownProperty [
 	| book dl |
 	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
 	book := CBookItem newWith: 'Les vents du changement'.
-	importer importPair: dl head for: book.					
+	importer importLeaf: dl head for: book.					
 	self assert: book price equals: 2.39.
 
 
+]
+
+{ #category : #'test - inmporting nested' }
+CBkCollectorDLittleImporter2Test >> testImportNestedEntity [
+	| serie dl firstBook secondBook |
+	dl := (self
+				parse:
+					'(series : la cour
+						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
+						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
+						)').
+	serie := importer import: dl.
+
+	"a Series got created. "
+	self assert: serie name equals: 'la cour'.
+
+	"the entities composing it got created too."
+	self assert: serie items size equals: 2.
+	
+	"we check that properties of nested entities are well handed too."
+	firstBook := serie items first.
+	self assert: firstBook title equals: 'la cours du chaos'.
+	
+	self assert: firstBook price equals: 2.39.
+	self assert: firstBook style equals: 'SF'.
+	self assert: (firstBook propertyAt: 'zorkzork') equals: '1.3'.
+	
+	secondBook := serie items second.
+	self assert: secondBook title equals: 'Les 9 princes d''ambre'.
+	
+	self assert: secondBook price equals: 2.3.
+	self assert: secondBook style equals: 'SF'.
+	
 ]
 
 { #category : #'test - importing basic' }
@@ -73,7 +103,7 @@ CBkCollectorDLittleImporter2Test >> testImportUnknownProperty [
 	| book dl |
 	dl := self parse: '(zork : 2.39) (read : no) (style : SF))'.
 	book := CBookItem newWith: 'Les vents du changement'.
-	importer importPair: dl head for: book.					
+	importer importLeaf: dl head for: book.					
 	self assert: (book propertyAt: #zork)  equals: '2.39'.
 
 

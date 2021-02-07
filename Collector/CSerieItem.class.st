@@ -12,6 +12,13 @@ Class {
 	#category : #'Collector-SimpleBooks'
 }
 
+{ #category : #'instance creation' }
+CSerieItem class >> newWith: aName [
+
+	^ self new 
+		name: aName; yourself
+]
+
 { #category : #visiting }
 CSerieItem >> accept: aVisitor [
 

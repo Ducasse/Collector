@@ -1,6 +1,6 @@
 Class {
 	#name : #CCollection,
-	#superclass : #Object,
+	#superclass : #CObject,
 	#instVars : [
 		'items',
 		'sorter',
@@ -17,6 +17,7 @@ CCollection >> accept: aVisitor [
 
 { #category : #adding }
 CCollection >> add: aCBookItem [ 
+	
 	items add: aCBookItem.
 	^ aCBookItem 
 ]
