@@ -23,7 +23,7 @@ CCollectorDLittleImporter2 >> configureUsing: aConfiguration [
 CCollectorDLittleImporter2 >> convert: aPair for: anItem [
 	
 	^ anItem shouldConvert 
-		ifTrue: [ elementaryConverter convert: aPair key value: aPair value  ]
+		ifTrue: [ self perform: (self convertSelectorFor: aPair key asSymbol) with: aPair value  ]
 		ifFalse: [  aPair value ]
 ]
 
@@ -69,7 +69,7 @@ CCollectorDLittleImporter2 >> declareConversionSelector: aSelector for: anAttrib
 	
 	converterMapping 
 		at: anAttributeName asSymbol 
-		put: aSelector
+		put: aSelector asSymbol
 ]
 
 { #category : #mapper }

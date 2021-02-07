@@ -7,6 +7,22 @@ Class {
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
+{ #category : #'tests - import configuration' }
+CCollectorDLittleImporter2Test >> configureImporter [
+	| dl config |
+	dl := self parse: 
+	'(config: config 
+		(types : types
+	   		(price : number)
+			(read : boolean)
+			(complete : boolean)
+			(style : string)))'.
+			
+	config := CImporterConfiguration new.
+	importer importList: dl rest into: config.
+	importer configureUsing: config.
+]
+
 { #category : #utils }
 CCollectorDLittleImporter2Test >> importer [
 	^ CCollectorDLittleImporter2 new
@@ -22,6 +38,7 @@ CCollectorDLittleImporter2Test >> parse: aText [
 CCollectorDLittleImporter2Test >> setUp [ 
 	super setUp.
 	importer := self importer. 
+	self configureImporter.
 
 ]
 
@@ -53,11 +70,13 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 			(style : string)))'.
 			
 	config := CImporterConfiguration new.
+	importer := self importer.
+	"We reset it here to make sure that the configuration is done based on this test."
 	importer importList: dl rest into: config.
 	importer configureUsing: config.
-	self assert: (importer convertSelectorFor: #price) equals: #convertNumber:.
-	self assert: (importer convertSelectorFor: #read) equals: #convertBoolean:.
-	self assert: (importer convertSelectorFor: #style) equals: #convertString:.
+	self assert: (importer convertSelectorFor: #price) equals: #convertToNumber:.
+	self assert: (importer convertSelectorFor: #read) equals: #convertToBoolean:.
+	self assert: (importer convertSelectorFor: #style) equals: #convertToString:.
 	self assert: (importer convertSelectorFor: #foo) equals: #convertToTheSame:.
 ]
 
@@ -66,7 +85,7 @@ CCollectorDLittleImporter2Test >> testImportEntity [
 	| book dl |
 	dl := self parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))'.
 	book := importer import: dl.
-					
+	
 	self assert: book title equals: 'Les vents du changement'.
 	self assert: book price equals: 2.39.
 	self assert: book style equals: 'SF'.
@@ -94,8 +113,8 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProper
 	"the entities composing it got created too."
 	self assert: serie items size equals: 2.
 	self deny: serie complete.
-	self assert: serie numberOfBooks equals: 5.
-	self assert: serie finished.
+	self assert: serie numberOfBooks equals: '5'.
+	self assert: serie finished equals: 'yes'.
 	
 ]
 

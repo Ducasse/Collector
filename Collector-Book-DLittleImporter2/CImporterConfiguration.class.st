@@ -31,7 +31,7 @@ CImporterConfiguration >> configureImporter: anImporter [
 	"
 	types first propertiesKeysAndValuesDo: [ :k :v |
 			anImporter 
-				declareConversionSelector: ('convert', v capitalized, ':') 
+				declareConversionSelector: ('convertTo', v capitalized, ':') 
 				for: k asSymbol
 		]
 ]
