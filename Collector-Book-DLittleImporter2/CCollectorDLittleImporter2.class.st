@@ -12,10 +12,24 @@ Class {
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
+{ #category : #configuration }
+CCollectorDLittleImporter2 >> configureUsing: aConfiguration [
+
+	self halt.
+]
+
 { #category : #'importing - private' }
 CCollectorDLittleImporter2 >> convert: aPair [
 
 	^ elementaryConverter convert: aPair key value: aPair value
+]
+
+{ #category : #'importing - private' }
+CCollectorDLittleImporter2 >> convert: aPair for: anItem [
+	
+	^ anItem shouldConvert 
+		ifTrue: [ elementaryConverter convert: aPair key value: aPair value  ]
+		ifFalse: [  aPair value ]
 ]
 
 { #category : #'importing - private' }
@@ -97,8 +111,8 @@ CCollectorDLittleImporter2 >> importLeaf: aDL for: anItem [
 	"Given a property expressed as a pair key val modifies an item to hold this property."
 
 	(anItem class canUnderstand: aDL key asSymbol)
-		ifTrue: [ anItem perform: aDL key asSymbol asMutator with: (self convert: aDL) ] 
-		ifFalse: [ anItem propertyAt: aDL key asSymbol put: (self convert: aDL)]
+		ifTrue: [ anItem perform: aDL key asSymbol asMutator with: (self convert: aDL for: anItem) ] 
+		ifFalse: [ anItem propertyAt: aDL key asSymbol put: (self convert: aDL for: anItem)]
 		
 ]
 
@@ -134,7 +148,8 @@ CCollectorDLittleImporter2 >> initialize [
 		at: #title put: CBookItem;
 		at: #series put: CSerieItem;
 		at: #author put: CBookAuthor;
-		at: #collection put: CCollection
+		at: #collection put: CCollection;
+		at: #types put: CType
 		
 		
 ]

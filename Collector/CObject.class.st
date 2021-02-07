@@ -26,3 +26,8 @@ CObject >> propertyAt: propName put: propValue [
 		at: propName
 		ifAbsentPut: propValue
 ]
+
+{ #category : #accessing }
+CObject >> shouldConvert [ 	
+	^ true
+]

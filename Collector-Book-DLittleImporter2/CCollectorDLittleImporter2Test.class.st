@@ -31,6 +31,7 @@ CCollectorDLittleImporter2Test >> testConversionOfProperties [
 	| book dl |
 	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
 	self flag: #toRevisitOnceConfigIsManaged.
+	"so far do not test anything new"
 	book := CBookItem newWith: 'Les vents du changement'.
 	importer importLeaf: dl head for: book.					
 	self assert: book price equals: 2.39.
@@ -43,16 +44,17 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 	| config dl |
 	self flag: #Todo. 
 	"ShoudIntegrateIlyasChangeForOptionalValue".
-	dl := self parse: '(configuration : configuration 
+	dl := self parse: 
+	'(config: config 
 		(types : types
-			(price : number)
+	   		(price : number)
 			(read : boolean)
 			(complete : boolean)
-			(style : string)))
+			(style : string)))'.
 			
-			'.
 	config := CImporterConfiguration new.
-	importer importDL: dl into: CImporterConfiguration new.
+	importer importList: dl rest into: config.
+	importer configureUsing: config.
 	self halt.
 ]
 
