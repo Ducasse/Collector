@@ -2,15 +2,27 @@ Class {
 	#name : #CImporterConfiguration,
 	#superclass : #CObject,
 	#instVars : [
-		'types'
+		'types',
+		'aliases'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
 { #category : #adding }
 CImporterConfiguration >> add: anElement [
+	"todo change this after removing the type and alias attributes from the classes CAlias/CType"
+	
+	(anElement class canUnderstand: #type asMutator)
+		ifTrue: [ ^types add: anElement ].
+	(anElement class canUnderstand: #alias asMutator )
+		ifTrue: [ ^aliases add: anElement ].
+	^self error.
+]
 
-	types add: anElement
+{ #category : #accessing }
+CImporterConfiguration >> aliases [
+	
+	^aliases
 ]
 
 { #category : #initialization }
@@ -33,11 +45,24 @@ CImporterConfiguration >> configureImporter: anImporter [
 			anImporter 
 				declareConversionSelector: ('convertTo', v capitalized, ':') 
 				for: k asSymbol
+		].
+	
+	aliases first propertiesKeysAndValuesDo: [ :k :v |
+			anImporter 
+				declareAlias: k asSymbol
+				for: v asSymbol
 		]
 ]
 
 { #category : #initialization }
 CImporterConfiguration >> initialize [ 
 	super initialize.
-	types := OrderedCollection new
+	types := OrderedCollection new.
+	aliases := OrderedCollection new
+]
+
+{ #category : #accessing }
+CImporterConfiguration >> types [
+	
+	^types
 ]
