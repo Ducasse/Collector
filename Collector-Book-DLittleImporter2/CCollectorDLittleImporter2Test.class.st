@@ -80,7 +80,8 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 			(no : false)
 			(prix : price)
 			(lu : read)
-			))'.
+			)
+			)'.
 			
 	config := CImporterConfiguration new.
 	importer := self importer.
@@ -96,6 +97,37 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 	self assert: (importer aliases at: #no) equals: #false.
 	self assert: (importer aliases at: #prix) equals: #price.
 	self assert: (importer aliases at: #lu) equals: #read.
+]
+
+{ #category : #'tests - import configuration' }
+CCollectorDLittleImporter2Test >> testImportConfigureDomains [
+	| config dl |
+	self flag: #Todo. 
+	"ShoudIntegrateIlyasChangeForOptionalValue".
+	dl := self parse: 
+	'(config: config 
+		(domains : domains
+			( book : CBookItem2 )
+			( author : CAuthor2 )
+			( series : CSerie )
+			))'.
+			
+	config := CImporterConfiguration new.
+	importer := self importer.
+	"We reset it here to make sure that the configuration is done based on this test."
+	importer importList: dl rest into: config.
+	importer configureUsing: config.
+	
+	self assert: (importer hasMappingFor: #book).
+	self assert: (importer mappingFor: #book) name equals: #CBookItem2.
+	
+	self assert: (importer hasMappingFor: #author).
+	self assert: (importer mappingFor: #author) name equals: #CAuthor2.	
+		
+	self assert: (importer hasMappingFor: #series).
+	self assert: (importer mappingFor: #series) name equals: #CSerie.
+	
+	
 ]
 
 { #category : #'tests - importing basic' }
