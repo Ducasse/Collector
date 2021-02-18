@@ -3,7 +3,8 @@ Class {
 	#superclass : #CObject,
 	#instVars : [
 		'types',
-		'aliases'
+		'aliases',
+		'domains'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
@@ -11,11 +12,13 @@ Class {
 { #category : #adding }
 CImporterConfiguration >> add: anElement [
 	"todo change this after removing the type and alias attributes from the classes CAlias/CType"
-	
-	(anElement class canUnderstand: #type asMutator)
+
+	(anElement class canUnderstand: #type)
 		ifTrue: [ ^types add: anElement ].
-	(anElement class canUnderstand: #alias asMutator )
-		ifTrue: [ ^aliases add: anElement ].
+	(anElement class canUnderstand: #alias)
+		ifTrue: [ ^aliases add: anElement. ].
+	(anElement class canUnderstand: #domain)
+		ifTrue: [ ^domains add: anElement ].
 	^self error.
 ]
 
@@ -27,7 +30,7 @@ CImporterConfiguration >> aliases [
 
 { #category : #initialization }
 CImporterConfiguration >> configureImporter: anImporter [
-	
+
 	"This is ugly because 
 	when we have 
 		( s 1 
@@ -41,24 +44,48 @@ CImporterConfiguration >> configureImporter: anImporter [
 				(read : boolean)
 				))
 	"
-	types first propertiesKeysAndValuesDo: [ :k :v |
-			anImporter 
-				declareConversionSelector: ('convertTo', v capitalized, ':') 
-				for: k asSymbol
-		].
+
+	types isNotEmpty ifTrue: [ 
+		types first propertiesKeysAndValuesDo: [ :k :v | 
+			anImporter
+				declareConversionSelector: 'convertTo' , v capitalized , ':'
+				for: k asSymbol ] ].
+
+	domains isNotEmpty ifTrue: [ 
+		self createClasses.
+		domains first propertiesKeysAndValuesDo: [ :k :v | 
+			anImporter
+				addMapping: (self class environment at: v asSymbol)
+				for: k asSymbol ] ].
+		
+	aliases isNotEmpty ifTrue: [ 
+		aliases first propertiesKeysAndValuesDo: [ :k :v | 
+			anImporter declareAlias: k asSymbol for: v asSymbol ] ]
+]
+
+{ #category : #initialization }
+CImporterConfiguration >> createClasses [
+	domains first propertiesKeysAndValuesDo: [ :k :v |
+		FluidClassBuilder new
+		superclassToBuild: CObject;
+		classNameToBuild: v asSymbol;
+		package: 'Collector-Book-DLittleImporter2';
+		install.
+	].
+]
+
+{ #category : #accessing }
+CImporterConfiguration >> domains [
 	
-	aliases first propertiesKeysAndValuesDo: [ :k :v |
-			anImporter 
-				declareAlias: k asSymbol
-				for: v asSymbol
-		]
+	^domains
 ]
 
 { #category : #initialization }
 CImporterConfiguration >> initialize [ 
 	super initialize.
 	types := OrderedCollection new.
-	aliases := OrderedCollection new
+	aliases := OrderedCollection new.
+	domains := OrderedCollection new
 ]
 
 { #category : #accessing }

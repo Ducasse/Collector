@@ -1,28 +1,28 @@
 Class {
-	#name : #CAlias,
+	#name : #CDomain,
 	#superclass : #CObject,
 	#instVars : [
-		'alias'
+		'domain'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
 { #category : #'instance creation' }
-CAlias class >> newWith: anAlias [
+CDomain class >> newWith: aDomain [
 
-	^ self new alias: anAlias ; yourself
+	^ self new domain: aDomain ; yourself
 ]
 
 { #category : #accessing }
-CAlias >> alias [
+CDomain >> domain [
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	^alias
+	^domain
 ]
 
 { #category : #accessing }
-CAlias >> alias: aString [ 
+CDomain >> domain: aString [ 
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	alias := aString
+	domain := aString
 ]

@@ -14,6 +14,12 @@ Class {
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
+{ #category : #query }
+CCollectorDLittleImporter2 >> addMapping: aClass for: aSymbol [ 
+	mapping 
+		at: aSymbol put: aClass.
+]
+
 { #category : #accessing }
 CCollectorDLittleImporter2 >> aliases [
 	^aliases
@@ -215,8 +221,8 @@ CCollectorDLittleImporter2 >> initialize [
 		at: #author put: CBookAuthor;
 		at: #collection put: CCollection;		
 		at: #types put: CType;
-		at: #aliases put: CAlias
-		
+		at: #aliases put: CAlias;
+		at: #domains put: CDomain
 		
 ]
 

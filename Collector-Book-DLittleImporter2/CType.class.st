@@ -19,8 +19,15 @@ CType >> shouldConvert [
 ]
 
 { #category : #accessing }
+CType >> type [
+	"We will remove it once I will integrate the optional part of ilyas"
+	
+	^type
+]
+
+{ #category : #accessing }
 CType >> type: aString [ 
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	type := aString
+	^type
 ]
