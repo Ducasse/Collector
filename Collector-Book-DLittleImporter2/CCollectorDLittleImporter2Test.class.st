@@ -43,20 +43,6 @@ CCollectorDLittleImporter2Test >> setUp [
 ]
 
 { #category : #'tests - conversion' }
-CCollectorDLittleImporter2Test >> testConversionOfBoolean [ 
-	
-	| book dl |
-	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
-	self flag: #toRevisitOnceConfigIsManaged.
-	"so far do not test anything new"
-	book := CBookItem newWith: 'Les vents du changement'.
-	importer importLeaf: dl head for: book.					
-	self assert: book read
-
-
-]
-
-{ #category : #'tests - conversion' }
 CCollectorDLittleImporter2Test >> testConversionOfProperties [
 	
 	| book dl |
@@ -251,6 +237,31 @@ CCollectorDLittleImporter2Test >> testImportUnknownProperty [
 	importer importLeaf: dl head for: book.
 	"Pay attention we get a string and not a number because zork was never described."					
 	self assert: (book propertyAt: #zork) equals: '2.39'.
+
+
+]
+
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testManageMultipleFormsOfBoolean [
+	"waiting for alias support"
+	
+	| book dl |
+	dl := self parse: '(title : Les vents du changement (read : false) (style : SF) (price : 2.39))'.
+	book := importer import: dl.
+	self deny: book read
+
+]
+
+{ #category : #'tests - conversion' }
+CCollectorDLittleImporter2Test >> testimportLeafFor [ 
+	
+	| book dl |
+	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
+	self flag: #toRevisitOnceConfigIsManaged.
+	"so far do not test anything new"
+	book := CBookItem newWith: 'Les vents du changement'.
+	importer importLeaf: dl head for: book.					
+	self assert: book price equals: 2.39
 
 
 ]

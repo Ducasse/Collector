@@ -1,3 +1,24 @@
+"
+For the moment I'm not connected in the importer2
+
+The tests are using me as follows: 
+
+```
+
+	| dl config importer |
+	dl := self parse: 
+	'(config: config 
+		(types : types
+	   		(price : number)
+			(read : boolean)
+			(complete : boolean)
+			(style : string)))'.
+			
+	config := CImporterConfiguration new.
+	importer importList: dl rest into: config.
+	importer configureUsing: config.
+```
+"
 Class {
 	#name : #CImporterConfiguration,
 	#superclass : #CObject,

@@ -1,5 +1,9 @@
 "
 (CCollectorDLittleImporter2 new importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
+
+
+- Potentially extract converter to a standalone object to support extension. 
+- Manage alias  
 "
 Class {
 	#name : #CCollectorDLittleImporter2,
@@ -8,7 +12,8 @@ Class {
 		'current',
 		'mapping',
 		'elementaryConverter',
-		'converterMapping'
+		'converterMapping',
+		'falses'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
@@ -34,8 +39,8 @@ CCollectorDLittleImporter2 >> convertSelectorFor: aSymbol [
 
 { #category : #'conversion logic' }
 CCollectorDLittleImporter2 >> convertToBoolean: aString [
-
-	^ aString asLowercase = 'no' ifTrue: [ false ] ifFalse: [ true ] 
+	
+	^ (falses includes: aString asLowercase) ifTrue: [ false ] ifFalse: [ true ] 
 ]
 
 { #category : #'conversion logic' }
@@ -66,6 +71,7 @@ CCollectorDLittleImporter2 >> createEntity: aPair [
 
 { #category : #'conversion logic' }
 CCollectorDLittleImporter2 >> declareConversionSelector: aSelector for: anAttributeName [
+	"Declare that the selector, aSelector should be used to convert the attribute, anAttributeName."
 	
 	converterMapping 
 		at: anAttributeName asSymbol 
@@ -174,7 +180,10 @@ CCollectorDLittleImporter2 >> importProperties: aCollection for: anItem [
 CCollectorDLittleImporter2 >> initialize [ 
 	super initialize.
 	current := OrderedCollection new. 
-	elementaryConverter := self defaultMapper.
+	falses := OrderedCollection new. 
+	falses add: 'no'.
+	falses add: 'false'.
+	
 	converterMapping := Dictionary new. 
 	mapping := Dictionary new.
 	mapping 
