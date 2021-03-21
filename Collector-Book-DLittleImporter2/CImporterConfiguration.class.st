@@ -22,7 +22,8 @@ CImporterConfiguration >> configureImporter: anImporter [
 			(attr 2)
 			(attr 3)
 	and s is not mapped to a domain entity we do not have a property dict for the entity. 
-	So I had to refied types 
+	So I had to refy types this way.
+	 
 		( configuration :
 			(types: 
 				(price : number)
