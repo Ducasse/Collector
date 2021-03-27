@@ -169,6 +169,12 @@ CCollectorDLittleImporter2Test >> testImportEntityWithTrueBoolean [
 
 ]
 
+{ #category : #'tests - import real' }
+CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
+
+	self importFromString: ''
+]
+
 { #category : #'tests - importing basic' }
 CCollectorDLittleImporter2Test >> testImportKnownProperty [
 	
