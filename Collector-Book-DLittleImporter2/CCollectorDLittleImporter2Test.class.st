@@ -171,8 +171,19 @@ CCollectorDLittleImporter2Test >> testImportEntityWithTrueBoolean [
 
 { #category : #'tests - import real' }
 CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
-
-	self importFromString: ''
+	
+	| author |
+	self skip.
+	self halt.
+	"the series are not managed!!!!"
+	author := importer importFromString: '(author : Wolfe, Gene
+		(serie : books
+			(title : le sortilege de Castelview (price : 2.4) (read :false))
+			(title : toutes les couleurs de l''enfer (comments : nouvelles) (read : false)))
+		(serie : le Live du long soleil
+			(title : Cote nuit (price : 2.4) (number : 1) (read :false))))'.
+			
+	self deny: author books isEmpty
 ]
 
 { #category : #'tests - importing basic' }
