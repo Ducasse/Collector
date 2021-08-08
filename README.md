@@ -28,3 +28,11 @@ Metacello new
   baseline: 'Collector';
   repository: 'github://Ducasse/Collector/src'
 ```
+
+If you want to depend on it
+
+```
+spec 
+   baseline: 'Descent' 
+   with: [ spec repository: 'github://Ducasse/Collector/src' ].
+```
