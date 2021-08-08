@@ -1,33 +1,28 @@
 Class {
-	#name : #CType,
+	#name : #CDomain,
 	#superclass : #CObject,
 	#instVars : [
-		'type'
+		'domain'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
 { #category : #'instance creation' }
-CType class >> newWith: aType [
+CDomain class >> newWith: aDomain [
 
-	^ self new type: aType ; yourself
-]
-
-{ #category : #asserting }
-CType >> shouldConvert [ 
-	^ false
+	^ self new domain: aDomain ; yourself
 ]
 
 { #category : #accessing }
-CType >> type [
+CDomain >> domain [
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	^type
+	^domain
 ]
 
 { #category : #accessing }
-CType >> type: aString [ 
+CDomain >> domain: aString [ 
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	^type
+	domain := aString
 ]
