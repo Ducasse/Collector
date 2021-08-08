@@ -7,6 +7,7 @@ To manage simple collections using (YAML to be deprecated) and DLittle (a little
 [![Pharo version](https://img.shields.io/badge/Pharo-8.0-%23aac9ff.svg)](https://pharo.org/download)
 
 
+Here is a sample of a possible data.
 
 ```
 (author : Aldiss / Brian 
@@ -20,7 +21,7 @@ To manage simple collections using (YAML to be deprecated) and DLittle (a little
       
 ## Installation
 
-To install the packages of DLittle, go to the Playground (Ctrl+OW) in your Pharo image and execute the following Metacello script (select it and press Do-it button or Ctrl+D):
+To install the packages of Collector, go to the Playground (Ctrl+OW) in your Pharo image and execute the following Metacello script (select it and press Do-it button or Ctrl+D):
 
 ```Smalltalk
 Metacello new
