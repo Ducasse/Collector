@@ -33,6 +33,6 @@ If you want to depend on it
 
 ```
 spec 
-   baseline: 'Descent' 
+   baseline: 'Collector' 
    with: [ spec repository: 'github://Ducasse/Collector/src' ].
 ```
