@@ -123,8 +123,7 @@ CDLittleLPrinter >> visitBook: aBook [
 { #category : #visiting }
 CDLittleLPrinter >> visitCollection: aCollection [
 	
-	aCollection sorter: CByAuthorsCollectionSorter new.
-	
+	aCollection sorter: CByAuthorsCollectionSorter new.	
 	stream << '(collection : '.
 	stream << aCollection name.
 	self newline.
@@ -134,7 +133,8 @@ CDLittleLPrinter >> visitCollection: aCollection [
 		separatedBy: [ self newline ].
 	self newline.
 	self emitTabs.
-	stream << '( sum : ' << aCollection items size asString <<  '))'
+	stream << '( sum : ' << aCollection items size asString <<  '))'.
+
 ]
 
 { #category : #visiting }

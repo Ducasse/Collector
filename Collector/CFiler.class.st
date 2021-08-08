@@ -12,10 +12,20 @@ Class {
 	#name : #CFiler,
 	#superclass : #Object,
 	#instVars : [
-		'books'
+		'importer'
 	],
 	#category : #'Collector-Utils'
 }
+
+{ #category : #copying }
+CFiler >> books [ 
+	
+	| printer |
+	printer := CDLittleLPrinter new. 
+ 	printer print: importer importedCollection.
+	^ printer contents
+	
+]
 
 { #category : #copying }
 CFiler >> copyToLocal [
@@ -30,7 +40,28 @@ CFiler >> copyToLocal [
 { #category : #copying }
 CFiler >> loadFileInMemory [
 
-	books := (CBkCollectorDLittleImporter new importFromFileName:  self workingFile)
+	importer := (CBkCollectorDLittleImporter new importFromFileName:  self workingFile)
+]
+
+{ #category : #copying }
+CFiler >> rawBooks [ 
+	^ importer importedCollection items
+]
+
+{ #category : #copying }
+CFiler >> stonishBooks [ 
+	
+	^ STON toStringPretty: importer importedCollection items  
+	
+]
+
+{ #category : #copying }
+CFiler >> uglyAuthors [
+	
+	| printer |
+	printer := CDLittleLPrinter new. 
+ 	printer print: importer importedCollection.
+	^ printer contents
 ]
 
 { #category : #copying }
