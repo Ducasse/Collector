@@ -24,9 +24,7 @@ CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Wo
 ```
 
 # Notes for later. 
-- the logic is strange because
-	when importing a serie we require an author (extractSerieFrom:withAuthor:)
-   while when importing a book we do not require a serie (extractBook:). 
+- the logic is strange because when importing a serie we require an author (`extractSerieFrom:withAuthor:`) while when importing a book we do not require a serie (`extractBook:`). 
 - we do not support well books with two authors. 
 
 
