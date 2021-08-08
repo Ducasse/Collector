@@ -1,7 +1,7 @@
 Class {
 	#name : #SpGameListPresenterTest,
 	#superclass : #TestCase,
-	#category : #'Collector-Tests-UI'
+	#category : #'Collector-UI'
 }
 
 { #category : #tests }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'itemDisplayer'
 	],
-	#category : #'Collector-Tests-UI'
+	#category : #'Collector-UI'
 }
 
 { #category : #running }
