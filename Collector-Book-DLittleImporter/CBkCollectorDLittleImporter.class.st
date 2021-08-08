@@ -3,11 +3,15 @@ I'm a dedicated importer for book collection.
 This is not really great in terms of reuse but this is a try to understand 
 how this logic could be directed via a metamodel.
 
-
+```
 (CBkCollectorDLittleImporter new importFromFileName:  '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
+```
 
+```
 CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference readStream contents
+```
 
+```
 (collection : SF
 	(author : Aldiss, Brian 
 		(serie : helliconia  
@@ -17,10 +21,11 @@ CBkCollectorDLittleImporter new import: '/Users/ducasse/Workspace/FirstCircle/Wo
  	 	(books : default
   	 	 	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))))
 )
+```
 
-Notes for later. 
+# Notes for later. 
 - the logic is strange because
-	when importing a serie we require an author   (extractSerieFrom:withAuthor:)
+	when importing a serie we require an author (extractSerieFrom:withAuthor:)
    while when importing a book we do not require a serie (extractBook:). 
 - we do not support well books with two authors. 
 

@@ -65,10 +65,8 @@ CCollectorDLittleImporter2Test >> testConversionOfProperties [
 { #category : #'tests - import configuration' }
 CCollectorDLittleImporter2Test >> testImportConfigure [
 	| config dl |
-	self flag: #Todo. 
-	"ShoudIntegrateIlyasChangeForOptionalValue".
 	dl := self parse: 
-	'(config: config 
+	'(config:  
 		(types : types
 	   		(price : number)
 			(read : boolean)
@@ -131,7 +129,7 @@ CCollectorDLittleImporter2Test >> testImportConfigureDomains [
 ]
 
 { #category : #'tests - importing basic' }
-CCollectorDLittleImporter2Test >> testImportEntity [
+CCollectorDLittleImporter2Test >> testImportEntityWithFalseBoolean [
 	| book dl |
 	dl := self parse: '(title : Les vents du changement (read : no) (style : SF) (price : 2.39))'.
 	book := importer import: dl.
@@ -247,6 +245,36 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndUnknownProp
 ]
 
 { #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testImportEntityWithTrueBoolean [
+	| book dl |
+	dl := self parse: '(title : Les vents du changement (read : yes) (style : SF) (price : 2.39))'.
+	book := importer import: dl.
+	
+	self assert: book title equals: 'Les vents du changement'.
+	self assert: book price equals: 2.39.
+	self assert: book style equals: 'SF'.
+	self assert: book read
+
+]
+
+{ #category : #'tests - import real' }
+CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
+	
+	| author |
+	self skip.
+	self halt.
+	"the series are not managed!!!!"
+	author := importer importFromString: '(author : Wolfe, Gene
+		(serie : books
+			(title : le sortilege de Castelview (price : 2.4) (read :false))
+			(title : toutes les couleurs de l''enfer (comments : nouvelles) (read : false)))
+		(serie : le Live du long soleil
+			(title : Cote nuit (price : 2.4) (number : 1) (read :false))))'.
+			
+	self deny: author books isEmpty
+]
+
+{ #category : #'tests - importing basic' }
 CCollectorDLittleImporter2Test >> testImportKnownProperty [
 	
 	| book dl |
@@ -330,8 +358,34 @@ CCollectorDLittleImporter2Test >> testImportUnknownProperty [
 	| book dl |
 	dl := self parse: '(zork : 2.39) (read : no) (style : SF))'.
 	book := CBookItem newWith: 'Les vents du changement'.
+	importer importLeaf: dl head for: book.
+	"Pay attention we get a string and not a number because zork was never described."					
+	self assert: (book propertyAt: #zork) equals: '2.39'.
+
+
+]
+
+{ #category : #'tests - importing basic' }
+CCollectorDLittleImporter2Test >> testManageMultipleFormsOfBoolean [
+	"waiting for alias support"
+	
+	| book dl |
+	dl := self parse: '(title : Les vents du changement (read : false) (style : SF) (price : 2.39))'.
+	book := importer import: dl.
+	self deny: book read
+
+]
+
+{ #category : #'tests - conversion' }
+CCollectorDLittleImporter2Test >> testimportLeafFor [ 
+	
+	| book dl |
+	dl := self parse: '(price : 2.39) (read : no) (style : SF))'.
+	self flag: #toRevisitOnceConfigIsManaged.
+	"so far do not test anything new"
+	book := CBookItem newWith: 'Les vents du changement'.
 	importer importLeaf: dl head for: book.					
-	self assert: (book propertyAt: #zork)  equals: '2.39'.
+	self assert: book price equals: 2.39
 
 
 ]
