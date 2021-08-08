@@ -1,33 +1,28 @@
 Class {
-	#name : #CType,
+	#name : #CAlias,
 	#superclass : #CObject,
 	#instVars : [
-		'type'
+		'alias'
 	],
 	#category : #'Collector-Book-DLittleImporter2'
 }
 
 { #category : #'instance creation' }
-CType class >> newWith: aType [
+CAlias class >> newWith: anAlias [
 
-	^ self new type: aType ; yourself
-]
-
-{ #category : #asserting }
-CType >> shouldConvert [ 
-	^ false
+	^ self new alias: anAlias ; yourself
 ]
 
 { #category : #accessing }
-CType >> type [
+CAlias >> alias [
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	^type
+	^alias
 ]
 
 { #category : #accessing }
-CType >> type: aString [ 
+CAlias >> alias: aString [ 
 	"We will remove it once I will integrate the optional part of ilyas"
 	
-	^type
+	alias := aString
 ]
