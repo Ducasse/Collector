@@ -11,6 +11,9 @@ Basic logic is
 Class {
 	#name : #CFiler,
 	#superclass : #Object,
+	#instVars : [
+		'books'
+	],
 	#category : #'Collector-Utils'
 }
 
@@ -27,7 +30,7 @@ CFiler >> copyToLocal [
 { #category : #copying }
 CFiler >> loadFileInMemory [
 
-	(CBkCollectorDLittleImporter new importFromFileName:  self workingFile)
+	books := (CBkCollectorDLittleImporter new importFromFileName:  self workingFile)
 ]
 
 { #category : #copying }
