@@ -24,6 +24,7 @@ SpItemDisplayerPresenterTest >> tearDown [
 
 { #category : #tests }
 SpItemDisplayerPresenterTest >> testInformationsAreUpdatedWhenGameItemChanges [
+	self skip.
 	self assert: itemDisplayer quotationNumberModel number equals: CGameItem finalFantasyX quotation.
 	self assert: itemDisplayer hasDocCheckBoxModel state equals: CGameItem finalFantasyX hasDocumentation.
 
