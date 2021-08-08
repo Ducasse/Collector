@@ -5,7 +5,7 @@ Class {
 		'teapot',
 		'books'
 	],
-	#category : #'Collector-Server-Utils'
+	#category : #'Collector-Server'
 }
 
 { #category : #'as yet unclassified' }
