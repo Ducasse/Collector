@@ -13,48 +13,9 @@ For example here is a given output
 "
 Class {
 	#name : #CDLittleLPrinter,
-	#superclass : #CSimpleBookVisitor,
-	#instVars : [
-		'stream',
-		'tabs'
-	],
+	#superclass : #CDPrintingVisitor,
 	#category : #'Collector-SimpleBooks'
 }
-
-{ #category : #visiting }
-CDLittleLPrinter >> contents [ 
-	^ stream contents
-]
-
-{ #category : #visiting }
-CDLittleLPrinter >> decreaseTabs [
-
-	tabs := tabs - 1
-]
-
-{ #category : #visiting }
-CDLittleLPrinter >> emitTabs [
-
-	tabs timesRepeat: [ stream tab ]
-]
-
-{ #category : #visiting }
-CDLittleLPrinter >> increaseTabs [
-
-	tabs := tabs + 1
-]
-
-{ #category : #initialization }
-CDLittleLPrinter >> initialize [ 
-	super initialize.
-	stream := WriteStream on: ''.
-	tabs := 0
-]
-
-{ #category : #visiting }
-CDLittleLPrinter >> newline [
-	stream lf
-]
 
 { #category : #printing }
 CDLittleLPrinter >> print: aCcollection [ 
@@ -72,12 +33,6 @@ CDLittleLPrinter >> printAuthorName: anAuthor [
 	stream << ', '.
 	stream << anAuthor firstName. ]
 
-]
-
-{ #category : #accessing }
-CDLittleLPrinter >> stream: aStream [
-
-	stream := aStream
 ]
 
 { #category : #visiting }

@@ -5,14 +5,18 @@ Nothing exciting.
 Basic logic is
 
 ```
-	self new copyToLocal; loadFileInMemory
+	self new 
+		fileDBPath: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl';
+		copyToLocal; 
+		loadFileInMemory
 ```
 "
 Class {
 	#name : #CFiler,
 	#superclass : #Object,
 	#instVars : [
-		'importer'
+		'importer',
+		'fileDBPath'
 	],
 	#category : #'Collector-Utils'
 }
@@ -33,8 +37,22 @@ CFiler >> copyToLocal [
 	self new copyToLocal
 	"
 	self workingFile ensureDelete.
-	'/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference 
+	self fileDBPath asFileReference 
 		copyTo: self workingFile
+]
+
+{ #category : #copying }
+CFiler >> fileDBPath [
+
+	^ fileDBPath 
+	
+]
+
+{ #category : #copying }
+CFiler >> fileDBPath: aPathString [
+
+	fileDBPath := aPathString 
+	
 ]
 
 { #category : #copying }
