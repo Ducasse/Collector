@@ -142,7 +142,7 @@ CDLittleLPrinterTest >> testPrintCollection [
 ]
 
 { #category : #tests }
-CDLittleLPrinterTest >> testPrintFullBookEntrie [
+CDLittleLPrinterTest >> testPrintFullAuthorEntrie [
 	| importer |
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).

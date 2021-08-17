@@ -78,7 +78,7 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerie [
 	printer printBook: importer importedCollection sorted first.
 	self 
 		assert: printer contents
-		equals: 'S-helliconia: Le printemps d''helliconia'
+		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia'
 
 ]
 
@@ -92,7 +92,7 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerieWithNumber [
 	printer printBook: book.
 	self 
 		assert: printer contents
-		equals: 'S-helliconia: Le printemps d''helliconia (n:1)'
+		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia (n:1)'
 
 ]
 
@@ -102,85 +102,28 @@ CDCompactBookPrinterTest >> testPrintCollection [
 	importer := CBkCollectorDLittleImporter new
 		import: self class oneCollection.
 	
-	printer print: importer importedCollection.
+	printer printCollection: importer importedCollection.
+	
 	self
 		assert: printer contents
-		equals:
-			'(collection : SF' , Character lf asString , Character tab asString
-				, '(author : Adam, Douglas' , Character lf asString
-				, Character tab asString , Character tab asString
-				, '(serie : Guide du routard galactique' , Character lf asString
-				, Character tab asString , Character tab asString
-				, Character tab asString
-				,
-					'(title : Le guide du voyageur inter-galactique (read : true) (style : comic english humour) (summary : un gars est capture par un vaisseau spatial et il lui arrive plein d''histoires aussi debiles les unes que les autres))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : H2G2 2 (price : 2) (read : false) (style : comic english humour))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : H2G2 3 (price : 2) (read : false) (style : comic english humour))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : H2G2 4 (price : 2) (read : false) (style : comic english humour)))'
-				, Character lf asString , Character tab asString , ')'
-				, Character lf asString , Character tab asString
-				, '(author : Aldiss, Brian' , Character lf asString
-				, Character tab asString , Character tab asString
-				, '(serie : helliconia' , Character lf asString
-				, Character tab asString , Character tab asString
-				, Character tab asString
-				,
-					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
-				, Character lf asString , Character tab asString
-				, Character tab asString , '(serie : default'
-				, Character lf asString , Character tab asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
-				, Character lf asString , Character tab asString , ')'
-				, Character lf asString , Character tab asString , '( sum : 8))'
+		equals: ''
 ]
 
 { #category : #tests }
-CDCompactBookPrinterTest >> testPrintFullBookEntrie [
+CDCompactBookPrinterTest >> testPrintFullAuthorEntrie [
 	| importer |
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	
-	printer print: importer importedCollection sorted first authors first.
+	printer printFullEntry: importer importedCollection sorted first authors first.
 	self
-		assert: printer contents
-		equals:
-			'(author : Aldiss, Brian' , Character lf asString
-				, Character tab asString , '(serie : helliconia'
-				, Character lf asString , Character tab asString
-				, Character tab asString
-				,
-					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				, Character tab asString
-				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				, Character tab asString
-				,
-					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
-				, Character lf asString , Character tab asString
-				, '(serie : default' , Character lf asString
-				, Character tab asString , Character tab asString
-				,
-					'(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))'
-				, Character lf asString , ')'
+		assert: printer contents 
+		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
+B Aldiss S-helliconia: Helliconia, l''ete
+B Aldiss S-helliconia: L''hiver d''helliconia
+B Aldiss S-default: L''instant de l''eclipse
+'
+			
 ]
 
 { #category : #tests }
@@ -193,7 +136,7 @@ CDCompactBookPrinterTest >> testPrintSerie [
 	self
 		assert: printer contents
 		equals:
-			'S-helliconia: Le printemps d''helliconia', String lf, 
-'S-helliconia: Helliconia, l''ete', String lf,
-'S-helliconia: L''hiver d''helliconia'
+			'B Aldiss S-helliconia: Le printemps d''helliconia', String lf, 
+'B Aldiss S-helliconia: Helliconia, l''ete', String lf,
+'B Aldiss S-helliconia: L''hiver d''helliconia'
 ]

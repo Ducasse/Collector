@@ -12,13 +12,13 @@ CDCompactBookPrinter >> contents [
 	^ stream contents
 ]
 
-{ #category : #author }
+{ #category : #accessing }
 CDCompactBookPrinter >> newLine [
 
 	^ self stream nextPutAll: self newLineEncoding 
 ]
 
-{ #category : #author }
+{ #category : #accessing }
 CDCompactBookPrinter >> newLineEncoding [
 
 	^ String lf
@@ -40,10 +40,25 @@ CDCompactBookPrinter >> printAuthor: aCBookAuthor [
 { #category : #author }
 CDCompactBookPrinter >> printBook: aBook [ 
 	
+	self printAuthor: aBook authors first.
+	self stream space.
 	aBook serie printOn: self stream.
 	self stream nextPut: $: ; space.
 	self stream nextPutAll: aBook title.
 	aBook number ifNotNil: [ self stream nextPutAll: ' (n:'; print: aBook number; nextPut: $) ]  
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> printCollection: aCollection [ 
+	
+	aCollection items do: [ :entry | self printFullEntry: entry ] separatedBy: [ self newLine ]
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> printFullEntry: aCBookAuthor [ 
+	
+	aCBookAuthor series do: [ :serie | self printSerie: serie ] separatedBy: [ self newLine ].
+	self newLine
 ]
 
 { #category : #author }
@@ -52,13 +67,13 @@ CDCompactBookPrinter >> printSerie: aSerie [
 	aSerie items do: [ :each | self printBook: each ] separatedBy: [ self newLine ]
 ]
 
-{ #category : #author }
+{ #category : #accessing }
 CDCompactBookPrinter >> setStream: aStream [
 
 	stream := aStream
 ]
 
-{ #category : #author }
+{ #category : #accessing }
 CDCompactBookPrinter >> stream [
 
 	^ stream ifNil: [ stream := WriteStream on: '' ]
