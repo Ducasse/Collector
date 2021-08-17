@@ -57,7 +57,7 @@ CDCompactBookPrinterTest >> testPrintAuthor [
 	| author  |
 	author := CBkCollectorDLittleImporter new
 		extractAuthorFromString: 'Ducasse, Stéphane'.
-	printer printAuthorName: author.
+	printer printAuthor: author.
 	self assert: printer contents equals: 'S Ducasse'
 ]
 
@@ -66,21 +66,33 @@ CDCompactBookPrinterTest >> testPrintAuthorWithJustAName [
 	| author  |
 	author := CBkCollectorDLittleImporter new
 		extractAuthorFromString: 'Barjavel'.
-	
-	printer printAuthorName: author.
-	self assert: printer contents equals: 'author : Barjavel'
+	printer printAuthor: author.
+	self assert: printer contents equals: 'Barjavel'
 ]
 
 { #category : #tests }
-CDCompactBookPrinterTest >> testPrintBook [
+CDCompactBookPrinterTest >> testPrintBookOutOfSerie [
 	| importer  |
 	importer := CBkCollectorDLittleImporter new 
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	
-	printer print: importer importedCollection sorted first.
+	printer printBook: importer importedCollection sorted first.
 	self 
 		assert: printer contents
-		equals: '(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
+		equals: 'S-helliconia: Le printemps d''helliconia'
+
+]
+
+{ #category : #tests }
+CDCompactBookPrinterTest >> testPrintBookOutOfSerieWithNumber [
+	| importer  book |
+	importer := CBkCollectorDLittleImporter new 
+		convertAuthor: (DLittleLParser parse: self class oneAuthor).
+	book := importer importedCollection sorted first.
+	book number: 1.
+	printer printBook: book.
+	self 
+		assert: printer contents
+		equals: 'S-helliconia: Le printemps d''helliconia (n:1)'
 
 ]
 

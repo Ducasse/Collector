@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'stream'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBook-Tests'
 }
 
 { #category : #accessing }
@@ -13,13 +13,31 @@ CDCompactBookPrinter >> contents [
 ]
 
 { #category : #author }
-CDCompactBookPrinter >> printAuthorName: aCBookAuthor [ 
+CDCompactBookPrinter >> printAuthor: aCBookAuthor [ 
 	
-	self stream 
-		nextPut: aCBookAuthor firstName first;
-		space;
+	aCBookAuthor firstName 
+		ifNotEmpty: [ 
+				self stream 
+					nextPut: aCBookAuthor firstName first ; 
+					space ].
+	self stream
 		nextPutAll: aCBookAuthor name
 		
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> printBook: aBook [ 
+	
+	aBook serie printOn: self stream.
+	self stream nextPut: $: ; space.
+	self stream nextPutAll: aBook title.
+	aBook number ifNotNil: [ self stream nextPutAll: ' (n:'; print: aBook number; nextPut: $) ]  
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> printSerie: aSerie [ 
+	
+	aSerie items do: [ :each | self printBook: each ]
 ]
 
 { #category : #author }
