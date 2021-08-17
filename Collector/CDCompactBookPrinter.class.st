@@ -13,6 +13,18 @@ CDCompactBookPrinter >> contents [
 ]
 
 { #category : #author }
+CDCompactBookPrinter >> newLine [
+
+	^ self stream nextPutAll: self newLineEncoding 
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> newLineEncoding [
+
+	^ String lf
+]
+
+{ #category : #author }
 CDCompactBookPrinter >> printAuthor: aCBookAuthor [ 
 	
 	aCBookAuthor firstName 
@@ -37,7 +49,7 @@ CDCompactBookPrinter >> printBook: aBook [
 { #category : #author }
 CDCompactBookPrinter >> printSerie: aSerie [ 
 	
-	aSerie items do: [ :each | self printBook: each ]
+	aSerie items do: [ :each | self printBook: each ] separatedBy: [ self newLine ]
 ]
 
 { #category : #author }

@@ -189,16 +189,11 @@ CDCompactBookPrinterTest >> testPrintSerie [
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 
-	printer print: importer importedCollection sorted first serie.
+	printer printSerie: importer importedCollection sorted first serie.
 	self
 		assert: printer contents
 		equals:
-			'(serie : helliconia' , Character lf asString , Character tab asString
-				,
-					'(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				, '(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))'
-				, Character lf asString , Character tab asString
-				,
-					'(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))'
+			'S-helliconia: Le printemps d''helliconia', String lf, 
+'S-helliconia: Helliconia, l''ete', String lf,
+'S-helliconia: L''hiver d''helliconia'
 ]
