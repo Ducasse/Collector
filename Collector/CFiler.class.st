@@ -21,8 +21,14 @@ Class {
 	#category : #'Collector-Utils'
 }
 
-{ #category : #copying }
+{ #category : #outputs }
 CFiler >> books [ 
+		
+	^ self uglyAuthors
+]
+
+{ #category : #outputs }
+CFiler >> booksAsText [
 	
 	| printer |
 	printer := CDLittleLPrinter new. 
@@ -41,18 +47,34 @@ CFiler >> copyToLocal [
 		copyTo: self workingFile
 ]
 
-{ #category : #copying }
+{ #category : #accessing }
 CFiler >> fileDBPath [
 
 	^ fileDBPath 
 	
 ]
 
-{ #category : #copying }
+{ #category : #accessing }
 CFiler >> fileDBPath: aPathString [
 
 	fileDBPath := aPathString 
 	
+]
+
+{ #category : #outputs }
+CFiler >> fullBooksAsText [ 
+	
+	| printer |
+	printer := CDLittleLPrinter new. 
+ 	printer print: importer importedCollection.
+	^ printer contents
+	
+]
+
+{ #category : #initialization }
+CFiler >> initialize [ 
+	super initialize.
+	self fileDBPath: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl' asFileReference
 ]
 
 { #category : #copying }
@@ -66,23 +88,23 @@ CFiler >> rawBooks [
 	^ importer importedCollection items
 ]
 
-{ #category : #copying }
+{ #category : #outputs }
 CFiler >> stonishBooks [ 
 	
 	^ STON toStringPretty: importer importedCollection items  
 	
 ]
 
-{ #category : #copying }
+{ #category : #outputs }
 CFiler >> uglyAuthors [
 	
 	| printer |
-	printer := CDLittleLPrinter new. 
+	printer := CDCompactBookPrinter new. 
  	printer print: importer importedCollection.
 	^ printer contents
 ]
 
-{ #category : #copying }
+{ #category : #accessing }
 CFiler >> workingFile [
 
 	^ FileSystem workingDirectory / 'books.dl'
