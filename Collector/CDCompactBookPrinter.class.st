@@ -45,7 +45,8 @@ CDCompactBookPrinter >> printBook: aBook [
 	aBook serie printOn: self stream.
 	self stream nextPut: $: ; space.
 	self stream nextPutAll: aBook title.
-	aBook number ifNotNil: [ self stream nextPutAll: ' (n:'; print: aBook number; nextPut: $) ]  
+	aBook number ifNotNil: [ self stream 
+											nextPutAll: ' (n:'; nextPutAll: aBook number asString; nextPut: $) ]  
 ]
 
 { #category : #author }

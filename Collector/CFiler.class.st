@@ -23,7 +23,7 @@ Class {
 
 { #category : #outputs }
 CFiler >> books [ 
-		
+	
 	^ self uglyAuthors
 ]
 
@@ -100,7 +100,7 @@ CFiler >> uglyAuthors [
 	
 	| printer |
 	printer := CDCompactBookPrinter new. 
- 	printer print: importer importedCollection.
+ 	printer printCollection: importer importedCollection.
 	^ printer contents
 ]
 
