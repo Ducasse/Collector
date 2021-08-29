@@ -83,7 +83,7 @@ CDLittleLPrinter >> visitCollection: aCollection [
 	stream << aCollection name.
 	self newline.
 	self increaseTabs.
-	aCollection sorted 
+	aCollection sortedItems 
 		do: [ :anAuthor | anAuthor accept: self ]
 		separatedBy: [ self newline ].
 	self newline.

@@ -75,7 +75,7 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerie [
 	| importer  |
 	importer := CBkCollectorDLittleImporter new 
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	printer printBook: importer importedCollection sorted first.
+	printer printBook: importer importedCollection sortedItems first.
 	self 
 		assert: printer contents
 		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia'
@@ -87,7 +87,7 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerieWithNumber [
 	| importer  book |
 	importer := CBkCollectorDLittleImporter new 
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	book := importer importedCollection sorted first.
+	book := importer importedCollection sortedItems first.
 	book number: 1.
 	printer printBook: book.
 	self 
@@ -99,23 +99,28 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerieWithNumber [
 { #category : #tests }
 CDCompactBookPrinterTest >> testPrintCollection [
 	| importer |
-	importer := CBkCollectorDLittleImporter new
-		import: self class oneCollection.
-	
+	importer := CBkCollectorDLittleImporter new import: self class oneCollection.
 	printer printCollection: importer importedCollection.
 	
 	self
-		assert: printer contents
-		equals: ''
+		assert: printer contents equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
+B Aldiss S-helliconia: Helliconia, l''ete
+B Aldiss S-helliconia: L''hiver d''helliconia
+B Aldiss S-default: L''instant de l''eclipse
+D Adam S-Guide du routard galactique: Le guide du voyageur inter-galactique
+D Adam S-Guide du routard galactique: H2G2 2
+D Adam S-Guide du routard galactique: H2G2 3
+D Adam S-Guide du routard galactique: H2G2 4'
+		
 ]
 
 { #category : #tests }
-CDCompactBookPrinterTest >> testPrintFullAuthorEntrie [
+CDCompactBookPrinterTest >> testPrintFullAuthorEntries [
 	| importer |
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	
-	printer printFullEntry: importer importedCollection sorted first authors first.
+	printer printSeriesOfAuthor: importer importedCollection sortedItems first authors first.
 	self
 		assert: printer contents 
 		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
@@ -132,7 +137,7 @@ CDCompactBookPrinterTest >> testPrintSerie [
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 
-	printer printSerie: importer importedCollection sorted first serie.
+	printer printSerie: importer importedCollection sortedItems first serie.
 	self
 		assert: printer contents
 		equals:

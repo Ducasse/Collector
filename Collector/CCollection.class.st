@@ -131,6 +131,18 @@ CCollection >> sorted: aBlock [
 	^ self sorter sort: items
 ]
 
+{ #category : #sorting }
+CCollection >> sortedItems [
+
+	^ self sorter sort: self items
+]
+
+{ #category : #sorting }
+CCollection >> sortedItemsWithBlock: aBlock [
+
+	^ self sorter sort: items
+]
+
 { #category : #accessing }
 CCollection >> sorter [
 	^ sorter

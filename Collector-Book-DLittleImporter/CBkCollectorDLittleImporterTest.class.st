@@ -63,7 +63,7 @@ CBkCollectorDLittleImporterTest >> testConvertAuthor [
 
 	| ce books |
 	ce := importer convertAuthor: (DLittleLParser parse: self class oneAuthor).
-	books := ce importedCollection sorted.
+	books := ce importedCollection sortedItems.
 	self assert: books size equals: 4.
 	self assert: books first authors first books size equals: 4
 ]

@@ -10,7 +10,7 @@ Class {
 	#name : #SpItemDisplayerPresenter,
 	#superclass : #SpPresenter,
 	#instVars : [
-		'#gameItem => SpObservableSlot',
+		'#gameItem => ObservableSlot',
 		'#consoleDropListModel',
 		'#hasDocCheckBoxModel',
 		'#hasBoxCheckBoxModel',
@@ -87,11 +87,6 @@ SpItemDisplayerPresenter >> gameItemChanged [
 { #category : #accessing }
 SpItemDisplayerPresenter >> hasDocCheckBoxModel [
 	^ hasDocCheckBoxModel
-]
-
-{ #category : #initialization }
-SpItemDisplayerPresenter >> initialize [
-	super initialize.
 ]
 
 { #category : #initialization }

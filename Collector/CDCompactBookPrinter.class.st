@@ -51,20 +51,20 @@ CDCompactBookPrinter >> printBook: aBook [
 { #category : #author }
 CDCompactBookPrinter >> printCollection: aCollection [ 
 	
-	aCollection items do: [ :entry | self printFullEntry: entry ] separatedBy: [ self newLine ]
-]
-
-{ #category : #author }
-CDCompactBookPrinter >> printFullEntry: aCBookAuthor [ 
-	
-	aCBookAuthor series do: [ :serie | self printSerie: serie ] separatedBy: [ self newLine ].
-	self newLine
+	aCollection sortedItems do: [ :entry | self printBook: entry ] separatedBy: [ self newLine ]
 ]
 
 { #category : #author }
 CDCompactBookPrinter >> printSerie: aSerie [ 
 	
 	aSerie items do: [ :each | self printBook: each ] separatedBy: [ self newLine ]
+]
+
+{ #category : #author }
+CDCompactBookPrinter >> printSeriesOfAuthor: aCBookAuthor [ 
+	
+	aCBookAuthor series do: [ :serie | self printSerie: serie ] separatedBy: [ self newLine ].
+	self newLine
 ]
 
 { #category : #accessing }

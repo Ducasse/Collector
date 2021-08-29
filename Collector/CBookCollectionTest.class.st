@@ -78,7 +78,7 @@ CBookCollectionTest >> testSorted [
 	self assert: c size equals: 4.
 	
 	"when we sort book we do not get anymore all the books in on row but the authors."
-	s := c sorted. 
+	s := c sortedItems. 
 	self assert: s size equals: 2.
 	self assert: s first name equals: 'Adam'.
 	self assert: s last name equals: 'Wilson'.
@@ -146,8 +146,8 @@ CBookCollectionTest >> testSortedByAuthors [
 	],
 	#sorter : CByAuthorsCollectionSorter { }
 }'.
-	self assert: collector sorted first class equals: CBookAuthor.
-	self assert: collector sorted first name  equals: 'Adam'.
+	self assert: collector sortedItems first class equals: CBookAuthor.
+	self assert: collector sortedItems first name  equals: 'Adam'.
 
 
 ]

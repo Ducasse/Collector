@@ -78,7 +78,7 @@ CDLittleLPrinterTest >> testPrintBook [
 	importer := CBkCollectorDLittleImporter new 
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	
-	printer print: importer importedCollection sorted first.
+	printer print: importer importedCollection sortedItems first.
 	self 
 		assert: printer contents
 		equals: '(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))'
@@ -147,7 +147,7 @@ CDLittleLPrinterTest >> testPrintFullAuthorEntrie [
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 	
-	printer print: importer importedCollection sorted first authors first.
+	printer print: importer importedCollection sortedItems first authors first.
 	self
 		assert: printer contents
 		equals:
@@ -178,7 +178,7 @@ CDLittleLPrinterTest >> testPrintSerie [
 	importer := CBkCollectorDLittleImporter new
 		convertAuthor: (DLittleLParser parse: self class oneAuthor).
 
-	printer print: importer importedCollection sorted first serie.
+	printer print: importer importedCollection sortedItems first serie.
 	self
 		assert: printer contents
 		equals:
