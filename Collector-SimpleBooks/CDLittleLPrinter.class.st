@@ -14,7 +14,7 @@ For example here is a given output
 Class {
 	#name : #CDLittleLPrinter,
 	#superclass : #CDPrintingVisitor,
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #printing }

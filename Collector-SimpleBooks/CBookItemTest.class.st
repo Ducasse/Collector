@@ -1,7 +1,7 @@
 Class {
 	#name : #CBookItemTest,
 	#superclass : #TestCase,
-	#category : #'Collector-SimpleBook-Tests'
+	#category : #'Collector-SimpleBooks-Tests'
 }
 
 { #category : #tests }
@@ -9,7 +9,7 @@ CBookItemTest >> testBackLinksBetweenSerieAndBooks [
 	
 	| author serie item1 item2 |
 	author := (CBookAuthor new firstName: 'Douglas'; name: 'Adam').
-	serie := (CSerieItem new name: 'Guide').
+	serie := (CBookSerie new name: 'Guide').
 	
 	item1 := CBookItem new
 		title: 'Le guide du voyageur inter-galactique';

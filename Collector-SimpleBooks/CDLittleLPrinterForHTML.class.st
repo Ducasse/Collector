@@ -1,7 +1,10 @@
+"
+I'm a rather super ugly and limited HTML printer
+"
 Class {
 	#name : #CDLittleLPrinterForHTML,
 	#superclass : #CDLittleLPrinter,
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #visiting }

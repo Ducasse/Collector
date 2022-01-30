@@ -1,7 +1,7 @@
 Class {
 	#name : #CBookCollectorTest,
 	#superclass : #TestCase,
-	#category : #'Collector-SimpleBook-Tests'
+	#category : #'Collector-SimpleBooks-Tests'
 }
 
 { #category : #tests }

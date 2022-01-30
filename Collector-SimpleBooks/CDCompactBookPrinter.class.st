@@ -1,10 +1,13 @@
+"
+I should be reexpressed as a visitor.
+"
 Class {
 	#name : #CDCompactBookPrinter,
 	#superclass : #Object,
 	#instVars : [
 		'stream'
 	],
-	#category : #'Collector-SimpleBook-Tests'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #accessing }

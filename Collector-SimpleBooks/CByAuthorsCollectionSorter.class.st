@@ -1,7 +1,7 @@
 Class {
 	#name : #CByAuthorsCollectionSorter,
 	#superclass : #CCollectionSorter,
-	#category : #'Collector-Core'
+	#category : #'Collector-SimpleBooks-Domain'
 }
 
 { #category : #sorting }

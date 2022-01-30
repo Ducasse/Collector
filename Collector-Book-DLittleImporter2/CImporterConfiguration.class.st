@@ -27,7 +27,7 @@ Class {
 		'aliases',
 		'domains'
 	],
-	#category : #'Collector-Book-DLittleImporter2'
+	#category : #'Collector-Book-DLittleImporter2-Core'
 }
 
 { #category : #adding }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'alias'
 	],
-	#category : #'Collector-Book-DLittleImporter2'
+	#category : #'Collector-Book-DLittleImporter2-Core'
 }
 
 { #category : #'instance creation' }

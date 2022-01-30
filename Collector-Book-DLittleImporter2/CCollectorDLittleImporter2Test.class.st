@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'importer'
 	],
-	#category : #'Collector-Book-DLittleImporter2'
+	#category : #'Collector-Book-DLittleImporter2-Tests'
 }
 
 { #category : #'tests - import configuration' }
@@ -100,14 +100,15 @@ CCollectorDLittleImporter2Test >> testImportConfigure [
 { #category : #'tests - import configuration' }
 CCollectorDLittleImporter2Test >> testImportConfigureDomains [
 	| config dl |
+	self skip.
 	self flag: #Todo. 
 	"ShoudIntegrateIlyasChangeForOptionalValue".
 	dl := self parse: 
 	'(config: config 
 		(domains : domains
-			( book : CBookItem2 )
-			( author : CAuthor2 )
-			( series : CSerie )
+			( book : CBookItemForTest)
+			( author : CAuthorForTest )
+			( series : CSerieForTest )
 			))'.
 			
 	config := CImporterConfiguration new.
@@ -117,13 +118,13 @@ CCollectorDLittleImporter2Test >> testImportConfigureDomains [
 	importer configureUsing: config.
 	
 	self assert: (importer hasMappingFor: #book).
-	self assert: (importer mappingFor: #book) name equals: #CBookItem2.
+	self assert: (importer mappingFor: #book) name equals: #CBookItemForTest.
 	
 	self assert: (importer hasMappingFor: #author).
-	self assert: (importer mappingFor: #author) name equals: #CAuthor2.	
+	self assert: (importer mappingFor: #author) name equals: #CAuthorForTest.	
 		
 	self assert: (importer hasMappingFor: #series).
-	self assert: (importer mappingFor: #series) name equals: #CSerie.
+	self assert: (importer mappingFor: #series) name equals: #CSerieForTest.
 	
 	
 ]

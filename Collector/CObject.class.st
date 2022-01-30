@@ -1,3 +1,7 @@
+"
+I'm the root to collectible items and groups of items. 
+In particular I support properties.
+"
 Class {
 	#name : #CObject,
 	#superclass : #Object,

@@ -21,5 +21,5 @@ Class {
 	#instVars : [
 		'creator'
 	],
-	#category : #'Collector-Book-DLittleImporter2'
+	#category : #'Collector-Book-DLittleImporter2-Tests'
 }

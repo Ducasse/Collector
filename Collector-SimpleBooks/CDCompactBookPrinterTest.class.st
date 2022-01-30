@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'printer'
 	],
-	#category : #'Collector-SimpleBook-Tests'
+	#category : #'Collector-SimpleBooks-Tests'
 }
 
 { #category : #example }

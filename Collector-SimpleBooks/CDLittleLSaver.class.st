@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'fileSystem'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #accessing }

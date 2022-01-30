@@ -139,7 +139,7 @@ CBkCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
 	"Create a serie and add all its books to the collection"
 	
 	| serie |
-	serie := CSerieItem new name: aList value. 
+	serie := CBookSerie new name: aList value. 
 	aList restDo: [ :each | 
 			| book |
 			book := self fullBook: each authored: anAuthor.

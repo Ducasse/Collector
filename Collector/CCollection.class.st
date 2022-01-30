@@ -1,3 +1,7 @@
+"
+I'm a collection of items and I support such collection. 
+My items can be item or groups of items. 
+"
 Class {
 	#name : #CCollection,
 	#superclass : #CObject,

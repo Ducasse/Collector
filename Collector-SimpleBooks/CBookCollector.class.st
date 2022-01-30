@@ -6,7 +6,7 @@ It is unclear that we will need it and still plain brainstorming.
 Class {
 	#name : #CBookCollector,
 	#superclass : #CCollector,
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Domain'
 }
 
 { #category : #import }

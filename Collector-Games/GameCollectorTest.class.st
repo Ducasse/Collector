@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'collector'
 	],
-	#category : #'Collector-Games-Tests'
+	#category : #'Collector-Games'
 }
 
 { #category : #tests }

@@ -6,7 +6,7 @@ Class {
 		'firstName',
 		'name'
 	],
-	#category : #'Collector-Game-DLittleImporter'
+	#category : #'Collector-SimpleBooks-Domain'
 }
 
 { #category : #'instance creation' }

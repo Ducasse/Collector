@@ -1,7 +1,10 @@
+"
+I'm a simple emtpy visitor. I visit books, author, collection and serie.
+"
 Class {
 	#name : #CSimpleBookVisitor,
 	#superclass : #Object,
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #visiting }

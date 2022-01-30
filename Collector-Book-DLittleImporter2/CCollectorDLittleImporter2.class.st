@@ -16,7 +16,7 @@ Class {
 		'converterMapping',
 		'falses'
 	],
-	#category : #'Collector-Book-DLittleImporter2'
+	#category : #'Collector-Book-DLittleImporter2-Core'
 }
 
 { #category : #query }
@@ -228,7 +228,7 @@ CCollectorDLittleImporter2 >> initialize [
 	mapping := Dictionary new.
 	mapping 
 		at: #title put: CBookItem;
-		at: #series put: CSerieItem;
+		at: #series put: CBookSerie;
 		at: #author put: CBookAuthor;
 		at: #collection put: CCollection;		
 		at: #types put: CType;

@@ -4,69 +4,69 @@ This behavior may make more sense in the superclass.
 So we should reevaluate it. 
 "
 Class {
-	#name : #CSerieItem,
+	#name : #CBookSerie,
 	#superclass : #CCollection,
 	#instVars : [
 		'complete',
 		'numberOfBooks',
 		'finished'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Domain'
 }
 
 { #category : #'instance creation' }
-CSerieItem class >> newWith: aName [
+CBookSerie class >> newWith: aName [
 
 	^ self new 
 		name: aName; yourself
 ]
 
 { #category : #visiting }
-CSerieItem >> accept: aVisitor [
+CBookSerie >> accept: aVisitor [
 
 	aVisitor visitSerie: self
 ]
 
 { #category : #printing }
-CSerieItem >> books [ 
+CBookSerie >> books [ 
 	
 	^ items
 ]
 
 { #category : #accessing }
-CSerieItem >> complete [
+CBookSerie >> complete [
 	^ complete
 ]
 
 { #category : #accessing }
-CSerieItem >> complete: anObject [
+CBookSerie >> complete: anObject [
 	complete := anObject
 ]
 
 { #category : #accessing }
-CSerieItem >> finished [
+CBookSerie >> finished [
 	^ finished
 ]
 
 { #category : #accessing }
-CSerieItem >> finished: aBoolean [
+CBookSerie >> finished: aBoolean [
 	finished := aBoolean
 ]
 
 { #category : #printing }
-CSerieItem >> numberOfBooks [
+CBookSerie >> numberOfBooks [
 	
 	^ numberOfBooks
 ]
 
 { #category : #printing }
-CSerieItem >> numberOfBooks: aNumber [
+CBookSerie >> numberOfBooks: aNumber [
 	
 	numberOfBooks := aNumber
 ]
 
 { #category : #printing }
-CSerieItem >> printOn: aStream [
+CBookSerie >> printOn: aStream [
 
 	aStream << 'S-'.
 	aStream << name.

@@ -5,7 +5,7 @@ Class {
 		'stream',
 		'tabs'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Operations'
 }
 
 { #category : #visiting }

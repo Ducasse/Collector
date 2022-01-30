@@ -18,7 +18,7 @@ Class {
 		'originalTitle',
 		'year'
 	],
-	#category : #'Collector-SimpleBooks'
+	#category : #'Collector-SimpleBooks-Domain'
 }
 
 { #category : #'instance creation' }
