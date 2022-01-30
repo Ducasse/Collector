@@ -18,14 +18,21 @@ BaselineOfCollector >> baseline: spec [
 					spec repository: 'github://Ducasse/Descent/' ].
 		spec 
 			package: 'Collector';
+			package: 'Collector-SimpleBooks' 
+				with: [ spec requires: #('Collector')];
+			package: 'Collector-Games' 
+				with: [ spec requires: #('Collector')];
+				
+			package: 'Collector-Book-DLittleImporter2' 
+				with: [ spec requires: #('Collector-SimpleBooks' #'Descent')];	
 			package: 'Collector-Server'
 				with: [ spec requires: #('Collector' 'Teapot')] ;
-			package: 'Collector-Book-DLittleImporter2' 
-				with: [ spec requires: #('Collector' #'Descent')];
+			
 			package: 'Collector-Book-DLittleImporter' 
 				with: [ spec requires: #('Collector' #'Descent')];
+			
 			package: 'Collector-Game-DLittleImporter' 
-				with: [ spec requires: #('Collector' #'Descent')].
+				with: [ spec requires: #('Collector-Games' #'Descent')].
 		spec 
 			group: 'default' with: #('Collector' 'Collector-Server' 'Collector-Game-DLittleImporter' 'Collector-Book-DLittleImporter' 'Collector-Book-DLittleImporter2') ]
 ]
