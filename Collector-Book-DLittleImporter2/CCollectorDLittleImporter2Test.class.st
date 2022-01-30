@@ -262,7 +262,6 @@ CCollectorDLittleImporter2Test >> testImportEntityWithTrueBoolean [
 CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
 	
 	| author |
-	self skip.
 	self halt.
 	"the series are not managed!!!!"
 	author := importer importFromString: '(author : Wolfe, Gene

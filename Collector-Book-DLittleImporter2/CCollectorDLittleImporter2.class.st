@@ -1,7 +1,8 @@
 "
 (CCollectorDLittleImporter2 new importFromFileName: '/Users/ducasse/Workspace/FirstCircle/Working/SF/sf/books.dl')
 
-
+DOES NO WORK
+BOOKS ARE LOST !!!
 - Potentially extract converter to a standalone object to support extension. 
 - Manage alias  
 "
