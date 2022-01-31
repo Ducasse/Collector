@@ -11,7 +11,7 @@ Class {
 
 { #category : #'instance creation' }
 CBookAuthor class >> newWith: aString [
-
+	
 	^ self new name: aString; yourself
 ]
 
@@ -19,6 +19,13 @@ CBookAuthor class >> newWith: aString [
 CBookAuthor >> accept: aVisitor [
 
 	aVisitor visitAuthor: self
+]
+
+{ #category : #adding }
+CBookAuthor >> add: aBook [
+	"Protocol for the recursive import."
+	
+	books add: aBook
 ]
 
 { #category : #adding }

@@ -16,15 +16,21 @@ Class {
 
 { #category : #'instance creation' }
 CBookSerie class >> newWith: aName [
-
 	^ self new 
-		name: aName; yourself
+		name: aName; 
+		yourself
 ]
 
 { #category : #visiting }
 CBookSerie >> accept: aVisitor [
 
 	aVisitor visitSerie: self
+]
+
+{ #category : #printing }
+CBookSerie >> add: aBook [
+	
+	items add: aBook
 ]
 
 { #category : #printing }

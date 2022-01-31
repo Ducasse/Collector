@@ -110,7 +110,8 @@ CCollectorDLittleImporter2Test >> testImportConfigureDomains [
 			( author : CAuthorForTest )
 			( series : CSerieForTest )
 			))'.
-			
+	"this example is a clear call for DLittlev2 with lists."
+	
 	config := CImporterConfiguration new.
 	importer := self importer.
 	"We reset it here to make sure that the configuration is done based on this test."
@@ -160,7 +161,7 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProper
 	| serie dl |
 	dl := (self
 				parse:
-					'(series : la cour
+					'(serie : la cour
 						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
 						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
 						(complete : no)
@@ -185,7 +186,7 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndKnownProper
 	| serie dl |
 	dl := (self
 				parse:
-					'(series : la cour
+					'(serie : la cour
 						(title : la cours du chaos (lu : no) (style : SF) (prix : 2.39) (zorkzork : 1.3))
 						(title : Les 9 princes d''ambre (lu : no) (style : SF) (price : 2.3) )
 						(complete : no)
@@ -210,7 +211,7 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndProperties 
 	| serie dl |
 	dl := (self
 				parse:
-					'(series : la cour
+					'(serie : la cour
 						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
 						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
 						(complete : true)
@@ -230,7 +231,7 @@ CCollectorDLittleImporter2Test >> testImportEntityWithNestedEntityAndUnknownProp
 	| serie dl |
 	dl := (self
 				parse:
-					'(series : la cour
+					'(serie : la cour
 						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
 						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
 						(ZORKZORK : true)
@@ -262,8 +263,6 @@ CCollectorDLittleImporter2Test >> testImportEntityWithTrueBoolean [
 CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
 	
 	| author |
-	self halt.
-	"the series are not managed!!!!"
 	author := importer importFromString: '(author : Wolfe, Gene
 		(serie : books
 			(title : le sortilege de Castelview (price : 2.4) (read :false))
@@ -271,7 +270,9 @@ CCollectorDLittleImporter2Test >> testImportFromStringCreateSeries [
 		(serie : le Live du long soleil
 			(title : Cote nuit (price : 2.4) (number : 1) (read :false))))'.
 			
-	self deny: author books isEmpty
+	self deny: author books isEmpty.
+	self assert: author books "series" first books first title equals: 'le sortilege de Castelview'.
+
 ]
 
 { #category : #'tests - importing basic' }
@@ -291,7 +292,7 @@ CCollectorDLittleImporter2Test >> testImportNestedEntity [
 	| serie dl firstBook secondBook |
 	dl := (self
 				parse:
-					'(series : la cour
+					'(serie : la cour
 						(title : la cours du chaos (read : no) (style : SF) (price : 2.39) (zorkzork : 1.3))
 						(title : Les 9 princes d''ambre (read : no) (style : SF) (price : 2.3) )
 						)').

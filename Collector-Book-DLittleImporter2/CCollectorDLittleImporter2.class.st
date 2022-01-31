@@ -146,7 +146,6 @@ CCollectorDLittleImporter2 >> importDL: aDL into: anElement [
 		key val (aDL*)
 	|  key val	
 	"
-
 	(self hasMappingFor: aDL key)
 		ifTrue: [ 
 			| newEntity| 
@@ -206,12 +205,12 @@ CCollectorDLittleImporter2 >> importList: aDLCol into: anElement [
 
 { #category : #'importing - private' }
 CCollectorDLittleImporter2 >> importProperties: aCollection for: anItem [
-	"aDL is a list of key value. Import them as properties of anItem."
+	"aCollection is a list of DLs. aDL is a list of key value."
 
-	aCollection do: [ :aPair |
+	aCollection do: [ :aList |
 			self 
-				importLeaf: aPair 
-				for: anItem ].	
+				importDL: aList 
+				into: anItem ].	
 
  
 ]
@@ -229,7 +228,7 @@ CCollectorDLittleImporter2 >> initialize [
 	mapping := Dictionary new.
 	mapping 
 		at: #title put: CBookItem;
-		at: #series put: CBookSerie;
+		at: #serie put: CBookSerie;
 		at: #author put: CBookAuthor;
 		at: #collection put: CCollection;		
 		at: #types put: CType;
@@ -240,5 +239,6 @@ CCollectorDLittleImporter2 >> initialize [
 
 { #category : #query }
 CCollectorDLittleImporter2 >> mappingFor: aSymbol [ 
+	
 	^ mapping at: aSymbol ifAbsent: [ nil ]
 ]

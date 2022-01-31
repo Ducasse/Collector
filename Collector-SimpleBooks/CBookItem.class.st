@@ -23,7 +23,7 @@ Class {
 
 { #category : #'instance creation' }
 CBookItem class >> newWith: aTitle [
-
+	
 	^ self new title: aTitle ; yourself
 ]
 
