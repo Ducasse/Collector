@@ -44,6 +44,12 @@ CBookAuthor >> books: anObject [
 	books := anObject
 ]
 
+{ #category : #iterating }
+CBookAuthor >> children [
+
+	^ self series 
+]
+
 { #category : #accessing }
 CBookAuthor >> firstName [
 	^ firstName

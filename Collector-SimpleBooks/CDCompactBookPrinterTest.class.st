@@ -111,7 +111,6 @@ D Adam S-Guide du routard galactique: Le guide du voyageur inter-galactique
 D Adam S-Guide du routard galactique: H2G2 2
 D Adam S-Guide du routard galactique: H2G2 3
 D Adam S-Guide du routard galactique: H2G2 4'
-
 ]
 
 { #category : #tests }
@@ -122,12 +121,13 @@ CDCompactBookPrinterTest >> testPrintFullAuthorEntries [
 	
 	printer printSeriesOfAuthor: importer importedCollection sortedItems first authors first.
 	self
-		assert: printer contents 
+		assert: printer contents  
 		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
 B Aldiss S-helliconia: Helliconia, l''ete
 B Aldiss S-helliconia: L''hiver d''helliconia
 B Aldiss S-default: L''instant de l''eclipse
 '
+	
 ]
 
 { #category : #tests }

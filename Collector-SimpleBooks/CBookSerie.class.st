@@ -39,6 +39,11 @@ CBookSerie >> books [
 	^ items
 ]
 
+{ #category : #printing }
+CBookSerie >> children [ 
+	^ self books
+]
+
 { #category : #accessing }
 CBookSerie >> complete [
 	^ complete

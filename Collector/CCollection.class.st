@@ -60,6 +60,11 @@ CCollection >> at: index ifAbsent: aBlock [
 	^ items at: index ifAbsent: aBlock 
 ]
 
+{ #category : #accessing }
+CCollection >> children [ 
+	^ items
+]
+
 { #category : #'collection api' }
 CCollection >> includes: anItem [
 
