@@ -11,7 +11,7 @@ BaselineOfCollector >> baseline: spec [
 		spec
 		baseline: 'Teapot'
 			with: [ spec
-				repository: 'github://zeroflag/Teapot:master/source' ].	
+				repository: 'github://Ducasse/Teapot:master/source' ].	
 		spec
 			baseline: 'Descent'
 			with: [
