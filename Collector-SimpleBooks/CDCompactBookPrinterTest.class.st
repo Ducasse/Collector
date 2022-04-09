@@ -121,13 +121,11 @@ CDCompactBookPrinterTest >> testPrintFullAuthorEntries [
 	
 	printer printSeriesOfAuthor: importer importedCollection sortedItems first authors first.
 	self
-		assert: printer contents  
-		equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
+		assert: printer contents equals: 'B Aldiss S-helliconia: Le printemps d''helliconia
 B Aldiss S-helliconia: Helliconia, l''ete
 B Aldiss S-helliconia: L''hiver d''helliconia
 B Aldiss S-default: L''instant de l''eclipse
 '
-	
 ]
 
 { #category : #tests }
