@@ -98,6 +98,7 @@ CDCompactBookPrinterTest >> testPrintBookOutOfSerieWithNumber [
 
 { #category : #tests }
 CDCompactBookPrinterTest >> testPrintCollection [
+
 	| importer |
 	importer := CBkCollectorDLittleImporter new import: self class oneCollection.
 	printer printCollection: importer importedCollection.
