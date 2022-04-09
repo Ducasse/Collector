@@ -41,7 +41,7 @@ CBookSerie >> books [
 
 { #category : #printing }
 CBookSerie >> children [ 
-	^ self books
+	^ items
 ]
 
 { #category : #accessing }

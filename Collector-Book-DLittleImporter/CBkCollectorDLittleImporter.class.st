@@ -100,6 +100,7 @@ CBkCollectorDLittleImporter >> convertTopLevelItems: list [
 	"we can do something more static one we will have a metamodel"
 		
 	list restDo: [:b | | sel | 
+		"Halt if: #testImport." 
 		sel := (#convert, b key capitalized , ':') asSymbol. 
 		(self checkMethodExist: sel) 
 				ifTrue: [self perform: sel with: b ]]

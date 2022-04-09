@@ -146,9 +146,9 @@ CBkDLittleImporterTest >> testExtractSerieWithBooksSection [
 { #category : #tests }
 CBkDLittleImporterTest >> testImport [
 	| ce liconia |
+	self assert: importer importedItemSize equals: 0.
 	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
-	self halt.
 	liconia := ce importedCollection items
 		select: [ :each | '*liconia*' match: each title ].
 	self assert: liconia size equals: 3.
@@ -159,6 +159,7 @@ CBkDLittleImporterTest >> testImport [
 { #category : #tests }
 CBkDLittleImporterTest >> testImport2 [
 	| ce book1 |
+	self assert: importer importedItemSize equals: 0.
 	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
 	book1 := (ce importedCollection items
@@ -170,6 +171,7 @@ CBkDLittleImporterTest >> testImport2 [
 { #category : #tests }
 CBkDLittleImporterTest >> testNoDoubleItemAfterImport [
 	| collection |
+	self assert: importer importedItemSize equals: 0.
 	collection := (self importer
 		import:
 			'(collection : SF
@@ -211,7 +213,7 @@ CBkDLittleImporterTest >> testNoDoubleItemAfterImport [
 ]
 
 { #category : #tests }
-CBkDLittleImporterTest >> testParseMinilist [
+CBkDLittleImporterTest >> testSimpleParseMinilist [
 
 	self shouldnt: [ DLittleLParser parse: self class minilist] raise: Error
 ]
