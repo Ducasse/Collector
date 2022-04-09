@@ -56,7 +56,7 @@ CDCompactBookPrinterTest >> setUp [
 CDCompactBookPrinterTest >> testPrintAuthor [
 	| author  |
 	author := CBkCollectorDLittleImporter new
-		extractAuthorFromString: 'Ducasse, Stéphane'.
+		extractAuthorEntityFromString: 'Ducasse, Stéphane'.
 	printer printAuthor: author.
 	self assert: printer contents equals: 'S Ducasse'
 ]
@@ -65,7 +65,7 @@ CDCompactBookPrinterTest >> testPrintAuthor [
 CDCompactBookPrinterTest >> testPrintAuthorWithJustAName [
 	| author  |
 	author := CBkCollectorDLittleImporter new
-		extractAuthorFromString: 'Barjavel'.
+		extractAuthorEntityFromString: 'Barjavel'.
 	printer printAuthor: author.
 	self assert: printer contents equals: 'Barjavel'
 ]

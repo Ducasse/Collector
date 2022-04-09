@@ -1,19 +1,14 @@
-"
-I am a copy of class CCollectorEasyYAMLTest. This comment is copied from there, and might not be entirely accurate
-
-This class contains tests
-"
 Class {
-	#name : #CBkCollectorDLittleImporterTest,
-	#superclass : #TestCase,
+	#name : #CBkDLittleImporterTest,
+	#superclass : #ParametrizedTestCase,
 	#instVars : [
 		'importer'
 	],
-	#category : #'Collector-Book-DLittleImporter'
+	#category : #'Collector-Book-DLittleImporter3'
 }
 
 { #category : #resources }
-CBkCollectorDLittleImporterTest class >> minilist [
+CBkDLittleImporterTest class >> minilist [
 
 	^ '
 (collection: SFBooks
@@ -35,7 +30,7 @@ CBkCollectorDLittleImporterTest class >> minilist [
 ]
 
 { #category : #resources }
-CBkCollectorDLittleImporterTest class >> oneAuthor [
+CBkDLittleImporterTest class >> oneAuthor [
 
 	^ '(author : Aldiss, Brian 
 		(serie : helliconia  
@@ -47,19 +42,25 @@ CBkCollectorDLittleImporterTest class >> oneAuthor [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> importer [
-	^ CBkCollectorDLittleImporter new
-]
+CBkDLittleImporterTest class >> testParameters [
 
-{ #category : #running }
-CBkCollectorDLittleImporterTest >> setUp [
-	"Hooks that subclasses may override to define the fixture of test."
-	super setUp. 
-	importer := self importer
+	^ ParametrizedTestMatrix new
+			addCase: { #importer -> CBkCollectorDLittleImporter new };
+		yourself.
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testConvertAuthor [
+CBkDLittleImporterTest >> importer [
+	^ importer
+]
+
+{ #category : #tests }
+CBkDLittleImporterTest >> importer: anImporter [
+	importer := anImporter
+]
+
+{ #category : #tests }
+CBkDLittleImporterTest >> testConvertAuthor [
 
 	| ce books |
 	ce := importer convertAuthor: (DLittleLParser parse: self class oneAuthor).
@@ -73,7 +74,7 @@ CBkCollectorDLittleImporterTest >> testConvertAuthor [
 ]
 
 { #category : #'test extraction' }
-CBkCollectorDLittleImporterTest >> testExtractAuthor [
+CBkDLittleImporterTest >> testExtractAuthorEntity [
 	| author |
 	author := importer extractAuthorEntityFromString: ' Wilson  '.
 	self assert: author name equals: 'Wilson'.
@@ -81,7 +82,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthor [
 ]
 
 { #category : #'test extraction' }
-CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
+CBkDLittleImporterTest >> testExtractAuthorWithFirstNames [
 	| author |
 	author := importer extractAuthorEntityFromString: ' Wilson  ,   Charles Robert '.
 	self assert: author name equals: 'Wilson'.
@@ -89,7 +90,7 @@ CBkCollectorDLittleImporterTest >> testExtractAuthorWithFirstNames [
 ]
 
 { #category : #'test extraction' }
-CBkCollectorDLittleImporterTest >> testExtractBook [
+CBkDLittleImporterTest >> testExtractBook [
 	| book |
 	book := importer
 		bookFrom:
@@ -107,7 +108,7 @@ CBkCollectorDLittleImporterTest >> testExtractBook [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testExtractSerie [
+CBkDLittleImporterTest >> testExtractSerie [
 	|  author |
 	author := importer extractAuthorEntityFromString: ' John'.
 	importer
@@ -127,7 +128,7 @@ CBkCollectorDLittleImporterTest >> testExtractSerie [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testExtractSerieWithBooksSection [
+CBkDLittleImporterTest >> testExtractSerieWithBooksSection [
 	| author books |
 	author := importer extractAuthorEntityFromString: ' John'.
 	importer
@@ -143,10 +144,11 @@ CBkCollectorDLittleImporterTest >> testExtractSerieWithBooksSection [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testImport [
+CBkDLittleImporterTest >> testImport [
 	| ce liconia |
 	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
+	self halt.
 	liconia := ce importedCollection items
 		select: [ :each | '*liconia*' match: each title ].
 	self assert: liconia size equals: 3.
@@ -155,7 +157,7 @@ CBkCollectorDLittleImporterTest >> testImport [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testImport2 [
+CBkDLittleImporterTest >> testImport2 [
 	| ce book1 |
 	ce := importer import: self class minilist.
 	self assert: ce importedItemSize equals: 8.
@@ -166,7 +168,7 @@ CBkCollectorDLittleImporterTest >> testImport2 [
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testNoDoubleItemAfterImport [
+CBkDLittleImporterTest >> testNoDoubleItemAfterImport [
 	| collection |
 	collection := (self importer
 		import:
@@ -183,6 +185,7 @@ CBkCollectorDLittleImporterTest >> testNoDoubleItemAfterImport [
 			(title : Aucun souvenir assez solide (comments : lu nouvelles carrement bizarre) (read : false))
 			(title : So phare away (comments : lu nouvelles carrement) (read : false))
 			(title : La zone du dehors (read : false))
+			(title : Helliconia, l''''ete (price : 1) (read : false) (style : SF))
 			(title : La horde du hurlevent (price : 1.5) (read : false)))
 	)
 	(author : Aldiss, Brian
@@ -190,7 +193,7 @@ CBkCollectorDLittleImporterTest >> testNoDoubleItemAfterImport [
 			(title : L''instant de l''eclipse (price : 1) (read : false) (style : fantaisie)))
 		(serie : helliconia
 			(title : Le printemps d''helliconia (price : 1) (read : false) (style : SF))
-			(title : Helliconia, l''ete (price : 1) (read : false) (style : SF))
+			
 			(title : L''hiver d''helliconia (price : 1) (read : false) (style : SF)))
 	)
 	( sum : 12 ))') importedCollection.
@@ -198,11 +201,17 @@ CBkCollectorDLittleImporterTest >> testNoDoubleItemAfterImport [
 	"but the problem is that importer is adding twice a book to the author."
 	self
 		assert: collection items first authors first books size
-		equals: 4
+		equals: 4.
+	self
+		assert: collection items fifth authors first books size
+		equals: 5.
+
+
+
 ]
 
 { #category : #tests }
-CBkCollectorDLittleImporterTest >> testParseMinilist [
+CBkDLittleImporterTest >> testParseMinilist [
 
 	self shouldnt: [ DLittleLParser parse: self class minilist] raise: Error
 ]

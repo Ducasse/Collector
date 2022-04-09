@@ -85,7 +85,7 @@ CBkCollectorDLittleImporter >> convertAuthor: list [
   	 	 	( title: Eclips (read: no) (style: fantaisie) (price: 1))))"
 		
   | author |
-  author := self extractAuthorFromString: list value.
+  author := self extractAuthorEntityFromString: list value.
   list restDo: [ :aSerie |  self extractSerieFrom: aSerie withAuthor: author ]
 ]
 
@@ -119,7 +119,7 @@ CBkCollectorDLittleImporter >> defaultMapper [
 ]
 
 { #category : #helpers }
-CBkCollectorDLittleImporter >> extractAuthorFromString: aString [ 
+CBkCollectorDLittleImporter >> extractAuthorEntityFromString: aString [ 
 	"Precondition: aString is either 'name' or 'name, first names"
 	"Return an author does not add it to anything"
 	| auth split |
