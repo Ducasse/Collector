@@ -39,7 +39,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'mapper',
-		'col'
+		'col',
+		'mapping'
 	],
 	#category : #'Collector-Book-DLittleImporter'
 }
@@ -50,19 +51,31 @@ CBkCollectorDLittleImporter class >> importFromFileName: aName [
 	^ self new import: aName asFileReference readStream contents; yourself
 ]
 
+{ #category : #accessing }
+CBkCollectorDLittleImporter >> authorClass [
+
+	^ mapping at: #author
+]
+
+{ #category : #accessing }
+CBkCollectorDLittleImporter >> bookClass [
+
+	^ mapping at: #title
+]
+
 { #category : #extracting }
 CBkCollectorDLittleImporter >> bookFrom: aList [
+
 	"create a book from a book descrition, since it is nested in parent (serie or author)
 	we do not set the author yet. 
 	
 	aList is in the form of 
 		(title: H2G2 2 (read: no) (style: comic english humour) (price: 2))"
-	
-	
+
 	| book |
-	book := CBookItem new.
+	book := self bookClass new.
 	aList keysAndValuesDo: [ :k :v | 
-		book 
+		book
 			perform: (mapper selectorFor: k) asMutator
 			with: (mapper convert: k value: v) ].
 	^ book
@@ -71,6 +84,12 @@ CBkCollectorDLittleImporter >> bookFrom: aList [
 { #category : #testing }
 CBkCollectorDLittleImporter >> checkMethodExist: aSelector [ 
 	^ self class canUnderstand: aSelector
+]
+
+{ #category : #accessing }
+CBkCollectorDLittleImporter >> collectionClass [
+
+	^ mapping at: #collection
 ]
 
 { #category : #importing }
@@ -120,18 +139,20 @@ CBkCollectorDLittleImporter >> defaultMapper [
 ]
 
 { #category : #helpers }
-CBkCollectorDLittleImporter >> extractAuthorEntityFromString: aString [ 
+CBkCollectorDLittleImporter >> extractAuthorEntityFromString: aString [
+
 	"Precondition: aString is either 'name' or 'name, first names"
+
 	"Return an author does not add it to anything"
+
 	| auth split |
-	auth := CBookAuthor new.
+	auth := self authorClass new.
 	split := aString trimBoth splitOn: $,.
 	split size = 2
 		ifTrue: [ 
-			auth name: split first trimRight. 
+			auth name: split first trimRight.
 			auth firstName: split second trimLeft ]
-		ifFalse: [ 
-			auth name: aString trimBoth ].
+		ifFalse: [ auth name: aString trimBoth ].
 	^ auth
 ]
 
@@ -140,7 +161,7 @@ CBkCollectorDLittleImporter >> extractSerieFrom: aList withAuthor: anAuthor [
 	"Create a serie and add all its books to the collection"
 	
 	| serie |
-	serie := CBookSerie new name: aList value. 
+	serie := self serieClass new name: aList value. 
 	aList restDo: [ :each | 
 			| book |
 			book := self fullBook: each authored: anAuthor.
@@ -194,15 +215,32 @@ CBkCollectorDLittleImporter >> importedItemSize [
 CBkCollectorDLittleImporter >> initialize [
 
 	super initialize.
-	col := CCollection new.
-	self flag: #toLook. "We will have to decide if we use of not subclasses of CCollection"
-	mapper := self defaultMapper
+	mapper := self defaultMapper.
+	self initializeClassMap.
+	col := self collectionClass new
+]
+
+{ #category : #initialization }
+CBkCollectorDLittleImporter >> initializeClassMap [
+
+	mapping := Dictionary new.
+	mapping
+		at: #title put: CBookItem;
+		at: #serie put: CBookSerie;
+		at: #author put: CBookAuthor;
+		at: #collection put: CCollection
 ]
 
 { #category : #initialization }
 CBkCollectorDLittleImporter >> mapper: aMapper [
 
 	mapper := aMapper
+]
+
+{ #category : #accessing }
+CBkCollectorDLittleImporter >> serieClass [
+
+	^ mapping at: #serie
 ]
 
 { #category : #importing }

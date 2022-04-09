@@ -2,7 +2,8 @@ Class {
 	#name : #CBkDLittleImporterTest,
 	#superclass : #ParametrizedTestCase,
 	#instVars : [
-		'importer'
+		'importer',
+		'importerClass'
 	],
 	#category : #'Collector-Book-DLittleImporter3'
 }
@@ -45,18 +46,19 @@ CBkDLittleImporterTest class >> oneAuthor [
 CBkDLittleImporterTest class >> testParameters [
 
 	^ ParametrizedTestMatrix new
-			addCase: { #importer -> CBkCollectorDLittleImporter new };
+			addCase: { #importerClass -> CBkCollectorDLittleImporter };
 		yourself.
 ]
 
 { #category : #tests }
-CBkDLittleImporterTest >> importer [
-	^ importer
+CBkDLittleImporterTest >> importerClass: anImporterClass [
+	importerClass := anImporterClass
 ]
 
 { #category : #tests }
-CBkDLittleImporterTest >> importer: anImporter [
-	importer := anImporter
+CBkDLittleImporterTest >> setUp [ 
+	super setUp.
+	importer := importerClass new.
 ]
 
 { #category : #tests }
@@ -110,6 +112,7 @@ CBkDLittleImporterTest >> testExtractBook [
 { #category : #tests }
 CBkDLittleImporterTest >> testExtractSerie [
 	|  author |
+	self assert: importer importedItemSize equals: 0.
 	author := importer extractAuthorEntityFromString: ' John'.
 	importer
 		extractSerieFrom:
@@ -172,7 +175,7 @@ CBkDLittleImporterTest >> testImport2 [
 CBkDLittleImporterTest >> testNoDoubleItemAfterImport [
 	| collection |
 	self assert: importer importedItemSize equals: 0.
-	collection := (self importer
+	collection := (importer
 		import:
 			'(collection : SF
 	(author : Adam, Douglas
